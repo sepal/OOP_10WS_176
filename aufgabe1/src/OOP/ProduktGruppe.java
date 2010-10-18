@@ -1,6 +1,7 @@
 package OOP;
 
 import java.util.HashSet;
+import java.util.ArrayList;
 
 public class ProduktGruppe implements ProduktGruppenMitglied {
 	private String name;
@@ -26,8 +27,8 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	}
 
 	@Override
-	public String[] listStock() {
-		// TODO Auto-generated method stub
+	public String[] listStock(Lager lager) {
+		
 
 		return null;
 	}

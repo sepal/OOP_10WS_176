@@ -21,14 +21,14 @@ public class ProduktVerwaltung {
 		products = new HashMap<String, Produkt>();
 	}
 	
-	public Produkt createProdukt(String name, String description) throws ProductException {
+	public Produkt createProdukt(String name, String description) throws ProduktException {
 		Produkt re = null;
 		
 		if (!products.containsKey(name)) {
 			re = new Produkt(name, description);
 			products.put(name, re);
 		} else {
-			throw new ProductException("Product "+name+" already exists!");
+			throw new ProduktException("Product "+name+" already exists!");
 		}
 		
 		return re;
@@ -56,9 +56,20 @@ public class ProduktVerwaltung {
 		}
 
 		@Override
-		public String[] listStock() {
-			// TODO Auto-generated method stub
-			return null;
+		public String[] listStock(Lager lager) {
+			Integer cnt = lager.getProduktInStock(this);
+			int erg=0;
+			
+			// If getProduktInStock returned null, meaning this Produkt is not in stock at all
+			// use default value zero
+			if (cnt != null) {
+				erg = cnt.intValue();
+			}
+			
+			String[] retval = new String[1];
+			retval[0] = this.name + " " + erg;
+			
+			return retval;
 		}
 	}
 }

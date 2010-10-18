@@ -1,7 +1,5 @@
-
 import OOP.*;
 import OOP.ProduktVerwaltung.Produkt;
-
 
 public class TestStockApp {
 	

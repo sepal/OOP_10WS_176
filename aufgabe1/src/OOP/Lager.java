@@ -41,10 +41,10 @@ public class Lager {
 				aktuell -= anzahl;
 				stock.put(p, aktuell);
 			} else {
-				throw new ProductException("The amount of product "+p+" is 0.");
+				throw new ProduktException("The amount of product "+p+" is 0.");
 			}
 		} else {
-			throw new ProductException("Product "+p+ "does not exist yet!");
+			throw new ProduktException("Product "+p+ "does not exist yet!");
 		}
 	}
 }
