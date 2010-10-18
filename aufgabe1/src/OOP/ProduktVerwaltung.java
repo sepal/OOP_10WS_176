@@ -21,14 +21,14 @@ public class ProduktVerwaltung {
 		products = new HashMap<String, Produkt>();
 	}
 	
-	public Produkt createProdukt(String name, String description) throws ProductAlreadyExistsException {
+	public Produkt createProdukt(String name, String description) throws ProductException {
 		Produkt re = null;
 		
 		if (!products.containsKey(name)) {
 			re = new Produkt(name, description);
 			products.put(name, re);
 		} else {
-			throw new ProductAlreadyExistsException("Product "+name+" already exists!");
+			throw new ProductException("Product "+name+" already exists!");
 		}
 		
 		return re;
