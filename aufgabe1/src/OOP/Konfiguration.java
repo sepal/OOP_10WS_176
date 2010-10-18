@@ -21,9 +21,7 @@ public class Konfiguration {
 	 */
 	public void addProduct(Produkt p, int quantity) {
 		if (products.containsKey(p)) {
-			int current = products.get(p);
-			current += quantity;
-			products.put(p, current);
+			products.put(p, products.get(p) + quantity);
 		}
 		else {
 			products.put(p, quantity);
@@ -35,8 +33,7 @@ public class Konfiguration {
 	 */
 	public void removeFromStock(Lager l) {
 		for (Produkt p: products.keySet()) {
-			int quantity = products.get(p);
-			l.decrementStock(p, quantity);
+			l.decrementStock(p, products.get(p));
 		}
 	}
 }
