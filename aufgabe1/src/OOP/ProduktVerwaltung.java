@@ -51,9 +51,12 @@ public class ProduktVerwaltung {
 	}
 	
 	/**
-	 *  Returns a reference to the Produkt identified by name, or NULL if no such Produkt exists 
+	 *  Returns a reference to the Produkt identified by name, or throws exception if no such Produkt exists.
 	*/
 	public Produkt getProduktByName(String name) {
+		if (! products.containsKey(name)) {
+			throw new ProduktException("Product " + name + " ist not available.");
+		}
 		return products.get(name);
 	}
 	

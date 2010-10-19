@@ -44,7 +44,7 @@ public class Lager {
 				throw new ProduktException("The amount of product "+p+" is 0.");
 			}
 		} else {
-			throw new ProduktException("Product "+p+ "does not exist yet!");
+			throw new ProduktException("Product " + p.getName() + "does not exist yet!");
 		}
 	}
 }
