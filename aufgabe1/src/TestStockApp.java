@@ -1,32 +1,46 @@
 import OOP.*;
 import OOP.ProduktVerwaltung.Produkt;
 
+/**
+ * This App tests the functionality of exercise 1
+ *
+ */
 public class TestStockApp {
 	
-	public void main(String args[]) {
+	public static void main(String args[]) {
+		System.out.println("*** Starting test of exercise 1 app - Lagerverwaltung ***");
+		System.out.println("*** Creating new Lager ***");
+		
 		ProduktVerwaltung pv = ProduktVerwaltung.getInstance();
 		Lager vitech = new Lager();
 		
-		ProduktGruppe comp = new ProduktGruppe("Komponents");
+		System.out.println("*** Creating new ProduktGruppen ***");
+
+		ProduktGruppe comp = new ProduktGruppe("Components");
 		
-		ProduktGruppe cpus = new ProduktGruppe("CPU");
-		ProduktGruppe mainboards = new ProduktGruppe("Mainboard");
-		ProduktGruppe gracas = new ProduktGruppe("Graficcards");
+		ProduktGruppe cpus = new ProduktGruppe("CPUs");
+		ProduktGruppe mainboards = new ProduktGruppe("Mainboards");
+		ProduktGruppe gracas = new ProduktGruppe("Video cards");
+		ProduktGruppe displays = new ProduktGruppe("Displays");
 		
 		ProduktGruppe nsidia = new ProduktGruppe("Nsidia");
 		ProduktGruppe amt = new ProduktGruppe("Amt");
 		
-		ProduktGruppe monitors = new ProduktGruppe("Monitors");
-		
+		System.out.println("*** Adding groups to groups ***");
+
 		// Test group in group.
 		comp.addMember(cpus);
 		comp.addMember(mainboards);
 		comp.addMember(gracas);
-		comp.addMember(monitors);
+		comp.addMember(displays);
+		
+		System.out.println("CPUs, Mainboards, Video cards, Displays added to group Components");
 		
 		// Test group in group in group.
 		gracas.addMember(nsidia);
 		gracas.addMember(amt);
+		
+		System.out.println("nsidia and amt added to group Video Cards");
 		
 		// General product test.
 		for (int i=0; i<=5; i++) {
@@ -34,7 +48,20 @@ public class TestStockApp {
 			cpus.addMember(cpu);
 			vitech.incrementStock(cpu, 4);
 		}
-
+		
+		for (int i=0; i<=5; i++) {
+			Produkt monitor = pv.createProdukt("Monitor " + (19+i) + " Zoll", "LCD Monitor, größe " + (19+i) + " Zoll");
+			displays.addMember(monitor);
+			vitech.incrementStock(monitor, 4);
+		}
+		
+		// Gruppen-listing Test
+		String[] list = comp.listStock(vitech);
+		System.out.println("*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' ***\n");
+		for (String line : list) {
+			System.out.println(line);
+		}
+		
 		// Adding more products for configurations.
 		for (int i=0; i<=3; i++) {
 			Produkt p = pv.createProdukt("Mainboard " + i, "Mainboard desc " + i);

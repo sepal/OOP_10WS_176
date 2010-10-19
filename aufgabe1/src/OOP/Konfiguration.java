@@ -5,14 +5,13 @@ import java.util.HashMap;
 import OOP.ProduktVerwaltung.Produkt;
 
 /**
- * 
- * @author sebastian
+ * Represents a Konfiguration consisting of products (and their quantity).
  *
  */
 public class Konfiguration {
 	private HashMap<Produkt, Integer> products;
 	
-	Konfiguration() {
+	public Konfiguration() {
 		products = new HashMap<Produkt, Integer>();
 	}
 	
