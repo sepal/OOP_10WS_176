@@ -5,7 +5,7 @@ import OOP.ProduktVerwaltung.Produkt;
  * This App tests the functionality of exercise 1
  *
  */
-public class TestStockApp {
+public class Test {
 	
 	public static void main(String args[]) {
 		System.out.println("*** Starting test of exercise 1 app - Lagerverwaltung ***");
