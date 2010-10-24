@@ -51,12 +51,9 @@ public class ProductFactory {
 	}
 	
 	/**
-	 *  Returns a reference to the Product identified by name, or throws exception if no such Product exists.
+	 *  Returns a reference to the Product identified by name, or null if no such Product exists.
 	*/
 	public Product getProductByName(String name) {
-		if (! products.containsKey(name)) {
-			throw new ProductException("Product " + name + " ist not available.");
-		}
 		return products.get(name);
 	}
 	
