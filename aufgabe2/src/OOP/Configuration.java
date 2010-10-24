@@ -2,23 +2,23 @@ package OOP;
 
 import java.util.HashMap;
 
-import OOP.ProduktVerwaltung.Produkt;
+import OOP.ProductFactory.Product;
 
 /**
  * Represents a Konfiguration consisting of products (and their quantity).
  *
  */
-public class Konfiguration {
-	private HashMap<Produkt, Integer> products;
+public class Configuration {
+	private HashMap<Product, Integer> products;
 	
-	public Konfiguration() {
-		products = new HashMap<Produkt, Integer>();
+	public Configuration() {
+		products = new HashMap<Product, Integer>();
 	}
 	
 	/**
 	 * Fuegt ein neues Produkt hinzu.
 	 */
-	public void addProduct(Produkt p, int quantity) {
+	public void addProduct(Product p, int quantity) {
 		if (products.containsKey(p)) {
 			products.put(p, products.get(p) + quantity);
 		}
@@ -30,8 +30,8 @@ public class Konfiguration {
 	/**
 	 * Verringert den Lagerbestand im angegebenen Lager.
 	 */
-	public void removeFromStock(Lager l) {
-		for (Produkt p: products.keySet()) {
+	public void removeFromStock(Warehouse l) {
+		for (Product p: products.keySet()) {
 			l.decrementStock(p, products.get(p));
 		}
 	}

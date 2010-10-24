@@ -7,6 +7,6 @@ package OOP;
  * Produkt or ProduktGruppe contained in the ProduktGruppe.
  *
  */
-public interface ProduktGruppenMitglied {
-	public String[] listStock(Lager lager);
+public interface ProductGroupMember {
+	public String[] listStock(Warehouse warehouse);
 }
