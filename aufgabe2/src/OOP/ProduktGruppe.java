@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import OOP.ProduktVerwaltung.Produkt;
+
 /**
  * Represents a group of products, containing either products or further group of products.
  *
@@ -19,6 +21,43 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getBaseprice() {
+		int sumb = 0;
+
+		for(ProduktGruppenMitglied pgm: members) {
+			if(pgm instanceof Produkt) {
+				int bprice = pgm.getBaseprice();
+				sumb += bprice;
+			} else if(pgm instanceof ProduktGruppe) {
+				pgm.getBaseprice(); //rekursiv ok??
+			}
+		}
+		return sumb;
+	}
+	
+	public int getMarketprice() {
+		int summ = 0;
+		
+		for(ProduktGruppenMitglied pgm: members) {
+			if(pgm instanceof Produkt) {
+				int mprice = pgm.getMarketprice();
+				summ += mprice;
+			} else if(pgm instanceof ProduktGruppe) {
+				pgm.getMarketprice(); //stimmt das rekursive so?!
+			}
+		}
+		return summ;
+	}
+	
+	public Produkt getCheapest(Lager l) {
+		for(ProduktGruppenMitglied pgm: members) {
+			if(pgm instanceof Produkt) {
+				this.getBaseprice();
+			}
+		}
+		return null;
 	}
 	
 	/**

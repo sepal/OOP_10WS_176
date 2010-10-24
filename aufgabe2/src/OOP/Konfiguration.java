@@ -9,10 +9,10 @@ import OOP.ProduktVerwaltung.Produkt;
  *
  */
 public class Konfiguration {
-	private HashMap<Produkt, Integer> products;
+	private HashMap<ProduktGruppenMitglied, Integer> products;
 	
 	public Konfiguration() {
-		products = new HashMap<Produkt, Integer>();
+		products = new HashMap<ProduktGruppenMitglied, Integer>();
 	}
 	
 	/**
@@ -27,12 +27,19 @@ public class Konfiguration {
 		}
 	}
 	
+	//public void addProduktGruppe()??
+	
 	/**
 	 * Verringert den Lagerbestand im angegebenen Lager.
 	 */
 	public void removeFromStock(Lager l) {
-		for (Produkt p: products.keySet()) {
-			l.decrementStock(p, products.get(p));
+		for (ProduktGruppenMitglied p: products.keySet()) {
+			if(p instanceof Produkt) {
+				l.decrementStock((Produkt) p, products.get(p));
+			} else if(p instanceof ProduktGruppe) {
+				Produkt pc = p.getCheapest(l);
+				l.decrementStock(pc, products.get(p));
+			}
 		}
 	}
 }

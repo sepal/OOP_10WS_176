@@ -37,11 +37,11 @@ public class ProduktVerwaltung {
 	 * @param description Short description of the Produkt.
 	 * @return Reference to the new Produkt.
 	 */
-	public Produkt createProdukt(String name, String description) throws ProduktException {
+	public Produkt createProdukt(String name, String description, int baseprice, int marketprice, int storagecosts) throws ProduktException {
 		Produkt re = null;
 		
 		if (!products.containsKey(name)) {
-			re = new Produkt(name, description);
+			re = new Produkt(name, description, baseprice, marketprice, storagecosts);
 			products.put(name, re);
 		} else {
 			throw new ProduktException("Product "+name+" already exists!");
@@ -65,6 +65,9 @@ public class ProduktVerwaltung {
 	 */
 	public class Produkt implements ProduktGruppenMitglied {
 		private String name, description;
+		private int baseprice = 0; //price buy-in
+		private int marketprice = 0; //price for sale
+		private int storagecosts = 0; //lagerhaltungskosten
 		
 		public String getName() {
 			return name;
@@ -74,9 +77,24 @@ public class ProduktVerwaltung {
 			return description;
 		}
 		
-		private Produkt(String name, String description) {
+		public int getBaseprice() {
+			return baseprice;
+		}
+		
+		public int getMarketprice() {
+			return marketprice;
+		}
+		
+		public int getStoragecosts() {
+			return storagecosts;
+		}
+		
+		private Produkt(String name, String description, int baseprice, int marketprice, int storagecosts) {
 			this.name = name;
 			this.description = description;
+			this.baseprice = baseprice;
+			this.marketprice = marketprice;
+			this.storagecosts = storagecosts;
 		}
 
 		/** 
@@ -102,6 +120,12 @@ public class ProduktVerwaltung {
 			retval[0] = this.name + " - " + erg + " Stück";
 			
 			return retval;
+		}
+
+		@Override
+		public Produkt getCheapest(Lager l) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }
