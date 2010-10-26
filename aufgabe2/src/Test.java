@@ -1,3 +1,5 @@
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 import OOP.*;
 import OOP.OrderManagment.*;
 import OOP.ProductFactory.Product;
@@ -27,21 +29,34 @@ public class Test {
 		}
 
 		System.out.println("*** Creatin new Order \"WarehouseShift\" ***");
-		Order o1 = om.createOrder(vitechZentrale, vitechDz);
+		
+		GregorianCalendar del = new GregorianCalendar(2010, Calendar.NOVEMBER, 5);
+		GregorianCalendar disp = new GregorianCalendar(2010, Calendar.NOVEMBER, 10);
+		
+		Order o1 = om.createOrder(vitechZentrale, vitechDz, del, disp);
+		Product cpu1 = pf.getProductByName("CPU 1");
+		
+
+		vitechDz.incrementStock(cpu1, 4);
 		
 		System.out.println("*** Adding products to Order ***");
-		o1.incrementQuantity(pf.getProductByName("CPU 1"), 5);
+		o1.incrementQuantity(cpu1, 3);
 		System.out.print("Removing ");
-		System.out.print(o1.getQuantatiyForWarehouse(pf.getProductByName("CPU 1"), vitechZentrale) * -1);
+		System.out.print(o1.getQuantatiyForWarehouse(cpu1, vitechZentrale) * -1);
 		System.out.print(" CPU 1 from ");
 		System.out.print(o1.getSource().getName());
 		System.out.print(" and adding the ");
-		System.out.print(o1.getQuantatiyForWarehouse(pf.getProductByName("CPU 1"), vitechDz));
+		System.out.print(o1.getQuantatiyForWarehouse(cpu1, vitechDz));
 		System.out.print(" to ");
 		System.out.println(o1.getDestination().getName());
 
+		System.out.println(vitechZentrale.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 7)));
+		System.out.println(vitechDz.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 11)));
+
 		System.out.println("*** Deleting order ***");
 		om.removeOrder(o1);
+		System.out.println(vitechZentrale.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 7)));
+		System.out.println(vitechDz.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 11)));
 		
 		/******************** ProduktGruppen start ********************/
 		/*System.out.println("\n*** Creating new ProductGruppen... ***");

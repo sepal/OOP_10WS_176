@@ -1,6 +1,6 @@
 package OOP;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -38,17 +38,14 @@ public class Warehouse extends Location{
 		return ret.intValue();
 	}
 	
-	/**
-	 * Get number of Products p in stock
-	 * 
-	 * @param p Product, of which the number of items in stock should be returned
-	 * @return Number of Products p in stock. If p does not exist in the warehouse, this will return 0 too.
-	 */
-	public int getProductInStock(Product p, Date d) {
+	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);
-		//Order order = OrderManagment.getOrderAmount(this, product);
 		if (ret == null) 
 			ret = 0;
+		
+		for (Order o: orders) {
+			ret += o.getQuantatiyForWarehouse(p, this, d);
+		}
 		return ret.intValue();
 	}
 	
