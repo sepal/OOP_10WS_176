@@ -7,7 +7,7 @@ import OOP.OrderManagment.Order;
 import OOP.ProductFactory.Product;
 
 
-public class Warehouse extends Location{
+public class Warehouse extends Location {
 
 	private HashMap<Product, Integer> stock;
 	private HashSet<Order> orders;

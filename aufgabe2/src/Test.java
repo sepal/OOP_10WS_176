@@ -1,4 +1,7 @@
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import OOP.*;
+import OOP.OrderManagment.*;
 import OOP.ProductFactory.Product;
 
 /**
@@ -317,6 +320,35 @@ public class Test {
 			System.out.println(e.toString());
 		}
 		/******************** Configuration Test end ********************/
+		
+
+		/******************** Order Test start ********************/
+		OrderManagment om = OrderManagment.getInstance();
+
+		System.out.println("*** Testing Order - Shipment ***");
+		Order shipment = om.createOrder(new Location("Intel"), mediamarkt, new GregorianCalendar(2010, Calendar.OCTOBER, 31), new GregorianCalendar(2010, Calendar.NOVEMBER, 2));
+		Product cpu1 = pf.getProductByName("CPU 1");
+		shipment.incrementQuantity(cpu1, 2);
+		System.out.println("Shipping " + shipment.getQuantatiyForWarehouse(cpu1, mediamarkt) + " CPU1 to " + shipment.getDestination().getName());
+		
+
+		System.out.println("*** Testing Order - ClientOrder ***");
+		Order order = om.createOrder(vitech, new Location("Kunde XY"), new GregorianCalendar(2010, Calendar.OCTOBER, 31), new GregorianCalendar(2010, Calendar.NOVEMBER, 2));
+		shipment.incrementQuantity(cpu1, 1);
+		System.out.println("Delivering " + shipment.getQuantatiyForWarehouse(cpu1, mediamarkt) + "  CPU1 from " + order.getSource().getName());
+		
+
+		System.out.println("*** Testing Order - Warehouse transfer and deleting order ***");
+		om.removeOrder(order);
+		Order shift = om.createOrder(vitech, saturn, new GregorianCalendar(2010, Calendar.NOVEMBER, 2), new GregorianCalendar(2010, Calendar.NOVEMBER, 5));
+		shift.incrementQuantity(cpu1, 4);
+		System.out.println("Vitech stock for CPU1 before 2nd of november: " + vitech.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 1)));
+		System.out.println("Vitech stock for CPU1 after 2nd of november: " + vitech.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 3)));
+		System.out.println("Saturn stock for CPU1 before 5th of november: " + vitech.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 4)));
+		System.out.println("Saturn stock for CPU1 after 5th of november: " + vitech.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 6)));
+		
+		/******************** Order Test end ********************/
+		
 		System.out.println("*** All tests finished ***");
 	}
 }
