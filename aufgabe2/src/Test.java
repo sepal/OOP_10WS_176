@@ -317,5 +317,6 @@ public class Test {
 			System.out.println(e.toString());
 		}
 		/******************** Configuration Test end ********************/
+		System.out.println("*** All tests finished ***");
 	}
 }
