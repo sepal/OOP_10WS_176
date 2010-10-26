@@ -1,22 +1,24 @@
 package OOP;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
+import OOP.OrderManagment.Order;
 import OOP.ProductFactory.Product;
 
 
-public class Warehouse {
+public class Warehouse extends Location{
+
 	private HashMap<Product, Integer> stock;
+	private HashSet<Order> orders;
+	
 	private int aktuell;
-	private String name;
 	
-	public Warehouse(String name) {
+	public Warehouse(String name, String address) {
+		super(name, address);
 		stock = new HashMap<Product, Integer>();
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
+		orders = new HashSet<Order>();
 	}
 	
 	public HashMap<Product, Integer> getStock() {
@@ -36,7 +38,29 @@ public class Warehouse {
 		return ret.intValue();
 	}
 	
-	public void incrementStock(Product p, int anzahl) {		
+	/**
+	 * Get number of Products p in stock
+	 * 
+	 * @param p Product, of which the number of items in stock should be returned
+	 * @return Number of Products p in stock. If p does not exist in the warehouse, this will return 0 too.
+	 */
+	public int getProductInStock(Product p, Date d) {
+		Integer ret = stock.get(p);
+		//Order order = OrderManagment.getOrderAmount(this, product);
+		if (ret == null) 
+			ret = 0;
+		return ret.intValue();
+	}
+	
+	public void addOrder(Order o) {
+		orders.add(o);
+	}
+	
+	public void removeOrder(Order o) {
+		orders.remove(o);
+	}
+	
+	public void incrementStock(Product p, int anzahl) {
 		if(stock.containsKey(p)) {
 			aktuell = getProductInStock(p);
 			aktuell += anzahl;

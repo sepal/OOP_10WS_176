@@ -1,4 +1,6 @@
 import OOP.*;
+import OOP.OrderManagment.WarehouseShift;
+import OOP.OrderManagment.*;
 import OOP.ProductFactory.Product;
 
 /**
@@ -7,16 +9,43 @@ import OOP.ProductFactory.Product;
  */
 public class Test {
 	
+	//private static final int 5 = 0;
+
 	public static void main(String args[]) {
 		System.out.println("*** Starting test of exercise 2 app - Lagerverwaltung 2 ***");
-		System.out.println("*** Creating new Lager \"Vitech\" ***");
 		
 		ProductFactory pf = ProductFactory.getInstance();
-		Warehouse vitech = new Warehouse("Vitech");
+		OrderManagment om = OrderManagment.getInstance();
+
+		System.out.println("*** Creating new Lager \"Vitech\" ***");
+		Warehouse vitechZentrale = new Warehouse("Vitech Zentrale", "Dresdners Straﬂe 10");
+		Warehouse vitechDz = new Warehouse("Vitech Dz", "Wagramaerstraﬂe 13");
+
+		System.out.println("*** Creating new Products \"CPU\" ***");
+		for (int i=0; i<=5; i++) {
+			Product cpu = pf.createProduct("CPU " + i, "CPU desc " + i);
+			vitechZentrale.incrementStock(cpu, 10);
+		}
+
+		System.out.println("*** Creatin new Order \"WarehouseShift\" ***");
+		Order o1 = om.createOrder(vitechZentrale, vitechDz);
 		
+		System.out.println("*** Adding products to Order ***");
+		o1.incrementQuantity(pf.getProductByName("CPU 1"), 5);
+		System.out.print("Removing ");
+		System.out.print(o1.getQuantatiyForWarehouse(pf.getProductByName("CPU 1"), vitechZentrale) * -1);
+		System.out.print(" CPU 1 from ");
+		System.out.print(o1.getSource().getName());
+		System.out.print(" and adding the ");
+		System.out.print(o1.getQuantatiyForWarehouse(pf.getProductByName("CPU 1"), vitechDz));
+		System.out.print(" to ");
+		System.out.println(o1.getDestination().getName());
+
+		System.out.println("*** Deleting order ***");
+		om.removeOrder(o1);
 		
 		/******************** ProduktGruppen start ********************/
-		System.out.println("\n*** Creating new ProductGruppen... ***");
+		/*System.out.println("\n*** Creating new ProductGruppen... ***");
 
 		ProductGroup comp = new ProductGroup("Components");
 		
@@ -49,7 +78,7 @@ public class Test {
 		
 		
 		/******************** Product start ********************/
-		System.out.println("\n*** Creating new Products and adding them to warehouse ***");
+		/*System.out.println("\n*** Creating new Products and adding them to warehouse ***");
 		
 		// General product test.
 		for (int i=0; i<=5; i++) {
@@ -101,7 +130,7 @@ public class Test {
 		/******************** Product end ********************/
 
 		
-		/******************** Group listing Test start ********************/
+		/******************** Group listing Test start ********************//*
 		String[] list = comp.listStock(vitech);
 		System.out.println("\n*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' ***\n");
 		for (String line : list) {
@@ -110,7 +139,7 @@ public class Test {
 		/******************** Group listing Test end ********************/
 		
 
-		/******************** Warehouse Test start ********************/
+		/******************** Warehouse Test start ********************//*
 		System.out.println("\n*** Testing warehouse get ammount in stock ***");
 		Product p = pf.getProductByName("Monitor 19 Zoll");
 		int stock = vitech.getProductInStock(p);
@@ -132,7 +161,7 @@ public class Test {
 		/******************** Warehouse Test end ********************/
 
 		
-		/******************** Configuration Test start ********************/
+		/******************** Configuration Test start ********************//*
 		System.out.println("\n*** Testing normal configuration ***");
 		Configuration k1 = new Configuration();
 		k1.addProduct(pf.getProductByName("CPU 1"), 1);
@@ -196,5 +225,7 @@ public class Test {
 			System.out.println(e.toString());
 		}
 		/******************** Configuration Test end ********************/
+		
+		
 	}
 }
