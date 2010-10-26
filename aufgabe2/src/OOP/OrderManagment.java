@@ -33,12 +33,13 @@ public class OrderManagment {
 	}
 	
 	/**
-	 * 
-	 * @param source
-	 * @param destination
-	 * @param dispatch
-	 * @param delivery
-	 * @return
+	 * Erstellt eine neue Bestellung und gibt sie gleich zur&uuml;ck.
+	 * Wird von den public &uuml;berschreibungen benuntzt.
+	 * @param source Ort von wo aus die Bestellung kommt
+	 * @param destination Ort an dem die Bestellung hingeht.
+	 * @param dispatch Zeitpunkt ab wann die Bestellung weggeht.
+	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
+	 * @return Die erstellte Bestellung.
 	 */
 	private Order createOrder(Location source, Location destination, Calendar dispatch, Calendar delivery) {
 		orders.put(id, new WarehouseShift(id, source, destination, dispatch, delivery));
@@ -47,36 +48,79 @@ public class OrderManagment {
 		
 	}
 	
+	/**
+	 * Bestellung mit Lager als Ziel erstellen.
+	 * @param supplier Ort von wo aus die Bestellung kommt
+	 * @param warehouse Ort an dem die Bestellung hingeht.
+	 * @param dispatch Zeitpunkt ab wann die Bestellung weggeht.
+	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
+	 * @return
+	 */
 	public Order createOrder(Location supplier, Warehouse warehouse, Calendar dispatch, Calendar delivery){
 		return createOrder((Location)supplier, (Location)warehouse, dispatch, delivery);
 	}
 	
+	/**
+	 * Bestellung mit Lager als Quelle.
+	 * @param warehouse Ort von wo aus die Bestellung kommt
+	 * @param client Ort an dem die Bestellung hingeht.
+	 * @param dispatch Zeitpunkt ab wann die Bestellung weggeht.
+	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
+	 */
 	public Order createOrder(Warehouse warehouse, Location client, Calendar dispatch, Calendar delivery){
 		return createOrder((Location)warehouse, (Location)client, dispatch, delivery);
 	}
 	
+	/**
+	 * Bestellung mit Lager als Ziel und Quelle f&uuml;r Verschiebungen.
+	 * @param source Ort von wo aus die Bestellung kommt
+	 * @param destination Ort an dem die Bestellung hingeht.
+	 * @param dispatch Zeitpunkt ab wann die Bestellung weggeht.
+	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
+	 * @return
+	 */
 	public Order createOrder(Warehouse source, Warehouse destination, Calendar dispatch, Calendar delivery){
 		return createOrder((Location)source, (Location)destination, dispatch, delivery);
 	}
 	
+	/**
+	 * L&ouml;scht eine bestellung per Id. 
+	 * Da aber klassen normalerweise mit der Id nix tun haben, ist diese
+	 * funtion private.
+	 * 
+	 * @param id Id der zu l&ouml;schenden Bestellung
+	 */
 	private void removeOrder(long id) {
 		orders.remove(id);
 	}
 	
+	/**
+	 * L&ouml;scht eine Bestellung per Objektreferenz.
+	 * @param o Die zu l&ouml;schende Bestellung.
+	 */
 	public void removeOrder(Order o) {
-		removeOrder(o.id);
 		o.delete();
+		removeOrder(o.getId());
 	}
 	
+	/**
+	 * Basisklasse f&uuml;r Bestellungen.
+	 * @author sebastian
+	 *
+	 */
 	public abstract class Order {
+		// Subklassen brauchen die Id nicht zu kennen.
 		private long id;
+		
 		protected Location source;
 		protected Location destination;
 		protected HashMap<Product, Integer> stock;
 		protected Calendar dispatchCalendar;
 		protected Calendar deliveryCalendar;
 		
-		
+		/**
+		 * Bestellungen k&ouml;nnen nur &uuml;ber die Bestellverwaltung erstellt werden.
+		 */
 		protected Order(long id, Location source, Location destination, Calendar dispatch, Calendar delivery) {
 			this.id = id;
 			stock = new HashMap<Product, Integer>();
@@ -85,7 +129,6 @@ public class OrderManagment {
 			this.dispatchCalendar = dispatch;
 			this.deliveryCalendar = delivery;
 		}
-		
 		
 		public void incrementQuantity(Product p, int quantity) {
 			if(stock.containsKey(p)) {
@@ -113,12 +156,22 @@ public class OrderManagment {
 			return destination;
 		}
 		
-		protected long getId() {
+		private long getId() {
 			return this.id;
 		}
 		
+		/**
+		 * Stellt sicher, dass das es eine delete funktion in orders gibt.
+		 * 
+		 * Eigentlich sollte ich ein interface schreiben, aber langsam wird
+		 * die Zeit knapp daher spar ich mir das mal.
+		 */
 		protected void delete() {}
 
+		/**
+		 * Gibt den anzahl an abzuziehenden oder hinzuzuf&uuml;genden Produkten 
+		 * zur&uuml;ck, je nachdem was f&uuml;r ein Ort &uuml;bergeben wurde.
+		 */
 		public int getQuantatiyForWarehouse(Product p, Location l) {
 			if (stock.containsKey(p)) {
 				if (l == source) {
@@ -130,18 +183,25 @@ public class OrderManagment {
 			return 0;
 		}
 		
+		/**
+		 * Gibt die anzahl Produkten zu einem bestimmten Datum zur&uuml;ck.
+		 */
 		public int getQuantatiyForWarehouse(Product p, Location l, Calendar d) {
 			if (l == source && d.after(dispatchCalendar)) {
 				return getQuantatiyForWarehouse(p, l);
 			} else if (l == destination && d.after(deliveryCalendar)) {
 				return getQuantatiyForWarehouse(p, l);
 			} else {
-				System.out.println(dispatchCalendar.getTime() + " - " + d.getTime());
 				return 0;
 			}
 		}
 	}
 
+	/**
+	 * Klasse f&uuml;r Kundenbestellungen.
+	 * @author sebastian
+	 *
+	 */
 	public class ClientOrder extends Order {
 		protected ClientOrder(long id, Location source, Location destination, Calendar dispatch, Calendar delivery) {
 			super(id, source, destination, dispatch, delivery);
@@ -154,7 +214,11 @@ public class OrderManagment {
 			wh.removeOrder(this);
 		}
 	}
-	
+	/**
+	 * Klasse f&uuml;r Lieferungen.
+	 * @author sebastian
+	 *
+	 */
 	public class Shipment extends Order {
 
 		protected Shipment(long id, Location source, Location destination, Calendar dispatch, Calendar delivery) {
@@ -169,6 +233,11 @@ public class OrderManagment {
 		}
 	}
 	
+	/**
+	 * Klasse f&uuml;r Lagerverschiebungen.
+	 * @author sebastian
+	 *
+	 */
 	public class WarehouseShift extends Order {
 
 		protected WarehouseShift(long id, Location source, Location destination, Calendar dispatch, Calendar delivery) {

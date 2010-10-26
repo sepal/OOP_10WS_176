@@ -38,6 +38,12 @@ public class Warehouse extends Location{
 		return ret.intValue();
 	}
 	
+	/**
+	 * Gibt die Anzahl von einem Produkt zu einem bestimmten Zeitpunkt zur&uuml;ck.
+	 * @param p
+	 * @param d
+	 * @return
+	 */
 	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);
 		if (ret == null) 
@@ -49,10 +55,18 @@ public class Warehouse extends Location{
 		return ret.intValue();
 	}
 	
+	/**
+	 * Eine Bestellungsreferenz hinzuf&uuml;gen.
+	 * @param o
+	 */
 	public void addOrder(Order o) {
 		orders.add(o);
 	}
 	
+	/**
+	 * Eine Bestellungsreferenz l&ouml;schen.
+	 * @param o
+	 */
 	public void removeOrder(Order o) {
 		orders.remove(o);
 	}
