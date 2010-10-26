@@ -51,10 +51,26 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 		return summ;
 	}
 	
+	public int getStoragecosts(Lager l) {
+		int sumsc = 0;
+		for(ProduktGruppenMitglied pgm: members) {
+			if(pgm instanceof Produkt) {
+				int scprice = pgm.getStoragecosts(l);
+				sumsc += scprice;
+			} else if(pgm instanceof ProduktGruppe) {
+				pgm.getStoragecosts(l);//same here wegen rekursiv
+			}
+		}
+		return sumsc;
+	}
+	
 	public Produkt getCheapest(Lager l) {
 		for(ProduktGruppenMitglied pgm: members) {
 			if(pgm instanceof Produkt) {
 				this.getBaseprice();
+				
+			} else if(pgm instanceof ProduktGruppe) {
+				pgm.getCheapest(l);
 			}
 		}
 		return null;
@@ -101,5 +117,4 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 			return ret.toArray(tmp);
 		}
 	}
-
 }

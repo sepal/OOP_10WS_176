@@ -37,11 +37,11 @@ public class ProduktVerwaltung {
 	 * @param description Short description of the Produkt.
 	 * @return Reference to the new Produkt.
 	 */
-	public Produkt createProdukt(String name, String description, int baseprice, int marketprice, int storagecosts) throws ProduktException {
+	public Produkt createProdukt(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) throws ProduktException {
 		Produkt re = null;
 		
 		if (!products.containsKey(name)) {
-			re = new Produkt(name, description, baseprice, marketprice, storagecosts);
+			re = new Produkt(name, description, baseprice, marketprice, volume, storagecosts);
 			products.put(name, re);
 		} else {
 			throw new ProduktException("Product "+name+" already exists!");
@@ -68,6 +68,7 @@ public class ProduktVerwaltung {
 		private int baseprice = 0; //price buy-in
 		private int marketprice = 0; //price for sale
 		private int storagecosts = 0; //lagerhaltungskosten
+		private double volume = 0; //size of product
 		
 		public String getName() {
 			return name;
@@ -85,16 +86,29 @@ public class ProduktVerwaltung {
 			return marketprice;
 		}
 		
-		public int getStoragecosts() {
+		public double getVolume() {
+			return volume;
+		}
+		
+		@Override
+		public int getStoragecosts(Lager l) {
+			//Formel: ((Preis/m^3)*Volumen d produkts)*zeit*bestand
+			int storageprice = 2; //2€/m^3
+			int time = 10; //product stays exactly 10 days in our warehouse
+			
+			storagecosts = (int) ((storageprice * getVolume()) * time * l.getProduktInStock(this));
+			
 			return storagecosts;
 		}
 		
-		private Produkt(String name, String description, int baseprice, int marketprice, int storagecosts) {
+		private Produkt(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) {
 			this.name = name;
 			this.description = description;
 			this.baseprice = baseprice;
 			this.marketprice = marketprice;
+			this.volume = volume;
 			this.storagecosts = storagecosts;
+			
 		}
 
 		/** 

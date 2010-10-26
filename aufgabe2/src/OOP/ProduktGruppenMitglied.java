@@ -14,4 +14,5 @@ public interface ProduktGruppenMitglied {
 	public int getBaseprice();
 	public int getMarketprice();
 	public Produkt getCheapest(Lager l);
+	public int getStoragecosts(Lager l);
 }
