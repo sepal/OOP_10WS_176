@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import OOP.ProduktVerwaltung.Produkt;
+import OOP.ProductFactory.Product;
 
 /**
  * Represents a group of products, containing either products or further group of products.
  *
  */
-public class ProduktGruppe implements ProduktGruppenMitglied {
+public class ProductGroup implements ProductGroupMember {
 	private String name;
-	private HashSet<ProduktGruppenMitglied> members;
+	private HashSet<ProductGroupMember> members;
 	
-	public ProduktGruppe(String name) {
+	public ProductGroup(String name) {
 		this.name = name;
-		members = new HashSet<ProduktGruppenMitglied>();
+		members = new HashSet<ProductGroupMember>();
 	}
 	
 	public String getName() {
@@ -26,11 +26,11 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	public int getBaseprice() {
 		int sumb = 0;
 
-		for(ProduktGruppenMitglied pgm: members) {
-			if(pgm instanceof Produkt) {
+		for(ProductGroupMember pgm: members) {
+			if(pgm instanceof Product) {
 				int bprice = pgm.getBaseprice();
 				sumb += bprice;
-			} else if(pgm instanceof ProduktGruppe) {
+			} else if(pgm instanceof ProductGroup) {
 				pgm.getBaseprice(); //rekursiv ok??
 			}
 		}
@@ -40,37 +40,37 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	public int getMarketprice() {
 		int summ = 0;
 		
-		for(ProduktGruppenMitglied pgm: members) {
-			if(pgm instanceof Produkt) {
+		for(ProductGroupMember pgm: members) {
+			if(pgm instanceof Product) {
 				int mprice = pgm.getMarketprice();
 				summ += mprice;
-			} else if(pgm instanceof ProduktGruppe) {
+			} else if(pgm instanceof ProductGroup) {
 				pgm.getMarketprice(); //stimmt das rekursive so?!
 			}
 		}
 		return summ;
 	}
 	
-	public int getStoragecosts(Lager l) {
+	public int getStoragecosts(Warehouse w) {
 		int sumsc = 0;
-		for(ProduktGruppenMitglied pgm: members) {
-			if(pgm instanceof Produkt) {
-				int scprice = pgm.getStoragecosts(l);
+		for(ProductGroupMember pgm: members) {
+			if(pgm instanceof Product) {
+				int scprice = pgm.getStoragecosts(w);
 				sumsc += scprice;
-			} else if(pgm instanceof ProduktGruppe) {
-				pgm.getStoragecosts(l);//same here wegen rekursiv
+			} else if(pgm instanceof ProductGroup) {
+				pgm.getStoragecosts(w);//same here wegen rekursiv
 			}
 		}
 		return sumsc;
 	}
 	
-	public Produkt getCheapest(Lager l) {
-		for(ProduktGruppenMitglied pgm: members) {
-			if(pgm instanceof Produkt) {
+	public Product getCheapest(Warehouse w) {
+		for(ProductGroupMember pgm: members) {
+			if(pgm instanceof Product) {
 				this.getBaseprice();
 				
-			} else if(pgm instanceof ProduktGruppe) {
-				pgm.getCheapest(l);
+			} else if(pgm instanceof ProductGroup) {
+				pgm.getCheapest(w);
 			}
 		}
 		return null;
@@ -84,9 +84,9 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	 * @param newMember New member of group (beeing a Produkt or ProduktGruppe)
 	 * @throws IllegalMemberException If the new member already is member of the group or the group itself.
 	 */
-	public void addMember(ProduktGruppenMitglied newMember) throws IllegalMemberException {
+	public void addMember(ProductGroupMember newMember) throws IllegalMemberException {
 		if (newMember == this)
-			throw new IllegalMemberException("Can't add ProduktGruppe to itself!");
+			throw new IllegalMemberException("Can't add ProductGroup to itself!");
 		
 		if (members.add(newMember) == false)
 			throw new IllegalMemberException("Element is already a member of this ProduktGruppe!");
@@ -101,12 +101,12 @@ public class ProduktGruppe implements ProduktGruppenMitglied {
 	 * final list as a string array.
 	 */
 	@Override
-	public String[] listStock(Lager lager) {
+	public String[] listStock(Warehouse w) {
 		String[] tmp =  { this.name+":" };
 		ArrayList<String> ret = new ArrayList<String>(Arrays.asList(tmp));
 		
-		for (ProduktGruppenMitglied pgm : members) {
-			ret.addAll( Arrays.asList(pgm.listStock(lager)) );
+		for (ProductGroupMember pgm : members) {
+			ret.addAll( Arrays.asList(pgm.listStock(w)) );
 		}
 		
 		// If group has no members, just return name

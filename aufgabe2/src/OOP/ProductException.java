@@ -5,14 +5,14 @@ package OOP;
  * a Produkt that is not in stock at all.
  *
  */
-public class ProduktException extends RuntimeException {
+public class ProductException extends RuntimeException {
 	private static final long serialVersionUID = 9041239970867761445L;
 	
-	public ProduktException() {
+	public ProductException() {
 		super();
 	}
 	
-	public ProduktException(String msg) {
+	public ProductException(String msg) {
 		super(msg);
 	}
 }

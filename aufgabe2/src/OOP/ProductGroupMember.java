@@ -1,6 +1,6 @@
 package OOP;
 
-import OOP.ProduktVerwaltung.Produkt;
+import OOP.ProductFactory.Product;
 
 /**
  * This interface allows a ProduktGruppe to store other ProduktGruppen as well as Produkte
@@ -9,10 +9,10 @@ import OOP.ProduktVerwaltung.Produkt;
  * Produkt or ProduktGruppe contained in the ProduktGruppe.
  *
  */
-public interface ProduktGruppenMitglied {
-	public String[] listStock(Lager lager);
+public interface ProductGroupMember {
+	public String[] listStock(Warehouse w);
 	public int getBaseprice();
 	public int getMarketprice();
-	public Produkt getCheapest(Lager l);
-	public int getStoragecosts(Lager l);
+	public Product getCheapest(Warehouse w);
+	public int getStoragecosts(Warehouse w);
 }
