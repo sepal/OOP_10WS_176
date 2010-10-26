@@ -1,21 +1,23 @@
 package OOP;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import OOP.OrderManagment.Order;
 import OOP.ProductFactory.Product;
 
 
-public class Warehouse {
+public class Warehouse extends Location{
+
 	private HashMap<Product, Integer> stock;
+	private HashSet<Order> orders;
+	
 	private int aktuell;
-	private String name;
 	
 	public Warehouse(String name) {
+		super(name);
 		stock = new HashMap<Product, Integer>();
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
+		orders = new HashSet<Order>();
 	}
 	
 	public HashMap<Product, Integer> getStock() {
@@ -44,7 +46,37 @@ public class Warehouse {
 		return ret.intValue();
 	}
 	
-	public void incrementStock(Product p, int anzahl) {		
+	/**
+	 * Gibt die Anzahl von einem Produkt zu einem bestimmten Zeitpunkt zur&uuml;ck.
+	 */
+	public int getProductInStock(Product p, Calendar d) {
+		Integer ret = stock.get(p);
+		if (ret == null) 
+			ret = 0;
+		
+		for (Order o: orders) {
+			ret += o.getQuantatiyForWarehouse(p, this, d);
+		}
+		return ret.intValue();
+	}
+	
+	/**
+	 * Eine Bestellungsreferenz hinzuf&uuml;gen.
+	 * @param o
+	 */
+	public void addOrder(Order o) {
+		orders.add(o);
+	}
+	
+	/**
+	 * Eine Bestellungsreferenz l&ouml;schen.
+	 * @param o
+	 */
+	public void removeOrder(Order o) {
+		orders.remove(o);
+	}
+	
+	public void incrementStock(Product p, int anzahl) {
 		if(stock.containsKey(p)) {
 			stock.put(p, getProductInStock(p)+anzahl);
 		} else {
