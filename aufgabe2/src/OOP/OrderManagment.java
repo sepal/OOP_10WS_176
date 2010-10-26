@@ -33,16 +33,12 @@ public class OrderManagment {
 	}
 	
 	/**
-	 * Erstellt eine neue Bestellung und gibt sie gleich zur&uuml;ck.
-	 * Wird von den public &uuml;berschreibungen benuntzt.
-	 * @param source Ort von wo aus die Bestellung kommt
-	 * @param destination Ort an dem die Bestellung hingeht.
-	 * @param dispatch Zeitpunkt ab wann die Bestellung weggeht.
-	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
-	 * @return Die erstellte Bestellung.
+	 * Speichert eine neue Bestellung und erhöt den id counter.
+	 * @param o Die zu speichernde Bestellung.
+	 * @return Die gespeicherte Bestellung.
 	 */
-	private Order createOrder(Location source, Location destination, Calendar dispatch, Calendar delivery) {
-		orders.put(id, new WarehouseShift(id, source, destination, dispatch, delivery));
+	private Order saveOrder(Order o) {
+		orders.put(id, o);
 		id++;
 		return orders.get(id-1);
 		
@@ -57,7 +53,7 @@ public class OrderManagment {
 	 * @return
 	 */
 	public Order createOrder(Location supplier, Warehouse warehouse, Calendar dispatch, Calendar delivery){
-		return createOrder((Location)supplier, (Location)warehouse, dispatch, delivery);
+		return saveOrder(new Shipment(id, (Location)supplier, (Location)warehouse, dispatch, delivery));
 	}
 	
 	/**
@@ -68,7 +64,7 @@ public class OrderManagment {
 	 * @param delivery Zeitpunkt an dem die Bestellung ankommt.
 	 */
 	public Order createOrder(Warehouse warehouse, Location client, Calendar dispatch, Calendar delivery){
-		return createOrder((Location)warehouse, (Location)client, dispatch, delivery);
+		return saveOrder(new ClientOrder(id,(Location)warehouse, (Location)client, dispatch, delivery));
 	}
 	
 	/**
@@ -80,7 +76,7 @@ public class OrderManagment {
 	 * @return
 	 */
 	public Order createOrder(Warehouse source, Warehouse destination, Calendar dispatch, Calendar delivery){
-		return createOrder((Location)source, (Location)destination, dispatch, delivery);
+		return saveOrder(new WarehouseShift(id,(Location)source, (Location)destination, dispatch, delivery));
 	}
 	
 	/**
