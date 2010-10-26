@@ -37,7 +37,7 @@ public class Konfiguration {
 			if(p instanceof Product) {
 				w.decrementStock((Product) p, products.get(p));
 			} else if(p instanceof ProductGroup) {
-				Product pc = p.getCheapest(w);
+				Product pc = p.getCheapest();
 				w.decrementStock(pc, products.get(p));
 			}
 		}

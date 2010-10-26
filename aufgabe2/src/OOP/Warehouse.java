@@ -1,7 +1,6 @@
 package OOP;
 
 import java.util.HashMap;
-
 import OOP.ProductFactory.Product;
 
 
@@ -23,6 +22,15 @@ public class Warehouse {
 		return stock;
 	}
 	
+	public Product getProduct(String namep) throws ProductException{		
+		for(Product p: stock.keySet()) {
+			if(p.getName().equals(namep)) {
+				return p;
+			} 
+		}
+		throw new ProductException("Product " + namep + "does not exist in warehouse" +name+"!");
+	}
+	
 	/**
 	 * Get number of Products p in stock
 	 * 
@@ -38,9 +46,7 @@ public class Warehouse {
 	
 	public void incrementStock(Product p, int anzahl) {		
 		if(stock.containsKey(p)) {
-			aktuell = getProductInStock(p);
-			aktuell += anzahl;
-			stock.put(p, aktuell);
+			stock.put(p, getProductInStock(p)+anzahl);
 		} else {
 			aktuell = anzahl;
 			stock.put(p, aktuell);

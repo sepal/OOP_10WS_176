@@ -37,11 +37,11 @@ public class ProductFactory {
 	 * @param description Short description of the Product.
 	 * @return Reference to the new Product.
 	 */
-	public Product createProduct(String name, String description) throws ProductException {
+	public Product createProduct(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) throws ProductException {
 		Product re = null;
 		
 		if (!products.containsKey(name)) {
-			re = new Product(name, description);
+			re = new Product(name, description, baseprice, marketprice, volume, storagecosts);
 			products.put(name, re);
 		} else {
 			throw new ProductException("Product "+name+" already exists!");
@@ -62,6 +62,10 @@ public class ProductFactory {
 	 */
 	public class Product implements ProductGroupMember {
 		private String name, description;
+		private int baseprice = 0; //price buy-in
+		private int marketprice = 0; //price for sale
+		private double volume =0;
+		private int storagecosts = 0; //lagerhaltungskosten
 		
 		public String getName() {
 			return name;
@@ -71,9 +75,39 @@ public class ProductFactory {
 			return description;
 		}
 		
-		private Product(String name, String description) {
+		@Override
+		public int getBaseprice() {
+			return baseprice;
+		}
+
+		@Override
+		public int getMarketprice() {
+			return marketprice;
+		}
+		
+		public double getVolume() {
+			return volume;
+		}
+
+		@Override
+		public int getStoragecosts(Warehouse w) {
+			//Formel: ((Preis/m^3)*Volumen d produkts)*zeit*bestand
+			int storageprice = 2; //2€/m^3
+			int time = 10; //product stays exactly 10 days in our warehouse
+			
+			storagecosts = (int) ((storageprice * getVolume()) * time * w.getProductInStock(this));
+			
+			return storagecosts;
+		}
+		
+		private Product(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) {
 			this.name = name;
 			this.description = description;
+			this.baseprice = baseprice;
+			this.marketprice = marketprice;
+			this.volume = volume;
+			this.storagecosts = storagecosts;
+
 		}
 
 		/** 
@@ -84,7 +118,6 @@ public class ProductFactory {
 		 * @return String array containing one string listing the name and number of items in stock. 
 		 * This method returns an array, so it compatible to the listStock method in ProductGruppe, which returns a list of results gathered by this very method.
 		 */
-		@Override
 		public String[] listStock(Warehouse warehouse) {
 			Integer cnt = warehouse.getProductInStock(this);
 			int erg=0;
@@ -102,27 +135,8 @@ public class ProductFactory {
 		}
 
 		@Override
-		public int getBaseprice() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public Product getCheapest(Warehouse w) {
-			// TODO Auto-generated method stub
+		public Product getCheapest() {
 			return null;
-		}
-
-		@Override
-		public int getMarketprice() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public int getStoragecosts(Warehouse w) {
-			// TODO Auto-generated method stub
-			return 0;
 		}
 	}
 }

@@ -3,6 +3,7 @@ package OOP;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ListIterator;
 
 import OOP.ProductFactory.Product;
 
@@ -64,16 +65,26 @@ public class ProductGroup implements ProductGroupMember {
 		return sumsc;
 	}
 	
-	public Product getCheapest(Warehouse w) {
-		for(ProductGroupMember pgm: members) {
-			if(pgm instanceof Product) {
-				this.getBaseprice();
-				
-			} else if(pgm instanceof ProductGroup) {
-				pgm.getCheapest(w);
+	public Product getCheapest() {
+		ListIterator<ProductGroupMember> i = (ListIterator<ProductGroupMember>) members.iterator();
+		Product cheapest = null;
+		while(i.hasNext()) {
+			if(i instanceof Product) {
+				if (i.previous() == null) {
+					cheapest = (Product) i.next();
+				}
+				if (i.next().getBaseprice() < i.previous().getBaseprice()) {
+					cheapest = (Product) i.next();
+				} else {
+					cheapest = (Product) i.previous();
+				}
+				return cheapest;
+			}
+			if(i instanceof ProductGroup) {
+				getCheapest(); //hier wieder rekursiv
 			}
 		}
-		return null;
+		return cheapest;
 	}
 	
 	/**

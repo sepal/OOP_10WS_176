@@ -10,9 +10,9 @@ import OOP.ProductFactory.Product;
  *
  */
 public interface ProductGroupMember {
-	public String[] listStock(Warehouse w);
+	public String[] listStock(Warehouse warehouse);
 	public int getBaseprice();
 	public int getMarketprice();
-	public Product getCheapest(Warehouse w);
+	public Product getCheapest();
 	public int getStoragecosts(Warehouse w);
 }

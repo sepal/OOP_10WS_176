@@ -9,11 +9,14 @@ public class Test {
 	
 	public static void main(String args[]) {
 		System.out.println("*** Starting test of exercise 2 app - Lagerverwaltung 2 ***");
-		System.out.println("*** Creating new Lager \"Vitech\" ***");
 		
 		ProductFactory pf = ProductFactory.getInstance();
 		Warehouse vitech = new Warehouse("Vitech");
-		
+		System.out.println("*** Creating new Lager \"Vitech\" ***");
+		Warehouse mediamarkt = new Warehouse("Mediamarkt");
+		System.out.println("*** Creating new Lager \"Mediamarkt\" ***");
+		Warehouse saturn = new Warehouse("Saturn");
+		System.out.println("*** Creating new Lager \"Saturn\" ***");
 		
 		/******************** ProduktGruppen start ********************/
 		System.out.println("\n*** Creating new ProductGruppen... ***");
@@ -48,12 +51,12 @@ public class Test {
 		/******************** ProduktGruppen end ********************/
 		
 		
-		/******************** Product start ********************/
-		System.out.println("\n*** Creating new Products and adding them to warehouse ***");
+		/******************** Products @vitech start ********************/
+		System.out.println("\n*** Creating new Products and adding them to warehouse vitech***");
 		
 		// General product test.
 		for (int i=0; i<=5; i++) {
-			Product cpu = pf.createProduct("CPU " + i, "CPU desc " + i);
+			Product cpu = pf.createProduct("CPU " + i, "CPU desc " + i, 100, 120, 0,002);
 			cpus.addMember(cpu);
 			vitech.incrementStock(cpu, 10);
 		}
@@ -61,7 +64,7 @@ public class Test {
 		System.out.println("Created \"CPU i\" with i from 0 to 5, added 10 pieces to warehouse each.");
 		
 		for (int i=0; i<=5; i++) {
-			Product monitor = pf.createProduct("Monitor " + (19+i) + " Zoll", "LCD Monitor, groesse " + (19+i) + " Zoll");
+			Product monitor = pf.createProduct("Monitor " + (19+i) + " Zoll", "LCD Monitor, groesse " + (19+i) + " Zoll", 200, 240, 0,005);
 			displays.addMember(monitor);
 			vitech.incrementStock(monitor, 10);
 		}
@@ -70,7 +73,7 @@ public class Test {
 		
 		// Adding more products for configurations.
 		for (int i=0; i<=3; i++) {
-			Product p = pf.createProduct("Mainboard " + i, "Mainboard desc " + i);
+			Product p = pf.createProduct("Mainboard " + i, "Mainboard desc " + i, 300, 360, 0,002);
 			mainboards.addMember(p);
 			vitech.incrementStock(p, 10);
 		}
@@ -79,7 +82,7 @@ public class Test {
 		
 		// Adding more products for configurations.
 		for (int i=0; i<=5; i++) {
-			Product p = pf.createProduct("GraCa nsidia " + i, "Grafic card desc " + i);
+			Product p = pf.createProduct("GraCa nsidia " + i, "Grafic card desc " + i, 200, 240, 0,001);
 			nsidia.addMember(p);
 			vitech.incrementStock(p, 10);
 		}
@@ -87,24 +90,142 @@ public class Test {
 		System.out.println("Created \"GraCa nsidia i\" with i from 0 to 5, added 10 pieces to warehouse each.");
 		
 		// Test product exists in configuration and lager but stock is zero.
-		Product amtGraca = pf.createProduct("GraCa amt", "Grafic card desc");
+		Product amtGraca = pf.createProduct("GraCa amt", "Grafic card desc", 200, 240, 0,001);
 		amt.addMember(amtGraca);
 		vitech.incrementStock(amtGraca, 0);
 		
 		System.out.println("Created \"GraCa amt\", added 0 pieces to warehouse.");
 		
 		// Test product exists in configuration but not in Lager.
-		Product monitor2 = pf.createProduct("Monitor 2", "Monitor desc 2");
+		Product monitor2 = pf.createProduct("Monitor 2", "Monitor desc 2", 300, 360, 0,005);
 		displays.addMember(monitor2);
 		
 		System.out.println("Created \"Monitor 2\", but did NOT add it to warehouse!");
-		/******************** Product end ********************/
+		/******************** Products @vtech end ********************/
+		
+		
+		/******************* Products @mediamarkt start ********************/
+		System.out.println("\n*** Creating new Products and adding them to warehouse mediamarkt ***");
+		
+		// General product test.
+		for (int i=0; i<=6; i++) {
+			Product cpu = pf.createProduct("CPU2 " + i, "CPU2 desc " + i, 300, 360, 0,002);
+			cpus.addMember(cpu);
+			vitech.incrementStock(cpu, 10);
+		}
+		
+		System.out.println("Created \"CPU i\" with i from 0 to 6, added 10 pieces to warehouse mediamarkt each.");
+		
+		for (int i=0; i<=5; i++) {
+			Product monitor1 = pf.createProduct("Monitor2" + (19+i) + " Zoll", "LCD Monitor, groesse " + (19+i) + " Zoll", 400, 480, 0,005);
+			displays.addMember(monitor1);
+			vitech.incrementStock(monitor1, 10);
+		}
+		
+		System.out.println("Created \"Monitor2 i\" with i from 19 to 24, added 10 pieces to warehouse mediamarkt each.");
+		
+		// Adding more products for configurations.
+		for (int i=0; i<=3; i++) {
+			Product p = pf.createProduct("Mainboard2 " + i, "Mainboard desc " + i, 600, 820, 0,002);
+			mainboards.addMember(p);
+			vitech.incrementStock(p, 10);
+		}
+
+		System.out.println("Created \"Mainboard2 i\" with i from 0 to 3, added 10 pieces to warehouse mediamarkt each.");
+		
+		// Adding more products for configurations.
+		for (int i=0; i<=5; i++) {
+			Product p = pf.createProduct("GraCa2 nsidia " + i, "Grafic card desc " + i, 400, 480, 0,001);
+			nsidia.addMember(p);
+			vitech.incrementStock(p, 10);
+		}
+		
+		System.out.println("Created \"GraCa2 nsidia i\" with i from 0 to 5, added 10 pieces to warehouse mediamarkt each.");
+		
+		// Test product exists in configuration and lager but stock is zero.
+		Product amtGraca2 = pf.createProduct("GraCa2 amt", "Grafic card desc", 400, 480, 0,001);
+		amt.addMember(amtGraca2);
+		vitech.incrementStock(amtGraca2, 0);
+		
+		System.out.println("Created \"GraCa2 amt\", added 0 pieces to warehouse mediamarkt.");
+		
+		// Test product exists in configuration but not in Lager.
+		Product monitor3 = pf.createProduct("Monitor 3", "Monitor desc 3", 300, 360, 0,005);
+		displays.addMember(monitor3);
+		
+		System.out.println("Created \"Monitor 3\", but did NOT add it to warehouse mediamarkt!");
+		/******************* Products @mediamarkt end ********************/
+		
+		/******************* Products @saturn start ********************/
+		System.out.println("\n*** Creating new Products and adding them to warehouse saturn ***");
+		
+		// General product test.
+		for (int i=0; i<=5; i++) {
+			Product cpu3 = pf.createProduct("CPU3 " + i, "CPU desc " + i, 90, 109, 0,002);
+			cpus.addMember(cpu3);
+			vitech.incrementStock(cpu3, 10);
+		}
+		
+		System.out.println("Created \"CPU3 i\" with i from 0 to 5, added 10 pieces to warehouse saturn each.");
+		
+		for (int i=0; i<=5; i++) {
+			Product monitor4 = pf.createProduct("Monitor3 " + (19+i) + " Zoll", "LCD Monitor, groesse " + (19+i) + " Zoll", 230, 340, 0,005);
+			displays.addMember(monitor4);
+			vitech.incrementStock(monitor4, 10);
+		}
+		
+		System.out.println("Created \"Monitor4 i\" with i from 19 to 24, added 10 pieces to warehouse saturn each.");
+		
+		// Adding more products for configurations.
+		for (int i=0; i<=3; i++) {
+			Product p = pf.createProduct("Mainboard3 " + i, "Mainboard desc " + i, 100, 150, 0,002);
+			mainboards.addMember(p);
+			vitech.incrementStock(p, 10);
+		}
+
+		System.out.println("Created \"Mainboard3 i\" with i from 0 to 3, added 10 pieces to warehouse saturn each.");
+		
+		// Adding more products for configurations.
+		for (int i=0; i<=5; i++) {
+			Product p = pf.createProduct("GraCa3 nsidia " + i, "Grafic card desc " + i, 240, 360, 0,001);
+			nsidia.addMember(p);
+			vitech.incrementStock(p, 10);
+		}
+		
+		System.out.println("Created \"GraCa3 nsidia i\" with i from 0 to 5, added 10 pieces to warehouse saturn each.");
+		
+		// Test product exists in configuration and lager but stock is zero.
+		Product amtGraca3 = pf.createProduct("GraCa3 amt", "Grafic card desc", 120, 150, 0,001);
+		amt.addMember(amtGraca3);
+		vitech.incrementStock(amtGraca3, 0);
+		
+		System.out.println("Created \"GraCa3 amt\", added 0 pieces to warehouse saturn.");
+		
+		// Test product exists in configuration but not in Lager.
+		Product monitor5 = pf.createProduct("Monitor 5", "Monitor desc 2", 250, 340, 0,005);
+		displays.addMember(monitor5);
+		
+		System.out.println("Created \"Monitor 5\", but did NOT add it to warehouse saturn!");
+		/******************* Products @saturn end ********************/
+		
 
 		
 		/******************** Group listing Test start ********************/
 		String[] list = comp.listStock(vitech);
-		System.out.println("\n*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' ***\n");
+		System.out.println("\n*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' Vitech ***\n");
 		for (String line : list) {
+			System.out.println(line);
+		}
+		
+		String[] list2 = comp.listStock(mediamarkt);
+		System.out.println("\n*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' Mediamarkt ***\n");
+		for (String line : list2) {
+			System.out.println(line);
+		}
+		
+		String[] list3 = comp.listStock(saturn);
+		System.out.println("\n*** Testing 'Auflisten des Gruppeninhaltes mit Lagerbestand' Saturn ***\n");
+		for (String line : list3) {
 			System.out.println(line);
 		}
 		/******************** Group listing Test end ********************/
