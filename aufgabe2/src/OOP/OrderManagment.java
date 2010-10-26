@@ -1,7 +1,6 @@
 package OOP;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 import OOP.ProductFactory.Product;
 
