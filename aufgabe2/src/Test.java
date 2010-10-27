@@ -1,7 +1,7 @@
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import OOP.*;
-import OOP.OrderManagment.*;
 import OOP.ProductFactory.Product;
 
 /**
@@ -320,7 +320,7 @@ public class Test {
 			System.out.println(e.toString());
 		}
 		/******************** Configuration Test end ********************/
-		
+
 
 		/******************** Order Test start ********************/
 		OrderManagment om = OrderManagment.getInstance();
@@ -353,7 +353,7 @@ public class Test {
 		System.out.println("Saturn stock for CPU1 after 8th of november: " + saturn.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 9)));
 		
 		/******************** Order Test end ********************/
-		
-		System.out.println("*** All tests finished ***");
+
+		System.out.println("*** All tests done ***");
 	}
 }

@@ -16,7 +16,7 @@ public class Warehouse extends Location {
 	
 	public Warehouse(String name) {
 		super(name);
-		
+
 		stock = new HashMap<Product, Integer>();
 		orders = new HashSet<Order>();
 	}
@@ -49,9 +49,6 @@ public class Warehouse extends Location {
 	
 	/**
 	 * Gibt die Anzahl von einem Produkt zu einem bestimmten Zeitpunkt zur&uuml;ck.
-	 * @param p
-	 * @param d
-	 * @return
 	 */
 	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);

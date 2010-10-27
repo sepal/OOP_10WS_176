@@ -8,6 +8,7 @@ package OOP;
  * @author sebastian
  *
  */
+
 public class Location extends StorageManager {
 	private static final long serialVersionUID = 7158711736952755227L;
 	
@@ -15,7 +16,7 @@ public class Location extends StorageManager {
 	
 	public Location(String name) {
 		super();
-		
+
 		this.setName(name);
 	}
 
