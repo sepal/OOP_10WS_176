@@ -3,7 +3,7 @@ package OOP;
 import java.util.Calendar;
 
 /**
- * Klasse für Lieferungen.
+ * Klasse f&uuml;r Lieferungen.
  * @author sebastian
  *
  */
