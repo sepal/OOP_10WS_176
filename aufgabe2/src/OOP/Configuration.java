@@ -5,13 +5,17 @@ import java.util.HashMap;
 import OOP.ProductFactory.Product;
 
 /**
- * Represents a Konfiguration consisting of products (and their quantity).
+ * Represents a Configuration consisting of products (and their quantity).
  *
  */
-public class Configuration {
+public class Configuration extends StorageManager {	
+	private static final long serialVersionUID = 5362452001942924695L;
+	
 	private HashMap<Product, Integer> products;
 	
 	public Configuration() {
+		super();
+		
 		products = new HashMap<Product, Integer>();
 	}
 	

@@ -6,9 +6,9 @@ import java.util.HashSet;
 import OOP.OrderManagment.Order;
 import OOP.ProductFactory.Product;
 
-
 public class Warehouse extends Location {
-
+	private static final long serialVersionUID = 5143415940118316820L;
+	
 	private HashMap<Product, Integer> stock;
 	private HashSet<Order> orders;
 	
@@ -16,6 +16,7 @@ public class Warehouse extends Location {
 	
 	public Warehouse(String name) {
 		super(name);
+		
 		stock = new HashMap<Product, Integer>();
 		orders = new HashSet<Order>();
 	}
