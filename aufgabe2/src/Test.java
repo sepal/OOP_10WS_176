@@ -413,6 +413,23 @@ public class Test {
 		}
 		/******************** Configuration Test end ********************/
 
+		/********** Prices Test start ***************/
+		System.out
+				.println("\n*** Testing Baseprices of Products and ProductGroups ***");
+		System.out.println("Name: " + cpus.getName() + ", Baseprice: "
+				+ cpus.getBaseprice());
+		System.out.println("Name: " + p.getName() + ", Baseprice: "
+				+ p.getBaseprice());
+
+		System.out.println("\n*** Testing Marketprices of ProductGroups ***");
+		System.out.println("Name: " + mainboards.getName() + ", Marketprice: "
+				+ mainboards.getMarketprice());
+
+		System.out.println("\n*** Testing Cheapest of ProductGroups ***");
+		System.out.println("Name: " + mainboards.getName() + ", Cheaptest: "
+				+ mainboards.getCheapest());
+		/********** Prices Test end ***************/
+
 		/******************** Order Test start ********************/
 		OrderManagment om = OrderManagment.getInstance();
 		Product cpu1 = pf.getProductByName("CPU 1");
