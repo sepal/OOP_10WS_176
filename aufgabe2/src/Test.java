@@ -407,6 +407,25 @@ public class Test {
 		}
 		/******************** Deletion Test end ********************/
 		
+		/******************** Easy Customer Interface Test start ********************/
+		System.out.println("\n*** Testing Easy Customer Interface ***");
+		System.out.println("Querying available products:");
+		for (String s : CustomerInterface.getAvailableProducts()) {
+			System.out.println(s);
+		}
+		
+		System.out.println("\nQuerying available Warehouses:");
+		for (Warehouse w : CustomerInterface.getWarehouses()) {
+			System.out.println(w.getName());
+		}
+		
+		System.out.println("\nQuerying price of product CPU2 6:");
+		System.out.println("CPU2 price: "+CustomerInterface.getPriceOfProduct("CPU2 6"));
+		
+		System.out.println("\nQuerying stock of product CPU2 6 in warehouse vitech:");
+		System.out.println("CPU2 stock: "+CustomerInterface.getProductStock("CPU2 6", vitech));
+		/******************** Easy Customer Interface Test end ********************/
+		
 		/******************** Persistence test start ********************/
 		System.out.println("\n *** Testing data persistence ***");
 		if (!PersistenceManager.storeData()) {
