@@ -3,7 +3,6 @@ package OOP;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import OOP.OrderManagment.Order;
 import OOP.ProductFactory.Product;
 
 public class Warehouse extends Location {
@@ -31,7 +30,7 @@ public class Warehouse extends Location {
 				return p;
 			} 
 		}
-		throw new ProductException("Product " + namep + "does not exist in warehouse" +name+"!");
+		throw new ProductException("Product " + namep + " does not exist in warehouse " +name+"!");
 	}
 	
 	/**
@@ -97,7 +96,7 @@ public class Warehouse extends Location {
 				throw new ProductException("The are only "+aktuell+" items of "+p.getName()+" in stock, cannot take away "+anzahl+"!");
 			}
 		} else {
-			throw new ProductException("Product " + p.getName() + "does not exist in warehouse" +name+"!");
+			throw new ProductException("Product " + p.getName() + " does not exist in warehouse " +name+"!");
 		}
 	}
 }

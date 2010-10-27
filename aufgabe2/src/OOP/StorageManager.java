@@ -132,7 +132,7 @@ public class StorageManager implements Serializable {
 	 * 
 	 * @return LinkedList with objects or null.
 	 */
-	public static LinkedList<StorageManager> getCreatedObjectsOfType(Class<? extends StorageManager> cl) {
+	public static LinkedList<? extends StorageManager> getCreatedObjectsOfType(Class<? extends StorageManager> cl) {
 		return storage.get(cl);
 	}
 	

@@ -20,9 +20,9 @@ public class ProductFactory extends StorageManager {
 	private HashMap<String, Product> products;
 
 	/**
-	 * getInstance() method gives you access to the only existing ProductVerwaltung Object.
+	 * getInstance() method gives you access to the only existing ProductFactory Object.
 	 * 
-	 * @return instance of ProductVerwaltung
+	 * @return instance of ProductFactory
 	 */
 	public static ProductFactory getInstance() {
 		return INSTANCE;
@@ -99,7 +99,7 @@ public class ProductFactory extends StorageManager {
 		@Override
 		public int getStoragecosts(Warehouse w) {
 			//Formel: ((Preis/m^3)*Volumen d produkts)*zeit*bestand
-			int storageprice = 2; //2€/m^3
+			int storageprice = 2; //2ï¿½/m^3
 			int time = 10; //product stays exactly 10 days in our warehouse
 			
 			storagecosts = (int) ((storageprice * getVolume()) * time * w.getProductInStock(this));
@@ -114,7 +114,6 @@ public class ProductFactory extends StorageManager {
 			this.marketprice = marketprice;
 			this.volume = volume;
 			this.storagecosts = storagecosts;
-
 		}
 
 		/** 
@@ -144,6 +143,10 @@ public class ProductFactory extends StorageManager {
 		@Override
 		public Product getCheapest() {
 			return null;
+		}
+		
+		public String toString() {
+			return name + ": " + description;
 		}
 	}
 }

@@ -1,5 +1,8 @@
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
 
 import OOP.*;
 import OOP.ProductFactory.Product;
@@ -12,6 +15,26 @@ public class Test {
 	
 	public static void main(String args[]) {
 		System.out.println("*** Starting test of exercise 2 app - Lagerverwaltung 2 ***");
+		
+		Test t = new Test();
+		t.testPhase1();
+		
+		System.gc();
+		
+		t.testPhase2();
+				
+		System.out.println("\n*** All tests done ***");
+	}
+	
+	public Test() {
+		// do nothing
+	}
+	
+	/**
+	 * Putting the test in a method, so we can easily and quickly drop all the
+	 * object references and non-static data
+	 */
+	public void testPhase1() {
 		
 		ProductFactory pf = ProductFactory.getInstance();
 		Warehouse vitech = new Warehouse("Vitech");
@@ -326,7 +349,7 @@ public class Test {
 		OrderManagment om = OrderManagment.getInstance();
 		Product cpu1 = pf.getProductByName("CPU 1");
 		
-		System.out.println("*** Testing Order - Shipment ***");
+		System.out.println("\n*** Testing Order - Shipment ***");
 		Order shipment = om.createOrder(new Location("Intel"), mediamarkt, new GregorianCalendar(2010, Calendar.OCTOBER, 31), new GregorianCalendar(2010, Calendar.NOVEMBER, 2));
 		shipment.incrementQuantity(cpu1, 2);
 		System.out.println("Shipping " + shipment.getQuantatiyForWarehouse(cpu1, mediamarkt) + " CPU1 to " + shipment.getDestination().getName());
@@ -334,7 +357,7 @@ public class Test {
 		System.out.println("Stock for CPU1 of mediamarkt after the product is delivered:  " + mediamarkt.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 3)));
 		
 
-		System.out.println("*** Testing Order - ClientOrder ***");
+		System.out.println("\n*** Testing Order - ClientOrder ***");
 		Order order = om.createOrder(vitech, new Location("Kunde XY"), new GregorianCalendar(2010, Calendar.OCTOBER, 31), new GregorianCalendar(2010, Calendar.NOVEMBER, 2));
 		order.incrementQuantity(cpu1, 1);
 		System.out.println("Delivering " + order.getQuantatiyForWarehouse(cpu1, vitech) + " CPU1 from " + order.getSource().getName());
@@ -342,7 +365,7 @@ public class Test {
 		System.out.println("Stock for CPU1 of vitech after the product is shipped:  " + vitech.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 5)));
 		
 
-		System.out.println("*** Testing Order - Warehouse transfer and deleting order ***");
+		System.out.println("\n*** Testing Order - Warehouse transfer and deleting order ***");
 		om.removeOrder(order);
 		Order shift = om.createOrder(vitech, saturn, new GregorianCalendar(2010, Calendar.NOVEMBER, 5), new GregorianCalendar(2010, Calendar.NOVEMBER, 8));
 		shift.incrementQuantity(cpu1, 3);
@@ -353,7 +376,57 @@ public class Test {
 		System.out.println("Saturn stock for CPU1 after 8th of november: " + saturn.getProductInStock(cpu1, new GregorianCalendar(2010, Calendar.NOVEMBER, 9)));
 		
 		/******************** Order Test end ********************/
-
-		System.out.println("*** All tests done ***");
+		
+		/******************** Persistence test start ********************/
+		System.out.println("\n *** Testing data persistence ***");
+		if (!StorageManager.storeData()) {
+			System.out.println("ERROR: Could not save data to disk!");
+		} else {
+			System.out.println("Successfully stored data to \"./storage.data\"");
+		}
+		System.out.println("Deleting all data in memory");
+		/* Most of the data is actually still there, because objects are only deleted if 
+		no references are pointing to them anymore. Since the StorageManager stores references
+		to (almost) all objects, thats not going to happen here. But once the storage manager
+		loads the data from the disk, he drops all the references and creates new objects
+		and we get new references to those.*/
+		/******************** Persistence test end ********************/
+	}
+	
+	public void testPhase2() {
+		/******************** Persistence test part 2 start ********************/
+		System.out.println("(Re)loading data from filesystem...");
+		if (!StorageManager.loadDataDiscardCurrent()) {
+			System.out.println("ERROR: Could not load data from disk!");
+			System.exit(1); // shit
+		} else {
+			System.out.println("Successfully loaded data.");
+		}
+		System.out.println("Showing off some data: ");
+		ProductFactory pf = StorageManager.getProductFactory();
+		Product cpu0 = pf.getProductByName("CPU 0");
+		System.out.println("\n Product: " + cpu0);
+		Product mb0 = pf.getProductByName("Mainboard2 0");
+		System.out.println("\n Product: " + mb0);
+		
+		LinkedList<Warehouse> llw = null;
+		try {
+			llw = (LinkedList<Warehouse>) StorageManager.getCreatedObjectsOfType(Warehouse.class);
+		} catch (ClassCastException cce) {
+			System.err.println("ERROR: ClassCastException " +cce.getMessage()+"\n"+cce.getStackTrace());
+			System.exit(1);
+		}
+		
+		Warehouse w0 = null;
+		if (llw != null && !llw.isEmpty()) {
+			 w0 = llw.get(0);
+		}
+		System.out.println("\n Listing stock of Warehouse " +w0.getName());
+		HashMap<Product, Integer> stock = w0.getStock();
+		Set<Product> keys = stock.keySet();
+		for (Product key : keys) {
+			System.out.println(key + " " + stock.get(key) + " Stück");
+		}
+		/******************** Persistence test part 2 end ********************/
 	}
 }
