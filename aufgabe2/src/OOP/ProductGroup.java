@@ -11,9 +11,10 @@ import OOP.ProductFactory.Product;
  * Represents a group of products, containing either products or further group of products.
  *
  */
-public class ProductGroup extends StorageManager implements ProductGroupMember  {
+public class ProductGroup extends StorageManager implements ProductGroupMember, Deletable  {
 	private static final long serialVersionUID = -2774890152346175212L;
 	
+	private boolean hasBeenDeleted = false;
 	private String name;
 	private HashSet<ProductGroupMember> members;
 	
@@ -131,5 +132,31 @@ public class ProductGroup extends StorageManager implements ProductGroupMember  
 			// toArray just uses tmp to specify the type, a new array will be allocated by the function
 			return ret.toArray(tmp);
 		}
+	}
+
+	@Override
+	public void deleteLocalReferencesTo(Deletable ref) {
+		if (ref instanceof ProductGroupMember) {
+			members.remove(ref);
+		}
+	}
+
+	@Override
+	public void deleteAllReferencesTo(Deletable ref) {
+		if (ref instanceof ProductGroupMember) {
+			deleteLocalReferencesTo(ref);
+			ConsistencyManager.deleteAllReferencesTo(ref);
+		}
+	}
+	
+	public void delete() {
+		deleteAllReferencesTo(this);
+		members = null;
+		hasBeenDeleted = true;
+	}
+
+	@Override
+	public boolean hasBeenDeleted() {
+		return hasBeenDeleted;
 	}
 }

@@ -377,9 +377,39 @@ public class Test {
 		
 		/******************** Order Test end ********************/
 		
+		/******************** Deletion Test start ********************/
+		System.out.println("\n*** Testing delete functions ***");
+		System.out.println("\n Listing stock of warehouse Saturn " +saturn.getName());
+		saturn.incrementStock(monitor5, 10);
+		saturn.incrementStock(cpu1, 10);
+		HashMap<Product, Integer> stocksat = saturn.getStock();
+		Set<Product> keys = stocksat.keySet();
+		for (Product key : keys) {
+			System.out.println(key + " " + stocksat.get(key) + " Stück");
+		}
+		System.out.println("Deleting cpu1");
+		cpu1.delete();
+		stocksat = saturn.getStock();
+		keys = stocksat.keySet();
+		for (Product key : keys) {
+			System.out.println(key + " " + stocksat.get(key) + " Stück");
+		}
+		
+		System.out.println("\nContent of ProductGroup \"Video cards\":");
+	
+		for (String s : gracas.listStock(vitech)) {
+			System.out.println(s);
+		}
+		System.out.println("\nDeleting ProductGroup \"nsidia\":");
+		nsidia.delete();
+		for (String s : gracas.listStock(vitech)) {
+			System.out.println(s);
+		}
+		/******************** Deletion Test end ********************/
+		
 		/******************** Persistence test start ********************/
 		System.out.println("\n *** Testing data persistence ***");
-		if (!StorageManager.storeData()) {
+		if (!PersistenceManager.storeData()) {
 			System.out.println("ERROR: Could not save data to disk!");
 		} else {
 			System.out.println("Successfully stored data to \"./storage.data\"");
@@ -393,10 +423,11 @@ public class Test {
 		/******************** Persistence test end ********************/
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void testPhase2() {
 		/******************** Persistence test part 2 start ********************/
 		System.out.println("(Re)loading data from filesystem...");
-		if (!StorageManager.loadDataDiscardCurrent()) {
+		if (!PersistenceManager.loadDataDiscardCurrent()) {
 			System.out.println("ERROR: Could not load data from disk!");
 			System.exit(1); // shit
 		} else {
@@ -426,6 +457,24 @@ public class Test {
 		Set<Product> keys = stock.keySet();
 		for (Product key : keys) {
 			System.out.println(key + " " + stock.get(key) + " Stück");
+		}
+		
+		
+		LinkedList<Shipment> llo = null;
+		try {
+			llo = (LinkedList<Shipment>) StorageManager.getCreatedObjectsOfType(Shipment.class);
+		} catch (ClassCastException cce) {
+			System.err.println("ERROR: ClassCastException " +cce.getMessage()+"\n"+cce.getStackTrace());
+			System.exit(1);
+		}
+
+		Shipment o0 = null;
+		if (llo != null && !llo.isEmpty()) {
+			o0 = llo.get(0);
+			System.out.println("\nShowing order: \nSource: "+o0.getSource().getName()+" Destination: " +
+					o0.getDestination().getName());
+		} else {
+			System.out.println("Empty");
 		}
 		/******************** Persistence test part 2 end ********************/
 	}

@@ -8,9 +8,10 @@ import OOP.ProductFactory.Product;
  * Represents a Configuration consisting of products (and their quantity).
  *
  */
-public class Configuration extends StorageManager {	
+public class Configuration extends StorageManager implements Deletable {	
 	private static final long serialVersionUID = 5362452001942924695L;
 	
+	private boolean hasBeenDeleted = false;
 	private HashMap<Product, Integer> products;
 	
 	public Configuration() {
@@ -66,5 +67,32 @@ public class Configuration extends StorageManager {
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public boolean hasBeenDeleted() {
+		return hasBeenDeleted;
+	}
+
+	@Override
+	public void delete() {
+		deleteAllReferencesTo(this);
+		products = null;
+		hasBeenDeleted = true;
+	}
+
+	@Override
+	public void deleteLocalReferencesTo(Deletable ref) {
+		if (ref instanceof Product) {
+			products.remove(ref);
+		}
+	}
+
+	@Override
+	public void deleteAllReferencesTo(Deletable ref) {
+		if (ref instanceof Product || ref instanceof Configuration) {
+			deleteLocalReferencesTo(ref);
+			ConsistencyManager.deleteAllReferencesTo(ref);
+		}
 	}
 }

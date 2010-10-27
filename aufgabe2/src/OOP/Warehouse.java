@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import OOP.ProductFactory.Product;
 
-public class Warehouse extends Location {
+public class Warehouse extends Location implements Deletable {
 	private static final long serialVersionUID = 5143415940118316820L;
 	
 	private HashMap<Product, Integer> stock;
 	private HashSet<Order> orders;
-	
+	private boolean hasBeenDeleted;
 	private int aktuell;
 	
 	public Warehouse(String name) {
@@ -98,5 +98,35 @@ public class Warehouse extends Location {
 		} else {
 			throw new ProductException("Product " + p.getName() + " does not exist in warehouse " +name+"!");
 		}
+	}
+
+	@Override
+	public void deleteLocalReferencesTo(Deletable ref) {
+		if (ref instanceof Product) {
+			stock.remove((Product) ref);
+		} else if (ref instanceof Order) {
+			orders.remove((Order) ref);
+		}
+	}
+
+	@Override
+	public void deleteAllReferencesTo(Deletable ref) {
+		if ((ref instanceof Product) || (ref instanceof Order)) {
+			deleteLocalReferencesTo(ref);
+			ConsistencyManager.deleteAllReferencesTo(ref);
+		}
+	}
+	
+	@Override
+	public void delete() {
+		deleteAllReferencesTo(this);
+		stock = null;
+		orders = null;
+		hasBeenDeleted = true;
+	}
+
+	@Override
+	public boolean hasBeenDeleted() {
+		return hasBeenDeleted;
 	}
 }

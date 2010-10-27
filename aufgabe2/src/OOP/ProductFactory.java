@@ -34,6 +34,12 @@ public class ProductFactory extends StorageManager {
 		products = new HashMap<String, Product>();
 	}
 	
+	private void deleteProduct(Product ref) {
+		if (products.get(ref.getName()) != null) {
+			products.remove(ref.getName());
+		}
+	}
+	
 	/**
 	 * Creates a new Product with the name and description given through the parameters.
 	 * If a Product by the same name already exists, an exception is thrown.
@@ -65,9 +71,10 @@ public class ProductFactory extends StorageManager {
 	/**
 	 * This class represents a Product
 	 */
-	public class Product implements ProductGroupMember, Serializable {
+	public class Product implements ProductGroupMember, Serializable, Deletable{
 		private static final long serialVersionUID = -6740504451127235776L;
 		
+		private boolean hasBeenDeleted;
 		private String name, description;
 		private int baseprice = 0; //price buy-in
 		private int marketprice = 0; //price for sale
@@ -147,6 +154,28 @@ public class ProductFactory extends StorageManager {
 		
 		public String toString() {
 			return name + ": " + description;
+		}
+
+		@Override
+		public boolean hasBeenDeleted() {
+			return hasBeenDeleted;
+		}
+
+		@Override
+		public void delete() {
+			deleteProduct(this);
+			ConsistencyManager.deleteAllReferencesTo(this);
+			hasBeenDeleted = true;
+		}
+
+		@Override
+		public void deleteLocalReferencesTo(Deletable ref) {
+			// Nothing to do
+		}
+
+		@Override
+		public void deleteAllReferencesTo(Deletable ref) {
+			if (ref == this) delete();
 		}
 	}
 }

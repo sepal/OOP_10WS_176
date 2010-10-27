@@ -10,7 +10,7 @@ import java.util.HashMap;
  * @author sebastian
  *
  */
-public class OrderManagment extends StorageManager {
+public class OrderManagment extends StorageManager implements Deletable {
 	private static final long serialVersionUID = -8159741958749782538L;
 	
 	private static final OrderManagment INSTANCE = new OrderManagment();
@@ -100,6 +100,31 @@ public class OrderManagment extends StorageManager {
 	public void removeOrder(Order o) {
 		o.delete();
 		removeOrder(o.getId());
+	}
+
+	@Override
+	public boolean hasBeenDeleted() {
+		return false;
+	}
+
+	@Override
+	public void delete() {
+		// Nothing to do
+	}
+
+	@Override
+	public void deleteLocalReferencesTo(Deletable ref) {
+		if (ref instanceof Order) {
+			orders.remove(((Order) ref).getId());
+		}
+	}
+
+	@Override
+	public void deleteAllReferencesTo(Deletable ref) {
+		if (ref instanceof Order) {
+			deleteLocalReferencesTo(ref);
+			ConsistencyManager.deleteAllReferencesTo(ref);
+		}
 	}
 
 }
