@@ -5,12 +5,16 @@ import java.util.HashMap;
 import OOP.ProductFactory.Product;
 
 
-public class Warehouse {
+public class Warehouse extends StorageManager {
+	private static final long serialVersionUID = 5143415940118316820L;
+	
 	private HashMap<Product, Integer> stock;
 	private int aktuell;
 	private String name;
 	
 	public Warehouse(String name) {
+		super();
+		
 		stock = new HashMap<Product, Integer>();
 		this.name = name;
 	}

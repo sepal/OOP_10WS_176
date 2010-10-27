@@ -1,5 +1,6 @@
 package OOP;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -11,7 +12,9 @@ import java.util.HashMap;
  * @version 19-10-2010
  *
  */
-public class ProductFactory {
+public class ProductFactory extends StorageManager {
+	private static final long serialVersionUID = -2130363835418960019L;
+
 	private static final ProductFactory INSTANCE = new ProductFactory();
 	
 	private HashMap<String, Product> products;
@@ -26,6 +29,8 @@ public class ProductFactory {
 	}
 	
 	private ProductFactory() {
+		super();
+		
 		products = new HashMap<String, Product>();
 	}
 	
@@ -60,7 +65,9 @@ public class ProductFactory {
 	/**
 	 * This class represents a Product
 	 */
-	public class Product implements ProductGroupMember {
+	public class Product implements ProductGroupMember, Serializable {
+		private static final long serialVersionUID = -6740504451127235776L;
+		
 		private String name, description;
 		
 		public String getName() {

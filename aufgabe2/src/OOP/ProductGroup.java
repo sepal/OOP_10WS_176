@@ -8,11 +8,15 @@ import java.util.HashSet;
  * Represents a group of products, containing either products or further group of products.
  *
  */
-public class ProductGroup implements ProductGroupMember {
+public class ProductGroup extends StorageManager implements ProductGroupMember  {
+	private static final long serialVersionUID = -2774890152346175212L;
+	
 	private String name;
 	private HashSet<ProductGroupMember> members;
 	
 	public ProductGroup(String name) {
+		super();
+		
 		this.name = name;
 		members = new HashSet<ProductGroupMember>();
 	}
