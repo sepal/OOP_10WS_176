@@ -1,16 +1,21 @@
 package OOP;
 
 /**
- * &uuml;berklasse f&uuml;r Warehouse, damit in Order f&uuml;r from und to auch andere Klassen 
+ * Überklasse für Warehouse, damit in Order für from und to auch andere Klassen 
  * wie Kunde oder Lieferant(die zur zeit nicht existieren) benutzt werden
- * k�nnen.
+ * können.
+ * 
  * @author sebastian
  *
  */
-public class Location {
+public class Location extends StorageManager {
+	private static final long serialVersionUID = 7158711736952755227L;
+	
 	protected String name;
 	
 	public Location(String name) {
+		super();
+		
 		this.setName(name);
 	}
 
