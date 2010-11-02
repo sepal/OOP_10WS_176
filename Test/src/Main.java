@@ -1,7 +1,3 @@
-import java.io.Serializable;
-import java.util.Collection;
-
-import java.util.Iterator;
 
 public class Main extends Foobar {
 	

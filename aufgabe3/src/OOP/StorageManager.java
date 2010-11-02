@@ -4,25 +4,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-/**
- * This class is the base class for every class, whichs objects should
- * be managed by this application and therefore be able to be stored on disk
- * and to support consistent deletion operations.
- * 
- * @author ben
- *
- */
 public class StorageManager implements Serializable{
 	private static final long serialVersionUID = 2533896750018151703L;
 	
-	// It stores for every Class (object) a LinkedList with object-references.
 	protected static HashMap<Class<? extends StorageManager>, LinkedList<StorageManager>> storage =
 		new HashMap<Class<? extends StorageManager>,  LinkedList<StorageManager>>();
 
 	/**
-	 * This constructor will be called by all subclasses and stores an object-reference
-	 * of the new object in a LinkedList. These lists are identified by the class of
-	 * the objects in the list.
+	 * (Invariant?) This constructor has to be called by all objects of subclasses,
+	 * so they can be managed.
+	 * (post-condition) StorageManager has to store class (-object) of caller as key in HashMap 
+	 * if no object of said class has been instantiated. Anyway it stores an object reference
+	 * in the list identified by key (the class).
 	 */
 	protected StorageManager() {
 		LinkedList<StorageManager> ll;
@@ -37,13 +30,11 @@ public class StorageManager implements Serializable{
 			storage.put(cl, ll);
 		}
 	}
-	
+
 	/**
-	 * Returns the first created and stored ProductFactory instance. Since ProductFactory
-	 * is a singleton, there should be only one. If none was created or stored yet, it
-	 * will return null.
-	 * 
-	 * @return ProductFactory reference or null. See above.
+	 * (Precondition) A ProductFactory has been created and stored, or this method
+	 * will return null. Also there should only be one ProductFactory. This method will only
+	 * deliver the first in its list. There is no assurance which ProductFactory that is.
 	 */
 	public static ProductFactory getProductFactory() {
 		LinkedList<StorageManager> ll;
@@ -63,12 +54,11 @@ public class StorageManager implements Serializable{
 	}
 	
 	/**
-	 * Returns a LinkedList containing all the objects created and stored of given
-	 * class. They will be of type StorageManager and have to be casted to their
-	 * specific sub-type if necessary.
-	 * If no objects of given class exist, null will be returned
+	 * (precondition) Returns a LinkedList of all objects created and stored of given type 'cl'.
+	 * 'cl' has to be a subclass of StorageManager. If no list of given type exists, null will be returned.
+	 *  The returned List contains objects of type StorageManager and have to bee casted to the given type
+	 *  by the client.
 	 * 
-	 * @return LinkedList with objects or null.
 	 */
 	public static LinkedList<? extends StorageManager> getCreatedObjectsOfType(Class<? extends StorageManager> cl) {
 		return storage.get(cl);

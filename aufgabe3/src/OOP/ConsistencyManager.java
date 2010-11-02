@@ -3,19 +3,16 @@ package OOP;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * This class, which works closely together with StorageManager, is
- * responsible for the removal of every reference to an object if its 
- * deletion is requested. It uses StorageManagers object list for this
- * task and requests every object to delete any local references of the
- * removed object if existing.
- * 
- * @author ben
- *
- */
 public class ConsistencyManager extends StorageManager {
 	private static final long serialVersionUID = -6041808545355841203L;
 
+	/*
+	 * (postcondition) The method calls all stored objects to delete all references to ref.
+	 * 
+	 * BUG:
+	 * Realized there is a bug. The object is never actually deleted from the
+	 * StorageManager itself. Fixed it.
+	 */
 	public static void deleteAllReferencesTo(Deletable ref) {
 		Set<Class<? extends StorageManager>> keys = storage.keySet();
 		@SuppressWarnings("rawtypes")
@@ -36,7 +33,9 @@ public class ConsistencyManager extends StorageManager {
 			if (isDeletable) {
 				for (Iterator<StorageManager> it = storage.get(key).iterator(); it.hasNext();) {
 					tmp = it.next();
-					if (tmp instanceof Deletable) {
+					if (tmp == ref) {
+						it.remove();
+					} else if (tmp instanceof Deletable) {
 						del = (Deletable) tmp;
 						del.deleteLocalReferencesTo(ref);
 					}
