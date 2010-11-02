@@ -3,15 +3,6 @@ package OOP;
 import java.io.Serializable;
 import java.util.HashMap;
 
-/**
- * This singleton class manages the product range and makes sure, that you can
- * not create duplicate products etc. It (sort of) works like a factory, including
- * a member class with a private constructor, so the only way to create a product
- * is through the product manager.
- * 
- * @version 19-10-2010
- *
- */
 public class ProductFactory extends StorageManager {
 	private static final long serialVersionUID = -2130363835418960019L;
 
@@ -20,9 +11,8 @@ public class ProductFactory extends StorageManager {
 	private HashMap<String, Product> products;
 
 	/**
-	 * getInstance() method gives you access to the only existing ProductFactory Object.
-	 * 
-	 * @return instance of ProductFactory
+	 * (precondition) There has to be a valid ProductFactory instance in INSTANCE
+	 * (since its static, there always should be one, unless its deleted)
 	 */
 	public static ProductFactory getInstance() {
 		return INSTANCE;
@@ -34,6 +24,10 @@ public class ProductFactory extends StorageManager {
 		products = new HashMap<String, Product>();
 	}
 	
+	/**
+	 * (post-condition) Caller has to call the Products deleteAllReferences method
+	 * to ensure that all references to this product are erased aswell.
+	 */
 	private void deleteProduct(Product ref) {
 		if (products.get(ref.getName()) != null) {
 			products.remove(ref.getName());
@@ -41,12 +35,7 @@ public class ProductFactory extends StorageManager {
 	}
 	
 	/**
-	 * Creates a new Product with the name and description given through the parameters.
-	 * If a Product by the same name already exists, an exception is thrown.
-	 * 
-	 * @param name The name of the new Product. Has to be unique.
-	 * @param description Short description of the Product.
-	 * @return Reference to the new Product.
+	 * (precondition) Name of new product has to be unique (not yet used). Int values shouldn't be negative.
 	 */
 	public Product createProduct(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) throws ProductException {
 		Product re = null;
@@ -62,15 +51,12 @@ public class ProductFactory extends StorageManager {
 	}
 	
 	/**
-	 *  Returns a reference to the Product identified by name, or null if no such Product exists.
+	 *  (precondition) Product with this name has to exist, or null will be returned.
 	*/
 	public Product getProductByName(String name) {
 		return products.get(name);
 	}
 	
-	/**
-	 * This class represents a Product
-	 */
 	public class Product implements ProductGroupMember, Serializable, Deletable{
 		private static final long serialVersionUID = -6740504451127235776L;
 		
@@ -81,10 +67,11 @@ public class ProductFactory extends StorageManager {
 		private double volume =0;
 		private int storagecosts = 0; //lagerhaltungskosten
 		
+		// (precondition) Name has been set before call.
 		public String getName() {
 			return name;
 		}
-
+		// (precondition) Desc. has been set before call.
 		public String getDescription() {
 			return description;
 		}
@@ -126,6 +113,9 @@ public class ProductFactory extends StorageManager {
 			return storagecosts;
 		}
 		
+		/**
+		 * (precondition) Name has to be unique. Prices, int values should not be negative
+		 */
 		private Product(String name, String description, int baseprice, int marketprice, double volume, int storagecosts) {
 			this.name = name;
 			this.description = description;
@@ -135,13 +125,9 @@ public class ProductFactory extends StorageManager {
 			this.storagecosts = storagecosts;
 		}
 
-		/** 
-		 * Implementation of the listStock method. The Product checks the given storage/Lager
-		 * for how much of this Product is in stock and returns a String array containing a
-		 * single string with its name and number of items in stock.
-		 * 
-		 * @return String array containing one string listing the name and number of items in stock. 
-		 * This method returns an array, so it compatible to the listStock method in ProductGruppe, which returns a list of results gathered by this very method.
+		/**
+		 * (invariant) This method will always return a string array as expected by listStock in ProductGroup.
+		 * If this product does not exist in warehouse, it will just return quantity 0.
 		 */
 		public String[] listStock(Warehouse warehouse) {
 			Integer cnt = warehouse.getProductInStock(this);

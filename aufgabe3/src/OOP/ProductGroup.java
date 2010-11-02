@@ -121,6 +121,10 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 	 *             If the new member already is member of the group or the group
 	 *             itself.
 	 */
+	/**
+	 * (precondition) New member newMember cannot be the ProductGroup you try to
+	 * add it to. Also newMember cannot be already a member of the ProductGroup.
+	 */
 	public void addMember(ProductGroupMember newMember)
 			throws IllegalMemberException {
 		if (newMember == this)
@@ -133,12 +137,20 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 
 		return;
 	}
-
+	
+	/*
+	 * GOOD:
+	 * Uses dynamic binding to get a list of the stock of members.
+	 */
+	
 	/**
-	 * Implementation of the listStock method for ProduktGruppen. It iterates
-	 * over the members of this group, calling their listStock methods and
-	 * storing the resulting lists of Strings in an ArrayList to return the
-	 * final list as a string array.
+	 * (invariant) This method will always return a String array with at
+	 * least one element, that being the name of the Group.
+	 * 
+	 * (precondition) Implementations of ProductGroupMember that are members of
+	 * this Group and therefore get their listStock method called have to implement
+	 * it so, that it returns as the first element its name and further the names
+	 * (and quantities) of any existing members (one element per string).
 	 */
 	@Override
 	public String[] listStock(Warehouse w) {

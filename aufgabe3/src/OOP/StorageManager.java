@@ -4,6 +4,17 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/*
+ * GOOD:
+ * This class creates a very low object-coupling and still makes it possible to manage every
+ * created object. It needs only a super() call to the StorageManagers constructor by the 
+ * sub-class to get managed and so it can also be serialized by PersistenceManager or used for
+ * referential integrity conserving deletion by ConsistencyManager.
+ * 
+ * There could be much more complex methods to manage and persistently store objects, that
+ * would need the interface of a class to be adapted. But this requires little to no change
+ * in the sub-class (little change for deletion, almost none for storage).
+ */
 public class StorageManager implements Serializable{
 	private static final long serialVersionUID = 2533896750018151703L;
 	

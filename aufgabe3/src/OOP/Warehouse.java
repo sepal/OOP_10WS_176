@@ -7,6 +7,14 @@ import java.util.HashSet;
 
 import OOP.ProductFactory.Product;
 
+/*
+ * GOOD:
+ * This class has a good class-coherence. It contains all methods to manage the stock
+ * figures efficiently. For example the methods for ordering could have been put into
+ * a OrderManager class (or similar). There would be a easy, centralized administration
+ * of orders, but the warehouses would have to call to the OrderManager to determine the
+ * stock of a product.
+ */
 public class Warehouse extends Location implements Deletable {
 	private static final long serialVersionUID = 5143415940118316820L;
 

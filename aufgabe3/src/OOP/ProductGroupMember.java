@@ -10,6 +10,10 @@ import OOP.ProductFactory.Product;
  *
  */
 public interface ProductGroupMember {
+	/*
+	 * (invariant) This method always returns a string array, with at least
+	 * one element. That element being the name of the Server-object.
+	 */
 	public String[] listStock(Warehouse warehouse);
 	public int getBaseprice();
 	public int getMarketprice();
