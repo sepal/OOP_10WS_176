@@ -21,7 +21,8 @@ public class Configuration extends StorageManager implements Deletable {
 	}
 	
 	/**
-	 * Adds a new product
+	 *(precondition) product must exist
+	 *(postcondition) amount of product increases by mentioned quantity
 	 */
 	public void addProduct(Product p, int quantity) {
 		if (products.containsKey(p)) {
@@ -33,7 +34,8 @@ public class Configuration extends StorageManager implements Deletable {
 	}
 	
 	/**
-	 * Decreases the stock of the products in the configuration in the
+	 * (precondition) warehouse and product must exist
+	 * (postcondition) decreases the stock of the products in the configuration in the
 	 * selected warehouse
 	 */
 	public void removeFromStock(Warehouse w) {
@@ -43,11 +45,9 @@ public class Configuration extends StorageManager implements Deletable {
 	}
 	
 	/**
-	 * Returns the number of times this configuration could be assembled
+	 * (precondition) warehouse must exist
+	 * (postcondition) returns the number of times this configuration could be assembled
 	 * considering the amount of available products in the warehouse
-	 * 
-	 * @param w Warehouse from which the products should be taken
-	 * @return The number of configurations that could be built
 	 */
 	public int getConfigurationStock(Warehouse w) {
 		int ret = Integer.MAX_VALUE, warecnt=0, pneed=0;
@@ -56,11 +56,11 @@ public class Configuration extends StorageManager implements Deletable {
 			warecnt = w.getProductInStock(p);
 			pneed = products.get(p);
 			if (warecnt < pneed) {
-				// If one item is not in stock, we can build 0 configurations
-				return 0;
+				return 0; // NOTE: If one item is not in stock, we can build 0 configurations
+
 				
-			/* The item (times amount needed) that is in stock the least, 
-			   determines how often you can build the configuration */
+			// NOTE: The item (times amount needed) that is in stock the least,
+			// determines how often you can build the configuration
 			} else if ((warecnt / pneed) < ret) {
 				ret = warecnt / pneed;
 			}
