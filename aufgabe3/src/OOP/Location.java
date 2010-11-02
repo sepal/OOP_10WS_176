@@ -1,9 +1,7 @@
 package OOP;
 
 /**
- * Überklasse für Warehouse, damit in Order für from und to auch andere Klassen 
- * wie Kunde oder Lieferant(die zur zeit nicht existieren) benutzt werden
- * können.
+ * Base class for Locations like warehouses or client addresses.
  * 
  * @author sebastian
  *

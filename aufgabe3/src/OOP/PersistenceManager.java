@@ -8,22 +8,27 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-/**
- * This class is responsible for storing the application data on disk and
- * restoring it again. It uses the object storage of StorageManager to
- * get references to every object for serialization.
- * 
- * @author ben
- *
- */
 public class PersistenceManager extends StorageManager {
 	private static final long serialVersionUID = 7035068205475226503L;
 
 	/**
-	 * Stores the HashMap storage which contains references to all created
-	 * Objects in the file "storage.data"
+	 * (precondition) This method fails if program has insufficient rights
+	 * to write in current directory, directory has not enough space left or any
+	 * other reason file cannot be written. 
+	 * The file "storage.data" will be overwritten if existent and has to be backed up
+	 * by the client if necessary.
 	 * 
-	 * @return Returns true if stored successfully, false if an exception occurred.
+	 * ERROR:
+	 * Nobody actually checks if the file can be written and if not, the client cannot
+	 * find out why. Also, the client can not specify a different location for the file.
+	 * Solution: 
+	 * Either the Server checks for said conditions and gives the client sufficient information
+	 * to deal with the problem, e.g., throwing exceptions.
+	 * Or the server expects the client to take care of this and gives him the opportunity to
+	 * specify a (safe) location to write to.
+	 * 
+	 * I would implement a mix of both. Changing the return type to void and adding exceptions,
+	 * as well as a parameter to specify a location (and check that location).
 	 */
 	public static boolean storeData() {
 		try {
@@ -47,12 +52,15 @@ public class PersistenceManager extends StorageManager {
 	}
 	
 	/**
-	 * Erases all created objects stored currently in the StorageManager and
-	 * loads the file "storage.data" to restore the data saved there. 
-	 * If this method returns "false" and the exception occurred before the actual
-	 * data was overwritten, the current data could be still intact.
+	 * (precondition) File storage.data has to exist and be valid or this method will return false.
+	 * Current content of object storage (pretty much all objects that have been created in this App)
+	 * will be deleted through this method and have to be saved by the client if necessary.
 	 * 
-	 * @return Returns true if it successfully loaded the old data, false if that failed.
+	 * ERROR:
+	 * Like the store method, this method should deliver more information to the client
+	 * and let him choose a location. Also, there is no check if the file exists, can be
+	 * read and actually contains what is expected. It just tries to read it and if it fails
+	 * at some point, stops.
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean loadDataDiscardCurrent() {

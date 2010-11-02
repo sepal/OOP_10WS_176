@@ -44,17 +44,17 @@ public class Warehouse extends Location implements Deletable {
 				+ " does not exist in warehouse " + name + "!");
 	}
 
+	
 	/**
-	 * (precondition) warehouse and product must exist
-	 * (postcondition) returns the product with the current time
+	 * (precondition) p should be not null.
 	 */
 	public int getProductInStock(Product p) {
 		return getProductInStock(p, new GregorianCalendar());
 	}
-
-	/**     
-	 * (precondition) warehouse, product and order must exist
-	 * (postcondition) returns the amount of the searched product available at a defined time
+	
+	/**
+	 * (precondition) p and d should no be null.
+	 * (post-condition) returns 0 if the product is not in stock.
 	 */
 	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);
