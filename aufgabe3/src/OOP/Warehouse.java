@@ -36,27 +36,18 @@ public class Warehouse extends Location implements Deletable {
 				+ " does not exist in warehouse " + name + "!");
 	}
 
+	
 	/**
-	 * Gibt den Lagerbestand mit der aktuellen zeit zur&uuml;ck.
-	 * 
-	 * @param p
-	 *            Produkt zu dem der Lagerbestand abgefragt werden soll.
-	 * @return Die anzahl an verf&uuml;gbaren Produkten
+	 * (precondition) p should be not null.
 	 */
 	public int getProductInStock(Product p) {
 		return getProductInStock(p, new GregorianCalendar());
 	}
 
+	
 	/**
-	 * Gibt die Anzahl von einem Produkt zu einem bestimmten Zeitpunkt
-	 * zur&uuml;ck.
-	 * 
-	 * @param p
-	 *            Produkt zu dem der Lagerbestand abgefragt werden soll.
-	 * @param d
-	 *            Datum f&uuml;r das der Lagerbestandabgefragt werden soll.
-	 * @return Die Anzahl an verf&uuml;gbaren Produkten zu dem angegeneben
-	 *         Zeitpunt.
+	 * (precondition) p and d should no be null.
+	 * (post-condition) returns 0 if the product is not in stock.
 	 */
 	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);
