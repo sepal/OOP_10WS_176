@@ -89,25 +89,37 @@ public class ProductFactory extends StorageManager {
 			return description;
 		}
 		
-		@Override
+		/**
+		 * (precondition) product and baseprice must exist
+		 * (postcondition) returns baseprice
+		 */
 		public int getBaseprice() {
 			return baseprice;
 		}
 
-		@Override
+		/**
+		 * (precondition) product and marketprice must exist
+		 * (postcondition) returns marketprice
+		 */
 		public int getMarketprice() {
 			return marketprice;
 		}
 		
+		/**
+		 * (precondition) product and volume must exist
+		 * (postcondition) returns volume
+		 */
 		public double getVolume() {
 			return volume;
 		}
 
-		@Override
+		/**
+		 * (precondition) product (with volume) and warehouse must exist
+		 * (postcondition) returns the calculated storagecosts of a product, formula: (price/m^3 * volume of product) * time * inventory
+		 */
 		public int getStoragecosts(Warehouse w) {
-			//Formel: ((Preis/m^3)*Volumen d produkts)*zeit*bestand
-			int storageprice = 2; //2�/m^3
-			int time = 10; //product stays exactly 10 days in our warehouse
+			int storageprice = 2; //NOTE: 2euro/m^3
+			int time = 10; //NOTE: product stays exactly 10 days in our warehouse
 			
 			storagecosts = (int) ((storageprice * getVolume()) * time * w.getProductInStock(this));
 			
@@ -147,7 +159,11 @@ public class ProductFactory extends StorageManager {
 			return retval;
 		}
 
-		@Override
+		/**
+		 * (precondition) product exists
+		 * (postcondition) returns cheapest product
+		 * NOTE: we can't find cheapest product, if there exists only one --> just necessary because of interface
+		 */
 		public Product getCheapest() {
 			return null;
 		}

@@ -22,10 +22,18 @@ public class Warehouse extends Location implements Deletable {
 		orders = new HashSet<Order>();
 	}
 
+	/**
+	 * (precondition) warehouse must exist
+	 * (postcondition) returns the whole stock, listing the products and their amount
+	 */
 	public HashMap<Product, Integer> getStock() {
 		return stock;
 	}
 
+	/**
+	 * (precondition) warehouse and product must exist
+	 * (postcondition) returns the product, searched by name, otherwise throws exception
+	 */
 	public Product getProduct(String namep) throws ProductException {
 		for (Product p : stock.keySet()) {
 			if (p.getName().equals(namep)) {
@@ -37,26 +45,16 @@ public class Warehouse extends Location implements Deletable {
 	}
 
 	/**
-	 * Gibt den Lagerbestand mit der aktuellen zeit zur&uuml;ck.
-	 * 
-	 * @param p
-	 *            Produkt zu dem der Lagerbestand abgefragt werden soll.
-	 * @return Die anzahl an verf&uuml;gbaren Produkten
+	 * (precondition) warehouse and product must exist
+	 * (postcondition) returns the product with the current time
 	 */
 	public int getProductInStock(Product p) {
 		return getProductInStock(p, new GregorianCalendar());
 	}
 
-	/**
-	 * Gibt die Anzahl von einem Produkt zu einem bestimmten Zeitpunkt
-	 * zur&uuml;ck.
-	 * 
-	 * @param p
-	 *            Produkt zu dem der Lagerbestand abgefragt werden soll.
-	 * @param d
-	 *            Datum f&uuml;r das der Lagerbestandabgefragt werden soll.
-	 * @return Die Anzahl an verf&uuml;gbaren Produkten zu dem angegeneben
-	 *         Zeitpunt.
+	/**     
+	 * (precondition) warehouse, product and order must exist
+	 * (postcondition) returns the amount of the searched product available at a defined time
 	 */
 	public int getProductInStock(Product p, Calendar d) {
 		Integer ret = stock.get(p);
@@ -70,23 +68,28 @@ public class Warehouse extends Location implements Deletable {
 	}
 
 	/**
-	 * Eine Bestellungsreferenz hinzuf&uuml;gen.
-	 * 
-	 * @param o
+	 *(precondition) warehouse must exist
+	 *(postcondition) adds the order to the warehouse orderset
+	 * ERROR: there should be exception handling for the case if the order already exists
 	 */
 	public void addOrder(Order o) {
 		orders.add(o);
 	}
 
 	/**
-	 * Eine Bestellungsreferenz l&ouml;schen.
-	 * 
-	 * @param o
+	 * (precondition) warehouse and order must exist
+	 * (postcondition) removes order from warehouse orderset
+	 * ERROR: there should be exception handling for the case if the order doesn't exist
 	 */
 	public void removeOrder(Order o) {
 		orders.remove(o);
 	}
 
+	/**
+	 * (precondition) warehouse must exist
+	 * (postcondition) increments the stock of the mentioned product by the specific amount
+	 * if already exists, otherwise adds the product with the amount to the stock
+	 */
 	public void incrementStock(Product p, int anzahl) {
 		if (stock.containsKey(p)) {
 			stock.put(p, getProductInStock(p) + anzahl);
@@ -96,6 +99,11 @@ public class Warehouse extends Location implements Deletable {
 		}
 	}
 
+	/**
+	 * (precondition) warehouse and product must exist
+	 * (postcondition) decrements stock of the mentioned product by the specific amount 
+	 * if exists and specific amount <= actual amount, otherwise throws exception
+	 */
 	public void decrementStock(Product p, int anzahl) throws ProductException {
 		if (stock.containsKey(p)) {
 			aktuell = getProductInStock(p);

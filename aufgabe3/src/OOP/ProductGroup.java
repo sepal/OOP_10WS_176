@@ -30,6 +30,10 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 		return name;
 	}
 
+	/**
+	 * (precondition) productgroupmember must exist
+	 * (postcondition) returns sum of all baseprices of the products in the productgroup and subproductgroups
+	 */
 	public int getBaseprice() {
 		int sumb = 0;
 
@@ -38,12 +42,16 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 				int bprice = pgm.getBaseprice();
 				sumb += bprice;
 			} else if (pgm instanceof ProductGroup) {
-				pgm.getBaseprice(); // rekursiv ok??
+				pgm.getBaseprice();
 			}
 		}
 		return sumb;
 	}
 
+	/**
+	 * (precondition) productgroupmember must exist
+	 * (postcondition) returns sum of all marketprices of the products in the productgroup and subproductgroups
+	 */
 	public int getMarketprice() {
 		int summ = 0;
 
@@ -58,6 +66,10 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 		return summ;
 	}
 
+	/**
+	 * (precondition) productgroupmember and warehouse must exist
+	 * (postcondition) returns sum of all storagecosts of the products in the productgroup and subproductgroups
+	 */
 	public int getStoragecosts(Warehouse w) {
 		int sumsc = 0;
 		for (ProductGroupMember pgm : members) {
@@ -71,6 +83,10 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 		return sumsc;
 	}
 
+	/**
+	 * (precondition) productgroupmember must exist
+	 * (postcondition) returns cheapest product of the productgroup and the subproductgroups
+	 */
 	public Product getCheapest() {
 		Product cheapest = null;
 
