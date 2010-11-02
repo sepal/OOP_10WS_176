@@ -7,7 +7,7 @@ import java.util.HashMap;
 import OOP.ProductFactory.Product;
 
 /**
- * Basisklasse f&uuml;r Bestellungen.
+ * Base class for Orders.
  * 
  * @author sebastian
  * 
@@ -15,7 +15,6 @@ import OOP.ProductFactory.Product;
 public abstract class Order extends StorageManager implements Deletable {
 	private static final long serialVersionUID = 1886352518316471835L;
 
-	// Subklassen brauchen die Id nicht zu kennen.
 	private long id;
 
 	protected boolean hasBeenDeleted = false;
@@ -28,8 +27,7 @@ public abstract class Order extends StorageManager implements Deletable {
 	protected boolean delivaryhDone;
 
 	/**
-	 * Bestellungen k&ouml;nnen nur &uuml;ber die Bestellverwaltung erstellt
-	 * werden.
+	 * (precondition) id should be unique, source, destination, dispatch and delivery should not be null. dispatch date < delivary date.
 	 */
 	protected Order(long id, Location source, Location destination,
 			Calendar dispatch, Calendar delivery) {
@@ -43,6 +41,10 @@ public abstract class Order extends StorageManager implements Deletable {
 		this.deliveryCalendar = delivery;
 	}
 
+	/**
+	 * (precondition) p must exist.
+	 * (invariant) stock of p => 0
+	 */
 	public void incrementQuantity(Product p, int quantity) {
 		if (stock.containsKey(p)) {
 			int q = stock.get(p);
@@ -52,7 +54,11 @@ public abstract class Order extends StorageManager implements Deletable {
 			stock.put(p, quantity);
 		}
 	}
-
+	
+	/**
+	 * (precondition) p must exist.
+	 * (invariant) stock of p => 0
+	 */
 	public void decrementQuantity(Product p, int quantity) {
 		if (stock.containsKey(p)) {
 			int q = stock.get(p);
@@ -68,14 +74,17 @@ public abstract class Order extends StorageManager implements Deletable {
 	public Location getDestination() {
 		return destination;
 	}
-
+	
+	/**
+	 * (precondition) Should only be called Ordermanagment and subclasses.
+	 */
 	protected long getId() {
 		return this.id;
 	}
-
+	
 	/**
-	 * Gibt den anzahl an abzuziehenden oder hinzuzuf&uuml;genden Produkten
-	 * zur&uuml;ck, je nachdem was f&uuml;r ein Ort &Uuml;bergeben wurde.
+	 * (precondition) P and l must not be null.
+	 * (post-condition) returns 0 if product is not in order.
 	 */
 	public int getQuantatiyForWarehouse(Product p, Location l) {
 		if (stock.containsKey(p)) {
@@ -88,9 +97,10 @@ public abstract class Order extends StorageManager implements Deletable {
 		return 0;
 	}
 
+	
 	/**
-	 * Verringert den Bestand fuuml;r ein bestimmtes Produkt im Quelllager,
-	 * falls die Bestellung abgegen wurde.
+	 * (precondition) P and l must not be null.
+	 * (post-condition) returns 0 if product is not in order.
 	 */
 	protected boolean isTimeToReduceSource(Product p, Warehouse w, Calendar d) {
 		if (d.after(new GregorianCalendar()) && !dispatchDone) {
@@ -99,10 +109,10 @@ public abstract class Order extends StorageManager implements Deletable {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Erhouml;t den Bestand fuuml;r ein bestimmtes Produkt im Ziellager, falls
-	 * die Bestellung geliefert wurde.
+	 * (precondition) p, w and d must not be null and Warehouse must have the p.
+	 * (post-condition) return true if the the stock of the warehouse has to be increased.
 	 */
 	protected boolean isTimeToReduceDestination(Product p, Warehouse w,
 			Calendar d) {
@@ -112,9 +122,13 @@ public abstract class Order extends StorageManager implements Deletable {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Gibt die anzahl Produkten zu einem bestimmten Datum zur&uuml;ck.
+	 * (precondition) p, l and l should not be null..
+	 * (post-condition) automatically returns 0 if the Warehouse stock has to be increased.
+	 *  BAD:
+	 *  Location has to be proved for the type.
+	 *  A solution would be to break the function down into several functions and override them in the subclasses.
 	 */
 	public int getQuantatiyForWarehouse(Product p, Location l, Calendar d) {
 		if (l == source && d.after(dispatchCalendar)) {
