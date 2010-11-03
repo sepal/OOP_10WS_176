@@ -140,7 +140,7 @@ public class ProductGroup extends StorageManager implements ProductGroupMember,
 	
 	/*
 	 * GOOD:
-	 * Uses dynamic binding to get a list of the stock of members.
+	 * Uses dynamic binding to get a list of the stock of members.lang
 	 */
 	
 	/**
