@@ -1,12 +1,8 @@
 
-public class NoPretty implements Pretty {
-	@Override
-	public String transform(String s) {
-		return s;
-	}
+public class NoPretty extends BlockPretty {
 	
-	@Override
-	public void reset() {
-		return;
+	public NoPretty() { 
+		super(0);
 	}
+
 }
