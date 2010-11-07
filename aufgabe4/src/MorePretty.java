@@ -1,8 +1,8 @@
 
 public class MorePretty extends VarPretty {
 	
-	public MorePretty(int depth) {
-		super(depth);
+	public MorePretty(Mode m, int depth) {
+		super(m, depth);
 	}
 
 	public int open() {

@@ -1,4 +1,6 @@
 
+
+
 public class Test {
 
 	public static void main(String[] args) {
@@ -17,6 +19,20 @@ public class Test {
 		String code1p2 = "//Foo      \n  call();} foobar();}";
 		String code2 = "class A{ B c; ;D f { c.f(d) /*x*/; /*y*/} }";
 		String code3 = "class A{function f1(){} function f2(){}}";
+		
+		// Testing BlockPretty
+		System.out.println("*** Testing BlockPretty***");
+		BlockPretty bp = new BlockPretty(1);
+		System.out.println("Unformatted code3: "+code3+"\nBlockPretty Formatted:\n"+bp.transform(code3)+"\n");
+		
+		System.out.println("*** Testing BlockPretty with -1***");
+		bp = new BlockPretty(-1);
+		System.out.println("Unformatted code3: "+code3+"\nBlockPretty Formatted:\n"+bp.transform(code3)+"\n");
+		
+		// Testing NoPretty
+		System.out.println("*** Testing NoPretty***");
+		NoPretty np = new NoPretty();
+		System.out.println("Unformatted code3: "+code3+"\nNoPretty Formatted:\n"+np.transform(code3)+"\n");
 		
 		// Testing LongPretty
 		LongPretty lp = new LongPretty(4);
@@ -38,16 +54,24 @@ public class Test {
 		System.out.println("Unformatted:\n"+code1+code1p2+"\nLongPretty Formatted:\n"+dp.transform(code1+code1p2)+"\n");
 		System.out.println("Unformatted:\n"+code2+"\nLongPretty Formatted:\n"+dp.transform(code2)+"\n");
 		
-		// Testing NoPretty
-		System.out.println("*** Testing BlockPretty***");
-		BlockPretty bp = new BlockPretty(1);
-		System.out.println("Unformatted code3: "+code3+"\nBlockPretty Formatted:\n"+bp.transform(code3)+"\n");
+		// Testing VarPretty
+		VarPretty vp = new VarPretty(VarPretty.Mode.Long, 4);
+		System.out.println("*** Testing VarPretty with LongPretty and depth 4 ***");
+		System.out.println("Unformatted code2: "+code2+"\nLongPretty Formatted:\n"+vp.transform(code2)+"\n");
+		System.out.println("*** Testing VarPretty with LongPretty and depth 2 ***");
+		vp.setDepth(2);
+		vp.reset();
+		System.out.println("Unformatted code2: "+code2+"\nLongPretty Formatted:\n"+vp.transform(code2)+"\n");
+		System.out.println("*** Testing VarPretty with ShortPretty and depth 4 ***");
+		vp.reset();
+		vp.setDepth(4);
+		vp.setMode(VarPretty.Mode.Short);
+		System.out.println("Unformatted code2: "+code2+"\nShortPretty Formatted:\n"+vp.transform(code2)+"\n");
 		
-		// Testing NoPretty
-		System.out.println("*** Testing NoPretty***");
-		NoPretty np = new NoPretty();
-		System.out.println("Unformatted code3: "+code3+"\nNoPretty Formatted:\n"+np.transform(code3)+"\n");
-		
+		// Testing MorePretty
+		MorePretty mp = new MorePretty(VarPretty.Mode.Long, 4);
+		System.out.println("*** Testing MorePretty ***");
+		System.out.println(mp.open());
 	}
 
 }
