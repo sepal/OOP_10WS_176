@@ -16,6 +16,7 @@ public class Test {
 		String code1 = "  public void main(int argc, char[] argv) {  int a=0, b=10, c=0;c=a+b; if (a == 0) {\t";
 		String code1p2 = "//Foo      \n  call();} foobar();}";
 		String code2 = "class A{ B c; ;D f { c.f(d) /*x*/; /*y*/} }";
+		String code3 = "class A{function f1(){} function f2(){}}";
 		
 		// Testing LongPretty
 		LongPretty lp = new LongPretty(4);
@@ -36,6 +37,17 @@ public class Test {
 		System.out.println("Unformatted code1 part 2: "+code1p2+"\nLongPretty Formatted:\n"+dp.transform(code1p2)+"\n");
 		System.out.println("Unformatted:\n"+code1+code1p2+"\nLongPretty Formatted:\n"+dp.transform(code1+code1p2)+"\n");
 		System.out.println("Unformatted:\n"+code2+"\nLongPretty Formatted:\n"+dp.transform(code2)+"\n");
+		
+		// Testing NoPretty
+		System.out.println("*** Testing BlockPretty***");
+		BlockPretty bp = new BlockPretty(1);
+		System.out.println("Unformatted code3: "+code3+"\nBlockPretty Formatted:\n"+bp.transform(code3)+"\n");
+		
+		// Testing NoPretty
+		System.out.println("*** Testing NoPretty***");
+		NoPretty np = new NoPretty();
+		System.out.println("Unformatted code3: "+code3+"\nNoPretty Formatted:\n"+np.transform(code3)+"\n");
+		
 	}
 
 }
