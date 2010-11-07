@@ -70,8 +70,11 @@ public class Test {
 		
 		// Testing MorePretty
 		MorePretty mp = new MorePretty(VarPretty.Mode.Long, 4);
-		System.out.println("*** Testing MorePretty ***");
-		System.out.println(mp.open());
+		System.out.println("*** Testing MorePretty open ***");
+		mp.transform(code1);
+		System.out.println("Unformatted code1: "+code1+"\nOpen curly brackets: "+mp.open()+"\n");
+		mp.transform(code2);
+		System.out.println("Unformatted code1: "+code2+"\nOpen curly brackets: "+mp.open()+"\n");
 	}
 
 }
