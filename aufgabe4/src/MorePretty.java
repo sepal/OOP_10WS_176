@@ -1,6 +1,10 @@
 
 public class MorePretty extends VarPretty {
 	private String lastString;
+	
+	/*
+	 * (precondition)depth should be >= 0, mode should be not null
+	 */
 	public MorePretty(Mode m, int depth) {
 		super(m, depth);
 	}

@@ -2,6 +2,9 @@
 public class BlockPretty implements Pretty {
 	private StringBuilder newline;
 
+	/*
+	 * (precondition)Newlines should be not newlines.
+	 */
 	public BlockPretty(int newlines) {
 		newline = new StringBuilder();
 		for(int i=0; i<newlines; i++) {

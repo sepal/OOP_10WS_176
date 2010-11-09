@@ -8,6 +8,9 @@ public class VarPretty extends DepthPretty {
 	private Mode modeNx;
 	private boolean resetted;
 
+	/*
+	 * (precondition)depth should be >= 0, mode should be not null
+	 */
 	public VarPretty(Mode m, int depth) {
 		super(depth);
 		resetted = false;
@@ -15,6 +18,9 @@ public class VarPretty extends DepthPretty {
 		reset();
 	}
 
+	/*
+	 * (precondition)M should not be null.
+	 */
 	public void setMode(Mode m) {
 		this.modeNx = m;
 		if (resetted)
@@ -22,6 +28,9 @@ public class VarPretty extends DepthPretty {
 			
 	}
 	
+	/*
+	 * (precondition) Depth should be >= 0
+	 */
 	public void setDepth(int depth) {
 		this.depth = depth;
 		if (resetted)

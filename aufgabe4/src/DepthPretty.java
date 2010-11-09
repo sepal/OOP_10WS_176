@@ -2,7 +2,9 @@ import java.util.Arrays;
 
 public abstract class DepthPretty implements Pretty {
 	protected int pos, depth;
-	
+	/*
+	 * (precondition)depth should be >= 0
+	 */
 	public DepthPretty(int depth) {
 		this.depth = depth;
 		this.pos = 0;

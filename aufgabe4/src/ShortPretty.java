@@ -1,6 +1,9 @@
 
 public class ShortPretty extends DepthPretty {
 
+	/*
+	 * (precondition)depth should be >= 0
+	 */
 	public ShortPretty(int depth) {
 		super(depth);
 	}
