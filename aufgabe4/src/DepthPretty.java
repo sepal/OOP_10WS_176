@@ -10,6 +10,11 @@ public abstract class DepthPretty implements Pretty {
 		this.pos = 0;
 	}
 	
+	/*
+	 * (precondition)s should not be empty.
+	 * (postcondition)A copy or transformed copy of the s should be returned.
+	 * (invariant) String s itself will not be modified
+	 */
 	@Override
 	abstract public String transform(String s);
 	

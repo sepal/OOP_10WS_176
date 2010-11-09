@@ -15,6 +15,11 @@ public class MorePretty extends VarPretty {
 		lastString = "";
 	}
 	
+	/*
+	 * (precondition)s should not be empty.
+	 * (postcondition)A copy or transformed copy of the s should be returned.
+	 * (invariant) String s itself will not be modified
+	 */
 	@Override
 	public String transform(String s) {
 		lastString = s;

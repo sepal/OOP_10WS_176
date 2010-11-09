@@ -49,6 +49,11 @@ public class VarPretty extends DepthPretty {
 		resetted = true;
 	}
 	
+	/*
+	 * (precondition)s should not be empty.
+	 * (postcondition)A copy or transformed copy of the s should be returned.
+	 * (invariant) String s itself will not be modified
+	 */
 	@Override
 	public String transform(String s) {
 		resetted = false;
