@@ -11,68 +11,92 @@ public class ShortPretty extends DepthPretty {
 	@Override
 	public String transform(String s) {
 		char si;
-		String newS ="";
+		StringBuilder sb = new StringBuilder("");
 		boolean newline = true;
 		
 		for(int i = 0; i < s.length(); i++) {
 			si = s.charAt(i);
 			
 			if(si == '{'){
-				newS += "{\n";
+				sb.append("{\n");
 				pos += depth;
 				newline = true;
 			}
 			else if(si == '}') {
 				if(pos>0) {
 					pos -= depth;
-					newS += this.getPosSpaces()+"}\n";
 				}
-				else {
-					newS += "}\n";
-				}
+				sb.append(this.getPosSpaces());
+				sb.append("}\n");
 				newline = true;
 			}
 			else if(si == ';') {
-				if(!newline) {
-					newS += ";\n";
-				} else {
-					newS += this.getPosSpaces()+";\n";
+				if(newline) {
+					sb.append(this.getPosSpaces()+";\n");
 				}
+				sb.append(";\n");
 				newline = true;
 			}
 			else if(si == '\n') {
-				newS += "\n";
+				sb.append("\n");
 				newline = true;
 			}
 			else if(si == '*'){
 				if(s.charAt(i+1) == '/') {
 					if(s.charAt(i+2) != ';') {
-						newS += "*/"+'\n';
+						sb.append("*/");
+						sb.append('\n');
 						newline = true;
 						i++;
 					} else {
-						newS += "*";
+						sb.append("*");
 					}
 				}
 				else {
-					newS += "*";
+					sb.append("*");
 				}
 			}
 			else if(si == ' ' || si == '\t') {
 				if(!newline) {
-					newS += si;
+					sb.append(si);
 				}
 				this.getPosSpaces();
 			}
 			else {
 				if(newline) {
-					newS += this.getPosSpaces();
+					sb.append(this.getPosSpaces());
 				}
-				newS += si;
+				sb.append(si);
 				newline = false;
 			}
 		}
-		return newS;
+		
+		newline = false;
+		si = '\0';
+		int nli, spi;
+		nli = spi = -1;
+		for (int i=sb.length()-1; i >= 0; i--) {
+			si = sb.charAt(i);
+			if (newline == true) {
+				if (si == ' ' || si == '\t') {
+					spi = i;
+				} else {
+					if (spi > 0) {
+						// Deletes substring from start to (_excluding_) end
+						sb.delete(spi, nli);
+					}
+					newline = false;
+					spi = -1;
+				}
+			}
+			
+			if (si == '\n') {
+				newline = true;
+				nli = i;
+			} 
+		}
+		
+		return sb.toString();
 	}
 
 }

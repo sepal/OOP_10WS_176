@@ -8,6 +8,7 @@ public interface Pretty {
 	/*
 	 * (precondition)s should not be empty.
 	 * (postcondition)A copy or transformed copy of the s should be returned.
+	 * (invariant) String s itself will not be modified
 	 */
   String transform (String s);
   // "reset" indicates the end of source code.

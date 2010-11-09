@@ -1,18 +1,6 @@
-
-
-
 public class Test {
 
 	public static void main(String[] args) {
-		/* NOTE: An mein Team
-		 * Bitte verwendet einfach die 2 code Strings hier. Der eine enthält (fast) Alle Dinge die man so umformatieren
-		 * soll und der zweite ist aus der Angabe und gut zum vergleichen. Wenn euch noch was einfällt, was fehlt,
-		 * kann man code1 anpassen oder auch einen zusätzlichen String einführen. Aber es sollte nicht zu viele werden
-		 * Nachtrag: Hab code1 in code1 und code1p2 (part 2) aufgeteilt, weil in der Angabe steht:
-		 * transform(x)+transform(y) = transform(x+y) und das wollte ich testen.
-		 */
-		
-		// TODO: More tests with OO-features
 		
 		// Test Strings
 		String code1 = "  public void main(int argc, char[] argv) {  int a=0, b=10, c=0;c=a+b; if (a == 0) {\t";
