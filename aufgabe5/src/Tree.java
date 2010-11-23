@@ -1,18 +1,59 @@
 
 public class Tree<L extends Comparable<L>> {
-	private Node root;
+	SimpleList<Tree<L>> edges;
+	SimpleList<L> labels;
 	
 	public Tree() {
-		root = new Node();
+		edges = new SimpleList<Tree<L>>();
+		labels = new SimpleList<L>();
 	}
 	
-	private class Node {
-		SimpleList<Node> edges;
-		SimpleList<L> labels;
+	public AssocIter<L, AssocIter<L, ?>> assoc() {
 		
-		private Node() {
-			edges = new SimpleList<Node>();
-			labels = new SimpleList<L>();
+		return null;
+	}
+	
+	public void allLabels() {
+		// kA WTF
+	}
+	
+	private class TreeIterator implements AssocIter<L, AssocIter<L, ?>> {
+		Tree<L> state;
+		int ilabel;
+		
+		private TreeIterator(Tree<L> start, int startlabel) {
+			state = start;
+			ilabel = startlabel;
+		}
+		
+		@Override
+		public L next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean insert(L element) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean delete() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public AssocIter<L, ?> assoc() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }
