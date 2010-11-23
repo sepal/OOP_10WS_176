@@ -43,11 +43,11 @@ public class Tree<L extends Comparable<L>> {
 			for (int i = 0; i<labels.size(); i++) {
 				L label = labels.get(i);
 				if (label == element){
-					return true;
+					return false;
 				}
 			}
 			labels.add(element);
-			return false;
+			return true;
 		}
 
 		@Override
