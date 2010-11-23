@@ -11,5 +11,15 @@ public class BDescriptor extends Descriptor {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public boolean bs(String s) {
+		for(int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+			if(ch == 'b' || ch == 'B') {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

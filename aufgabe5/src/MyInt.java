@@ -16,4 +16,8 @@ public class MyInt implements Comparable<MyInt> {
 			return 0;
 		}
 	}
+	
+	public String toString() {
+		return Integer.toString(value);
+	}
 }
