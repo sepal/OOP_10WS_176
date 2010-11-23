@@ -40,7 +40,13 @@ public class Tree<L extends Comparable<L>> {
 
 		@Override
 		public boolean insert(L element) {
-			// TODO Auto-generated method stub
+			for (int i = 0; i<labels.size(); i++) {
+				L label = labels.get(i);
+				if (label == element){
+					return true;
+				}
+			}
+			labels.add(element);
 			return false;
 		}
 
