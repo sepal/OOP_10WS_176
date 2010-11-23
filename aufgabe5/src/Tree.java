@@ -17,11 +17,11 @@ public class Tree<L extends Comparable<L>> {
 		// kA WTF
 	}
 	
-	private class TreeIterator implements AssocIter<L, AssocIter<L, ?>> {
+	protected class TreeIterator implements AssocIter<L, AssocIter<L, ?>> {
 		Tree<L> state;
 		int ilabel;
 		
-		private TreeIterator(Tree<L> start, int startlabel) {
+		protected TreeIterator(Tree<L> start, int startlabel) {
 			state = start;
 			ilabel = startlabel;
 		}
