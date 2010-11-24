@@ -13,8 +13,11 @@ public class Test {
 		AssocIter<MyInt, AssocIter<MyInt, ?>> it = intTree.assoc();
 		it.next();
 		// TODO: checken wieso des net funzt.
-		AssocIter<MyInt, AssocIter<MyInt, ?>> subit = it.assoc();
+		// Das geht zwar, löscht aber die Typinformation über den zweiten Parameter, wodurch
+		// man eine stufe tiefer erst recht wieder keinen Iterator bekommt x|
+		AssocIter<MyInt, ?> subit = it.assoc();
 		subit.insert(new MyInt(10));
+		AssocIter<MyInt, ?> subsubit = subit.assoc();
 		intTree.assoc().delete();
 		intTree.allLabels();
 		

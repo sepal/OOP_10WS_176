@@ -80,7 +80,7 @@ public class Tree<L extends Comparable<L>> {
 		}
 
 		@Override
-		public AssocIter<L, ?> assoc() {
+		public AssocIter<L, AssocIter<L, ?>> assoc() {
 			Tree<L> root = state.edges.get(ilabel);
 			if (root == null) return null;
 			
