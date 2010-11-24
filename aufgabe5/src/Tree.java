@@ -9,8 +9,7 @@ public class Tree<L extends Comparable<L>> {
 	}
 	
 	public AssocIter<L, AssocIter<L, ?>> assoc() {
-		
-		return null;
+		return new TreeIterator(this);
 	}
 	
 	public void allLabels() {
@@ -21,20 +20,23 @@ public class Tree<L extends Comparable<L>> {
 		Tree<L> state;
 		int ilabel;
 		
-		private TreeIterator(Tree<L> start, int startlabel) {
+		private TreeIterator(Tree<L> start) {
 			state = start;
-			ilabel = startlabel;
+			ilabel = -1;
 		}
-		
+
 		@Override
 		public L next() {
-			// TODO Auto-generated method stub
+			
+			
+			
+			
 			return null;
 		}
 
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 

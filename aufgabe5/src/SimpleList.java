@@ -1,3 +1,8 @@
+/**
+ * Very basic LinkedList implementation
+ *
+ * @param <T> Type to be stored
+ */
 public class SimpleList<T> {
 	int pos;
 	T element;
@@ -38,11 +43,59 @@ public class SimpleList<T> {
 		}
 	}
 	
+	/**
+	 * Inserts after element after pos
+	 * 
+	 * @param element
+	 * @param pos Position after which will be inserted.
+	 * @return true if added successfully
+	 */
+	public boolean insert(T element, int pos) {
+		int size = this.size();
+		
+		if (pos > size) {
+			return false;
+		} else if (pos == size) {
+			this.add(element);
+			return true;
+		} else if (pos < 0 && this.pos == 0) {
+			if (next == null) {
+				this.add(element);
+				return true;
+			}
+			SimpleList<T> new1 = new SimpleList<T>(1);
+			new1.element = this.element;
+			new1.next = this.next;
+			this.element = element;
+			this.next = new1;
+			if (new1.next != null) new1.next.updatePos(1);
+			
+			return true;
+		} else if (pos == this.pos) {
+			SimpleList<T> new1 = new SimpleList<T>(pos+1);
+			new1.element = element;
+			new1.next = this.next;
+			this.next = new1;
+			if (new1.next != null) new1.next.updatePos(1);
+			
+			return true;
+		} else {
+			if (next != null) next.insert(element, pos);
+		}
+		
+		return false;
+	}
+	
 	public int size() {
 		if (next == null) {
 			return pos;
 		} else {
 			return next.size();
 		}
+	}
+	
+	private void updatePos(int offset) {
+		this.pos += offset;
+		if (next != null) next.updatePos(offset);
 	}
 }
