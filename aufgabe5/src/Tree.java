@@ -1,7 +1,7 @@
 
 public class Tree<L extends Comparable<L>> {
-	SimpleList<Tree<L>> edges;
-	SimpleList<L> labels;
+	private SimpleList<Tree<L>> edges;
+	private SimpleList<L> labels;
 	boolean delFlag = false;
 	
 	public Tree() {
@@ -64,10 +64,6 @@ public class Tree<L extends Comparable<L>> {
 			}
 			
 			if (i == size) i--;
-			if (state.labels.insert(element, i)) {
-				secretInstert();
-				return true;
-			}
 			return false;
 		}
 
@@ -89,11 +85,6 @@ public class Tree<L extends Comparable<L>> {
 			if (root == null) return null;
 			
 			return new TreeIterator(root);
-		}
-
-		void secretInsert() {
-			// TODO Auto-generated method stub
-			
 		}
 	}
 }
