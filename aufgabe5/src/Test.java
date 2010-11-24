@@ -1,12 +1,12 @@
 /**
  * Anmerkung: "Die Aufgabe ist so konstruiert, dass dabei einige Schwierigkeiten
- * auftauchen, für die wir Lösungsmöglichkeiten kennengelernt haben." steht in
- * der Angabe, leider müssen wir dem widersprechen. Keine der uns bekannten
- * Lösungsmöglichkeiten konnten zB. die Probleme mit "rekursiven" Generics
- * (AssocIter<L, AsssocIter<L, Ass....>>) lösen.
+ * auftauchen, fÃ¼r die wir LÃ¶sungsmÃ¶glichkeiten kennengelernt haben." steht in
+ * der Angabe, leider mÃ¼ssen wir dem widersprechen. Keine der uns bekannten
+ * LÃ¶sungsmÃ¶glichkeiten konnten zB. die Probleme mit "rekursiven" Generics
+ * (AssocIter<L, AsssocIter<L, Ass....>>) lÃ¶sen.
  * 
  * Leider konnten wir in dem geringen Zeitrahmen die komplexe Aufgabenstellung
- * verstehen und auch keine Lösung für diese Probleme finden.
+ * verstehen und auch eine LÃ¶sung fÃ¼r diese Probleme finden.
  * 
  * @author GroupWS10176
  * 
@@ -42,7 +42,7 @@ public class Test {
 				.assoc();
 		itDesc.next();
 
-		// Folgendes natürlich nicht möglich, da ja AssocIter kein set hat.
+		// Folgendes natï¿½rlich nicht mï¿½glich, da ja AssocIter kein set hat.
 		// Casten darf ich auch nicht, also wie soll man dann set aufrufen?
 		itDesc.set();
 
