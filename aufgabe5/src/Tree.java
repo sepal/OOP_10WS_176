@@ -1,8 +1,8 @@
 
 public class Tree<L extends Comparable<L>> {
-	private SimpleList<Tree<L>> edges;
-	private SimpleList<L> labels;
-	private boolean delFlag = false;
+	SimpleList<Tree<L>> edges;
+	SimpleList<L> labels;
+	boolean delFlag = false;
 	
 	public Tree() {
 		edges = new SimpleList<Tree<L>>();
@@ -17,11 +17,11 @@ public class Tree<L extends Comparable<L>> {
 		// kA WTF
 	}
 	
-	private class TreeIterator implements AssocIter<L, AssocIter<L, ?>> {
+	class TreeIterator implements AssocIter<L, AssocIter<L, ?>> {
 		Tree<L> state;
 		int ilabel;
 		
-		private TreeIterator(Tree<L> start) {
+		TreeIterator(Tree<L> start) {
 			state = start;
 			ilabel = -1;
 		}
@@ -64,7 +64,11 @@ public class Tree<L extends Comparable<L>> {
 			}
 			
 			if (i == size) i--;
-			return state.labels.insert(element, i);
+			if (state.labels.insert(element, i)) {
+				secretInstert();
+				return true;
+			}
+			return false;
 		}
 
 		@Override
@@ -85,6 +89,11 @@ public class Tree<L extends Comparable<L>> {
 			if (root == null) return null;
 			
 			return new TreeIterator(root);
+		}
+
+		void secretInsert() {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 }

@@ -24,7 +24,15 @@ public class Test {
 
 		System.out.println("*** Testing Interator<MyInt>***");
 		ValueTree<Descriptor, BDescriptor> descTree = new ValueTree<Descriptor, BDescriptor>();
-		descTree.assoc().insert(new ADescriptor("lalalAla"), new BDescriptor("blaBlablabla"));
+		descTree.assoc().insert(new ADescriptor("lalalAla"));
+		AssocIter<Descriptor, AssocIter<Descriptor, ?>> itDesc = descTree.assoc();
+		itDesc.next();
+		
+		
+		// Folgendes natürlich nicht möglich, da ja AssocIter kein set hat.
+		// Casten darf ich auch nicht, also wie soll man dann set aufrufen????
+		itDesc.set();
+		
 		
 
 	}
