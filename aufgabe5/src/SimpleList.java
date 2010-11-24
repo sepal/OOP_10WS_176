@@ -53,9 +53,9 @@ public class SimpleList<T> {
 	public boolean insert(T element, int pos) {
 		int size = this.size();
 		
-		if (pos > size) {
+		if (pos >= size) {
 			return false;
-		} else if (pos == size) {
+		} else if (pos == size-1) {
 			this.add(element);
 			return true;
 		} else if (pos < 0 && this.pos == 0) {
@@ -92,6 +92,34 @@ public class SimpleList<T> {
 		} else {
 			return next.size();
 		}
+	}
+	
+	public boolean delete(int pos) {
+		if (pos < 0 || pos >= this.size()) {
+			return false;
+		}
+		
+		if (this.size() == 1 && pos == 0) {
+			this.element = null;
+			this.next = null;
+			return true;
+		}
+		
+		if (pos > this.pos+1) {
+			if (next != null) {
+				next.delete(pos);
+			} else {
+				return false;
+			}
+		} else if (pos == this.pos+1) {
+			if (this.next != null) {
+				this.next = this.next.next;
+				if (this.next != null) this.next.updatePos(-1);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	private void updatePos(int offset) {
