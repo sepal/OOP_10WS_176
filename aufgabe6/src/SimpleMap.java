@@ -63,6 +63,27 @@ public class SimpleMap {
 		}
 	}
 	
+	public void remove(Object key) {
+		if (this.key == null || key == null) return;
+		
+		if (this.key.equals(key)) {
+			if (next == null) {
+				this.key = null;
+				this.value = null;
+			} else {
+				this.key = next.key;
+				this.value = next.value;
+				this.next = next.next;
+			}
+		} else if (next != null) {
+			if (next.key.equals(key)) {
+				this.next = next.next;
+			} else {
+				next.remove(key);
+			}
+		}
+	}
+	
 	public ValueIterator getIteratorOverValues() {
 		return new ValueIterator(this);
 	}

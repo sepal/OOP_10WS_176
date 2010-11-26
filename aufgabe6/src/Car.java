@@ -1,5 +1,5 @@
 
-public class Car {
+public abstract class Car {
 	private int id, mileage;
 	private Purpose role;
 	
@@ -9,5 +9,13 @@ public class Car {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void increaseMilage(int distance) {
+		mileage += Math.abs(distance);
+	}
+	
+	public int getMilage() {
+		return mileage;
 	}
 }

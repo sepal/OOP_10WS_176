@@ -1,4 +1,4 @@
 
-public class Purpose {
+public abstract class Purpose {
 
 }
