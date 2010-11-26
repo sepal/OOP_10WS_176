@@ -1,4 +1,3 @@
-
 public class Tree<L extends Comparable<L>> {
 	private SimpleList<Tree<L>> edges;
 	private SimpleList<L> labels;
