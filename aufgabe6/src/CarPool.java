@@ -1,12 +1,12 @@
 
 public class CarPool {
 	private String name;
-	private SimpleMap1 cars;
+	private SimpleMap cars;
 	private int electric, fuel;
 	
 	public CarPool(String name) {
 		this.name = name;
-		cars = new SimpleMap1();
+		cars = new SimpleMap();
 	}
 	
 	public String getName() {
@@ -25,7 +25,7 @@ public class CarPool {
 		cars.remove(car.getId());
 	}
 	
-	public SimpleMap1 getCars() {
+	public SimpleMap getCars() {
 		return cars;
 	}
 }
