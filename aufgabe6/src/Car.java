@@ -2,9 +2,11 @@
 public abstract class Car {
 	private int id, mileage;
 	private Purpose role;
+	private int consumption;
 	
-	public Car(int id) {
+	public Car(int id, Purpose p) {
 		this.id = id;
+		this.setPurpose(p);
 	}
 	
 	public int getId() {
@@ -21,5 +23,21 @@ public abstract class Car {
 	
 	public String toString() {
 		return "Car "+id;
+	}
+
+	public void setPurpose(Purpose role) {
+		this.role = role;
+	}
+
+	public Purpose getPurpose() {
+		return role;
+	}
+	
+	public int getConsumption() {
+		return consumption;
+	}
+	
+	public void increaseConsumption(int volume) {
+		consumption += Math.abs(volume);
 	}
 }
