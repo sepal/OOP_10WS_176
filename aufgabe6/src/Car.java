@@ -2,6 +2,7 @@
 public abstract class Car {
 	private int id, mileage;
 	private Purpose role;
+	private String mode;
 	
 	public Car(int id) {
 		this.id = id;
@@ -11,11 +12,15 @@ public abstract class Car {
 		return id;
 	}
 	
-	public void increaseMilage(int distance) {
+	public void increaseMileage(int distance) {
 		mileage += Math.abs(distance);
 	}
 	
-	public int getMilage() {
+	public int getMileage() {
 		return mileage;
+	}
+	
+	public String getMode() {
+		return mode;
 	}
 }

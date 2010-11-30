@@ -1,7 +1,8 @@
 
 public class CarPool {
-	String name;
-	SimpleMap cars;
+	private String name;
+	private SimpleMap cars;
+	private int electric, fuel;
 	
 	public CarPool(String name) {
 		this.name = name;
@@ -22,10 +23,28 @@ public class CarPool {
 	}
 	
 	public boolean addCar(Car car) {
+		if(car.getMode().equals("Electric Car")) {
+			electric++;
+		} else if(car.getMode().equals("Fuel Car")) {
+			fuel++;
+		}
 		return cars.add(car.getId(), car);
 	}
 	
 	public void removeCar(Car car) {
+		if(car.getMode().equals("Electric Car")) {
+			electric--;
+		} else if(car.getMode().equals("Fuel Car")) {
+			fuel--;
+		}
 		cars.remove(car.getId());
+	}
+	
+	public SimpleMap getCars(String name) {
+		return cars;
+	}
+	
+	public String counter() {
+		return "Electric Cars: "+electric+", Fuel Cars: "+fuel;
 	}
 }
