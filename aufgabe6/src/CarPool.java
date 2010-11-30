@@ -1,12 +1,12 @@
 
 public class CarPool {
 	private String name;
-	private SimpleMap cars;
+	private SimpleMap1 cars;
 	private int electric, fuel;
 	
 	public CarPool(String name) {
 		this.name = name;
-		cars = new SimpleMap();
+		cars = new SimpleMap1();
 	}
 	
 	public String getName() {
@@ -14,37 +14,18 @@ public class CarPool {
 	}
 	
 	public Car getCar(int id) {
-		Object tmp = cars.get(id);
-		if (tmp instanceof Car) {
-			return (Car) tmp;
-		} else {
-			return null;
-		}
+		return (Car) cars.get(id);
 	}
 	
 	public boolean addCar(Car car) {
-		if(car instanceof ElectricCar) {
-			electric++;
-		} else if(car instanceof FuelCar) {
-			fuel++;
-		}
 		return cars.add(car.getId(), car);
 	}
 	
 	public void removeCar(Car car) {
-		if(car instanceof ElectricCar) {
-			electric--;
-		} else if(car instanceof FuelCar) {
-			fuel--;
-		}
 		cars.remove(car.getId());
 	}
 	
-	public SimpleMap getCars(String name) {
+	public SimpleMap1 getCars() {
 		return cars;
-	}
-	
-	public String counter() {
-		return "Electric Cars: "+electric+", Fuel Cars: "+fuel;
 	}
 }

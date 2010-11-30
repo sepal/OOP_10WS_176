@@ -18,4 +18,8 @@ public abstract class Car {
 	public int getMileage() {
 		return mileage;
 	}
+	
+	public String toString() {
+		return "Car "+id;
+	}
 }

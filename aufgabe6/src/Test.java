@@ -5,7 +5,7 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SimpleMap pools = new SimpleMap();
+		SimpleMap1 pools = new SimpleMap1();
 		System.out.println("***New CarPool***");
 		CarPool cp1 = new CarPool("Fuhrpark1");
 		pools.add(cp1.getName(), cp1);
@@ -38,22 +38,25 @@ public class Test {
 		cp1.addCar(fc1);
 		cp1.addCar(fc2);
 		cp1.addCar(fc3);
+		System.out.println("------------------"+cp1.getCars().toString()+"-------------------");
 		
-		System.out.println("Car List of "+cp1.getName()+":");
-		System.out.println(ec1.getClass().getName()+" "+ec1.getId()+", "+ec1.getMileage()+" miles, "+ec1.getUsedPower()+"kW used Power");
-		System.out.println(ec2.getClass().getName()+" "+ec2.getId()+", "+ec2.getMileage()+" miles, "+ec2.getUsedPower()+"kW used Power");
-		System.out.println(ec3.getClass().getName()+" "+ec3.getId()+", "+ec3.getMileage()+" miles, "+ec3.getUsedPower()+"kW used Power");
-		System.out.println(fc1.getClass().getName()+" "+fc1.getId()+", "+fc1.getMileage()+" miles, "+fc1.getUsedFuel()+"L used Fuel");
-		System.out.println(fc2.getClass().getName()+" "+fc2.getId()+", "+fc2.getMileage()+" miles, "+fc2.getUsedFuel()+"L used Fuel");
-		System.out.println(fc3.getClass().getName()+" "+fc3.getId()+", "+fc3.getMileage()+" miles, "+fc3.getUsedFuel()+"L used Fuel");
-		System.out.println();
-		System.out.println(cp1.counter());
-		cp1.removeCar(fc3);
+//		System.out.println("Car List of "+cp1.getName()+":");
+//		System.out.println(ec1.getClass().getName()+" "+ec1.getId()+", "+ec1.getMileage()+" miles, "+ec1.getUsedPower()+"kW used Power");
+//		System.out.println(ec2.getClass().getName()+" "+ec2.getId()+", "+ec2.getMileage()+" miles, "+ec2.getUsedPower()+"kW used Power");
+//		System.out.println(ec3.getClass().getName()+" "+ec3.getId()+", "+ec3.getMileage()+" miles, "+ec3.getUsedPower()+"kW used Power");
+//		System.out.println(fc1.getClass().getName()+" "+fc1.getId()+", "+fc1.getMileage()+" miles, "+fc1.getUsedFuel()+"L used Fuel");
+//		System.out.println(fc2.getClass().getName()+" "+fc2.getId()+", "+fc2.getMileage()+" miles, "+fc2.getUsedFuel()+"L used Fuel");
+//		System.out.println(fc3.getClass().getName()+" "+fc3.getId()+", "+fc3.getMileage()+" miles, "+fc3.getUsedFuel()+"L used Fuel");
+//		System.out.println();
+
+		cp1.removeCar(fc1);
+		System.out.println("------------------"+cp1.getCars().toString()+"-------------------");
+
+		//System.out.println(fc3.getClass().getName()+" "+fc3.getId()+" removed.");
 		System.out.println();
 		
-		System.out.println(fc3.getClass().getName()+" "+fc3.getId()+" removed.");
-		System.out.println(cp1.getName()+" has "+cp1.counter());
-		System.out.println();
+		System.out.println("########"+cp1.getCar(01));
+		
 		
 		fc1.increaseMileage(200);
 		fc1.increaseUsedFuel(20);
@@ -63,7 +66,7 @@ public class Test {
 		System.out.println(ec2.getClass().getName()+" "+ec2.getId()+" used, new mileage: "+ec2.getMileage()+", current Electric level: "+ec2.getUsedPower());
 		System.out.println("\n");
 		
-		//---------------------------CAR POOL 2-----------------------------
+/**		//---------------------------CAR POOL 2-----------------------------
 		System.out.println("**************************************");
 		System.out.println("***New CarPool***");
 		CarPool cp2 = new CarPool("Fuhrpark2");
@@ -116,8 +119,6 @@ public class Test {
 		System.out.println(fc8.getClass().getName()+" "+fc8.getId()+", "+fc8.getMileage()+" miles, "+fc8.getUsedFuel()+"L used Fuel");
 
 		System.out.println();
-		System.out.println(cp2.getName()+" has "+cp2.counter());
-		System.out.println();
 		
 		fc6.increaseMileage(500);
 		fc6.increaseUsedFuel(40);
@@ -126,13 +127,11 @@ public class Test {
 		ec5.increaseUsedPower(90);
 		System.out.println(ec5.getClass().getName()+" "+ec5.getId()+" used, new mileage: "+ec5.getMileage()+", current Electric level: "+ec5.getUsedPower());
 		System.out.println();
-		System.out.println(cp2.getName()+" has "+cp2.counter());
 
-		cp2.removeCar(fc7);
+		//cp2.removeCar(fc7);
 		System.out.println();
 		
 		System.out.println(fc7.getClass().getName()+" "+fc7.getId()+" removed.");
-		System.out.println(cp2.getName()+" has "+cp2.counter());
 		System.out.println("\n");
 		
 		//-------------------------------CAR POOL 3----------------------------------
@@ -196,9 +195,7 @@ public class Test {
 		System.out.println(fc12.getClass().getName()+" "+fc12.getId()+", "+fc12.getMileage()+" miles, "+fc12.getUsedFuel()+"L used Fuel");
 		
 		System.out.println();
-		System.out.println(cp3.getName()+" has "+cp3.counter());
-		System.out.println();
-		
+*/		
 	}
 
 }
