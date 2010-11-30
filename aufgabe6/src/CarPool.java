@@ -14,21 +14,20 @@ public class CarPool {
 	private String name;
 	private SimpleMap cars;
 	
+	/*
+	 * postcondition: after creating a new CarPool it is ready to be filled with cars
+	 */
 	public CarPool(String name) {
 		this.name = name;
 		cars = new SimpleMap();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
 	
-	public Car getCar(int id) {Object tmp = cars.get(id);
-		if (tmp instanceof Car) {
-			return (Car) tmp;
-		} else {
-			return null;
-		}
+	public Car getCar(int id) {
+		return (Car) cars.get(id);
 	}
 	
 	public boolean addCar(Car car) {
@@ -75,7 +74,7 @@ public class CarPool {
 		}
 	}
 	
-	public float getAverageFuelcUsage(Role r) {
+	public float getAverageFuelUsage(Role r) {
 		if (r == Role.ALL){
 			return getAverageConsumptionOf(new FuelCar(0, null));
 		} else if (r == Role.CARGOTRANSPORT) {

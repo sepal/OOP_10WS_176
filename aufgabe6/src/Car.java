@@ -4,10 +4,18 @@ public abstract class Car {
 	private Purpose role;
 	private int consumption;
 	
+	
+	/*
+	 * pre-condition: id must not be null
+	 */
 	public Car(int id, Purpose p) {
 		this.id = id;
 		this.setPurpose(p);
 	}
+	
+	/*
+	 * Getter and Setter for attributes
+	 */
 	
 	public int getId() {
 		return id;
