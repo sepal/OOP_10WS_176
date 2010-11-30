@@ -10,6 +10,7 @@
 		private Object key, value;
 		private SimpleMapElement start;
 		private SimpleMapElement last;
+		private int size;
 		
 		/**
 		 * Creates a new SimpleMap for the given key - value pair. The caller is
@@ -48,7 +49,6 @@
 			return s;
 		}
 		
-		
 		/**
 		 * 
 		 * 
@@ -76,7 +76,6 @@
 				start.setPrev(null);
 				start.setNext(null);
 				last = start;
-				return true;
 			}
 			else {
 				SimpleMapElement cur = new SimpleMapElement(key, value);
@@ -84,9 +83,9 @@
 				cur.setPrev(last);
 				cur.setNext(null);
 				last = cur;
-				
-				return true;
 			}
+			size++;
+			return true;
 		}
 		
 		public void remove(Object key) {
@@ -110,10 +109,13 @@
 						sm.getPrev().setNext(sm.getNext());
 						sm.getNext().setPrev(sm.getPrev());
 					}
+					size--;	
 				}
-			}
-			
-			
+			}		
+		}
+		
+		public int size() {
+			return size;
 		}
 		
 		public ValueIterator getIteratorOverValues() {
