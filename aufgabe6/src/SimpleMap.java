@@ -1,290 +1,174 @@
 
-
-
 	/**
 	 * A simple Map implemented as linked list, storing key - value pairs.
 	 * Keys must not be null and have to be unique.
-	 *
 	 */
-	public class SimpleMap {
-		private Object key, value;
-		private SimpleMapElement start;
-		private SimpleMapElement last;
-		private int size;
-		
-		/**
-		 * Creates a new SimpleMap for the given key - value pair. The caller is
-		 * responsible for checking the validity of key. If key is null, an assertion will
-		 * lead to an error. 
-		 * 
-		 * @param key Must not be null and has to be unique.
-		 * @param value Can be any Object (including null).
-		 */
-		/*
-		 * pre-condition: key has to be unique (not yet in this map) and not null.
-		 * post-condition: A new SimpleMap object containing key and value has been created or the programm
-		 * will terminate with an error if key is null.
-		 */
-		private SimpleMap(Object key, Object value) {
-			assert (key != null) : "Key in SimpleMap must not be null!";
-			this.key = key;
-		}
-		
-		/**
-		 * Creates an empty SingleMap. Note that key is just null, because the list is empty.
-		 * Adding null as key is not possible.
-		 */
-		public SimpleMap() {
-			key = value = null;
-			start = null;
-		}
-		
-		public String toString() {
-			String s = "CarList:\n";
-			ValueIterator vi = this.getIteratorOverValues();
-			while(vi.hasNext()) {
-				Car c = (Car) vi.next().getValue();
-				s += c.getId()+"\n";
-			}
-			return s;
-		}
-		
-		/**
-		 * 
-		 * 
-		 * @param key
-		 * @return
-		 */
-		public Object get(Object key) {
-			if (key == null) return null;
+public class SimpleMap {
+	private Object key, value;
+	private SimpleMapElement start;
+	private SimpleMapElement last;
+	private int size;
+	
+	/**
+	 * Creates a new SimpleMap for the given key - value pair. The caller is
+	 * responsible for checking the validity of key. If key is null, an assertion will
+	 * lead to an error. 
+	 * 
+	 * @param key Must not be null and has to be unique.
+	 * @param value Can be any Object (including null).
+	 */
+	/*
+	 * pre-condition: key has to be unique (not yet in this map) and not null.
+	 * post-condition: A new SimpleMap object containing key and value has been created or the program
+	 * will terminate with an error if key is null.
+	 */
+	private SimpleMap(Object key, Object value) {
+		assert (key != null) : "Key in SimpleMap must not be null!";
+		this.key = key;
+	}
+	
+	/**
+	 * Creates an empty SingleMap. Note that key is just null, because the list is empty.
+	 * Adding null as key is not possible.
+	 */
+	public SimpleMap() {
+		key = value = null;
+		start = null;
+	}
+	
+	/**
+	 * toString() method for car objects
+	 */
+	public String toString() {
+		String cons = "";
+		String s = "CarList:\n";
+		ValueIterator vi = this.getIteratorOverValues();
+		while(vi.hasNext()) {
+			Car c = (Car) vi.next().getValue();
+			if(c.getClass().getName().equals("ElectricCar")) cons = "kW used";
+			else if(c.getClass().getName().equals("FuelCar")) cons = "L used";
 			
-			ValueIterator vi = this.getIteratorOverValues();
-			while(vi.hasNext()) {
-				SimpleMapElement sm = vi.next();
-				if(key.equals(sm.getKey())) {
-					return sm.getValue();
-				}
-			}
-			return null;
+			s += c.getClass().getName()+" "+c.getId()+", "+c.getMileage()+ " miles, "+c.getConsumption()+" "+cons+"\n";
 		}
+		return s;
+	}
+	
+	/**
+	 * @param key
+	 * @return object
+	 */
+	public Object get(Object key) {
+		if (key == null) return null;
 		
-		public boolean add(Object key, Object value) {
-			if (key == null) return false;
-			
-			if (start == null) {
-				start = new SimpleMapElement(key, value);
-				start.setPrev(null);
-				start.setNext(null);
-				last = start;
+		ValueIterator vi = this.getIteratorOverValues();
+		while(vi.hasNext()) {
+			SimpleMapElement sm = vi.next();
+			if(key.equals(sm.getKey())) {
+				return sm.getValue();
 			}
-			else {
-				SimpleMapElement cur = new SimpleMapElement(key, value);
-				last.setNext(cur);
-				cur.setPrev(last);
-				cur.setNext(null);
-				last = cur;
-			}
-			size++;
-			return true;
 		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param key, value
+	 * @return true if added, otherwise false
+	 */
+	public boolean add(Object key, Object value) {
+		if (key == null) return false;
 		
-		public void remove(Object key) {
-			if (key == null) return;
-			
-			ValueIterator vi = this.getIteratorOverValues();
-			while(vi.hasNext()) {
-				SimpleMapElement sm = vi.next();
-				if(key.equals(sm.getKey())) {
-					if(sm.getPrev() == null) {//aktuelles element ist startelement
-						if(sm.getNext() != null) {
-							sm.getNext().setPrev(null);
-							start = sm.getNext();
-						} else {
-							start = null;
-						}
-					} else if(sm.getNext() == null) { //aktuelles el ist letztes el
-						sm.getPrev().setNext(null);
-						last = sm.getPrev();
+		if (start == null) {
+			start = new SimpleMapElement(key, value);
+			start.setPrev(null);
+			start.setNext(null);
+			last = start;
+		}
+		else {
+			SimpleMapElement cur = new SimpleMapElement(key, value);
+			last.setNext(cur);
+			cur.setPrev(last);
+			cur.setNext(null);
+			last = cur;
+		}
+		size++;
+		return true;
+	}
+	
+	/**
+	 * iterator iterates throw objects, if found creates connection between objects before and after
+	 */
+	public void remove(Object key) {
+		if (key == null) return;
+		
+		ValueIterator vi = this.getIteratorOverValues();
+		while(vi.hasNext()) {
+			SimpleMapElement sm = vi.next();
+			if(key.equals(sm.getKey())) {
+				if(sm.getPrev() == null) {//actual element is startelement
+					if(sm.getNext() != null) {
+						sm.getNext().setPrev(null);
+						start = sm.getNext();
 					} else {
-						sm.getPrev().setNext(sm.getNext());
-						sm.getNext().setPrev(sm.getPrev());
+						start = null;
 					}
-					size--;	
-				}
-			}		
-		}
-		
-		public int size() {
-			return size;
-		}
-		
-		public ValueIterator getIteratorOverValues() {
-			return new ValueIterator(start);
-		}
-		
-		public class ValueIterator {
-			SimpleMapElement pos;
-			boolean ok = true;
-			
-			private ValueIterator(SimpleMapElement start) {
-				pos = start;
-			}
-			
-			public SimpleMapElement next() {
-				SimpleMapElement next =null;
-				
-				
-				if (pos == null) {
-					return null;
+				} else if(sm.getNext() == null) { //actual element is last element
+					sm.getPrev().setNext(null);
+					last = sm.getPrev();
 				} else {
-					if(pos == start && ok) {
-						ok = false;
-						return start;
-					}
-					next = pos.getNext();
-					pos = next;
-					return next;
+					sm.getPrev().setNext(sm.getNext());
+					sm.getNext().setPrev(sm.getPrev());
 				}
+				size--;	
 			}
+		}		
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	public ValueIterator getIteratorOverValues() {
+		return new ValueIterator(start);
+	}
+	
+	public class ValueIterator {
+		SimpleMapElement pos;
+		boolean ok = true;
+		
+		private ValueIterator(SimpleMapElement start) {
+			pos = start;
+		}
+		
+		public SimpleMapElement next() {
+			SimpleMapElement next =null;
 			
-			public boolean hasNext() {
-				if (pos == null) {
+			if (pos == null) {
+				return null;
+			} else {
+				if(pos == start && ok) {
+					ok = false;
+					return start;
+				}
+				next = pos.getNext();
+				pos = next;
+				return next;
+			}
+		}
+		
+		public boolean hasNext() {
+			if (pos == null) {
+				return false;
+			} else {
+				if(pos == start) {
+					return true;
+				}
+				if(pos.getNext() == null) {
 					return false;
 				} else {
-					if(pos == start) {
-						return true;
-					}
-					if(pos.getNext() == null) {
-						return false;
-					} else {
-						return true;
-					}
+					return true;
 				}
 			}
 		}
+	}
 }
-
-
-
-
-
-
-///**
-// * A simple Map implemented as linked list, storing key - value pairs.
-// * Keys must not be null and have to be unique.
-// *
-// */
-//public class SimpleMap {
-//	private Object key, value;
-//	private SimpleMap next;
-//
-//	/**
-//	 * Creates a new SimpleMap for the given key - value pair. The caller is
-//	 * responsible for checking the validity of key. If key is null, an assertion will
-//	 * lead to an error. 
-//	 * 
-//	 * @param key Must not be null and has to be unique.
-//	 * @param value Can be any Object (including null).
-//	 */
-//	/*
-//	 * pre-condition: key has to be unique (not yet in this map) and not null.
-//	 * post-condition: A new SimpleMap object containing key and value has been created or the programm
-//	 * will terminate with an error if key is null.
-//	 */
-//	private SimpleMap(Object key, Object value) {
-//		assert (key != null) : "Key in SimpleMap must not be null!";
-//		this.key = key;
-//	}
-//	
-//	/**
-//	 * Creates an empty SingleMap. Note that key is just null, because the list is empty.
-//	 * Adding null as key is not possible.
-//	 */
-//	public SimpleMap() {
-//		key = value = null;
-//		next = null;
-//	}
-//	
-//	/**
-//	 * 
-//	 * 
-//	 * @param key
-//	 * @return
-//	 */
-//	public Object get(Object key) {
-//		if (key == null) return null;
-//
-//		if (this.key.equals(key)) {
-//			return value;
-//		} else if (next != null) {
-//			return next.get(key);
-//		} else {
-//			return null;			
-//		}
-//	}
-//	
-//	public boolean add(Object key, Object value) {
-//		if (key == null || key.equals(this.key)) return false;
-//		
-//		if (next == null) {
-//			next = new SimpleMap(key, value);
-//			return true;
-//		} else {
-//			return next.add(key, value);
-//		}
-//	}
-//	
-//	public void remove(Object key) {
-//		if (this.key == null || key == null) return;
-//		
-//		if (this.key.equals(key)) {
-//			if (next == null) {
-//				this.key = null;
-//				this.value = null;
-//			} else {
-//				this.key = next.key;
-//				this.value = next.value;
-//				this.next = next.next;
-//			}
-//		}
-//		if (next != null) {
-//			if (next.key.equals(key)) {
-//				this.next = next.next;
-//			} else {
-//				next.remove(key);
-//			}
-//		}
-//	}
-//	
-//	public ValueIterator getIteratorOverValues() {
-//		return new ValueIterator(this);
-//	}
-//	
-//	public class ValueIterator {
-//		SimpleMap pos;
-//		
-//		private ValueIterator(SimpleMap start) {
-//			pos = start;
-//		}
-//		
-//		public Object next() {
-//			Object res=null;
-//			
-//			if (pos == null) {
-//				return null;
-//			} else {
-//				res = pos.value;
-//				pos = pos.next;
-//				return res;
-//			}
-//		}
-//		
-//		public boolean hasNext() {
-//			if (pos == null || pos.next == null) {
-//				return false;
-//			} else {
-//				return true;
-//			}
-//		}
-//	}
-//}

@@ -1,3 +1,9 @@
+/**
+ * Object for SimpleMap
+ * 
+ * @author Monika
+ *
+ */
 public class SimpleMapElement {
 	private Object key, value;
 	private SimpleMapElement next;
@@ -33,5 +39,3 @@ public class SimpleMapElement {
 		this.prev = prev;
 	}
 }
-	
-	
