@@ -5,7 +5,7 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SimpleMap1 pools = new SimpleMap1();
+		SimpleMap pools = new SimpleMap();
 		System.out.println("***New CarPool***");
 		CarPool cp1 = new CarPool("Fuhrpark1");
 		pools.add(cp1.getName(), cp1);
