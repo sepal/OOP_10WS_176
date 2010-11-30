@@ -1,5 +1,11 @@
 
 public class CarPool {
+	public enum CarType {
+		ELECTRIC,
+		FUEL,
+		ALL,
+	}
+
 	enum Role {
 		ALL,
 		CARGOTRANSPORT,
@@ -36,8 +42,12 @@ public class CarPool {
 	public SimpleMap getCars() {
 		return cars;
 	}
-	
-	private float getAverageOf(Car source) {
+
+	/*
+	 * (pre-condition) Param source shoud be instance of ElectricCar, FuelCar or null.
+	 * (post-condition) If no cars were found, the function will return 0;
+	 */
+	private float getAverageConsumptionOf(Car source) {
 		SimpleMap.ValueIterator it = cars.getIteratorOverValues();
 		int volume = 0;
 		int count = 0;
@@ -57,21 +67,76 @@ public class CarPool {
 	
 	public float getAverageElectricUsage(Role r) {
 		if (r == Role.ALL){
-			return getAverageOf(new ElectricCar(0, null));
+			return getAverageConsumptionOf(new ElectricCar(0, null));
 		} else if (r == Role.CARGOTRANSPORT) {
-			return getAverageOf(new ElectricCar(0, new CargoTransport(0, 0)));
+			return getAverageConsumptionOf(new ElectricCar(0, new CargoTransport(0, 0)));
 		} else {
-			return getAverageOf(new ElectricCar(0, new PassengerTransport(0)));
+			return getAverageConsumptionOf(new ElectricCar(0, new PassengerTransport(0)));
 		}
 	}
 	
 	public float getAverageFuelcUsage(Role r) {
 		if (r == Role.ALL){
-			return getAverageOf(new FuelCar(0, null));
+			return getAverageConsumptionOf(new FuelCar(0, null));
 		} else if (r == Role.CARGOTRANSPORT) {
-			return getAverageOf(new FuelCar(0, new CargoTransport(0, 0)));
+			return getAverageConsumptionOf(new FuelCar(0, new CargoTransport(0, 0)));
 		} else {
-			return getAverageOf(new FuelCar(0, new PassengerTransport(0)));
+			return getAverageConsumptionOf(new FuelCar(0, new PassengerTransport(0)));
+		}
+	}
+	
+	/**
+	 * 
+	 * @param source Dummy class to determine which type of car should be loaded. If null all cars are included.
+	 * @param r What statistics do we want.
+	 * @return 
+	 */
+	/*
+	 * (pre-condition) Param r should not be all.
+	 * (post-condition) If no cars were found, the function will return 0;
+	 */
+	private float getAverageRoleStatesOf(Car source, Role r) {
+		SimpleMap.ValueIterator it = cars.getIteratorOverValues();
+		int volume = 0;
+		int count = 0;
+		while(it.hasNext()) {
+			Car c = (Car)it.next().getValue();
+
+			if (c.getClass().equals(source.getClass())) {
+				if (source == null || c.getClass().equals(source.getClass())) {
+					if (r == Role.PASSENGERTRANSPORT && c.getPurpose().getClass().equals(new PassengerTransport(0))) {
+						PassengerTransport pt = (PassengerTransport)c.getPurpose();
+						volume += pt.getMaxPassenger();
+						count++;
+					} else if (r == Role.CARGOTRANSPORT && c.getPurpose().getClass().equals(new CargoTransport(0, 0))) {
+						CargoTransport ct = (CargoTransport)c.getPurpose();
+						volume += ct.getCargoArea();
+						count++;
+					}
+				}
+			}
+		}
+		
+		return (count>0) ? (float)volume / (float)count : 0;
+	}
+	
+	public float getAverageSeats(CarType ct) {
+		if (ct == CarType.ALL) {
+			return getAverageRoleStatesOf(null, Role.PASSENGERTRANSPORT);
+		} else if(ct == CarType.ELECTRIC) {
+			return getAverageRoleStatesOf(new ElectricCar(0, null), Role.PASSENGERTRANSPORT);
+		} else {
+			return getAverageRoleStatesOf(new FuelCar(0, null), Role.PASSENGERTRANSPORT);
+		}
+	}
+	
+	public float getAverageCargoArea(CarType ct) {
+		if (ct == CarType.ALL) {
+			return getAverageRoleStatesOf(null, Role.CARGOTRANSPORT);
+		} else if(ct == CarType.ELECTRIC) {
+			return getAverageRoleStatesOf(new ElectricCar(0, null), Role.CARGOTRANSPORT);
+		} else {
+			return getAverageRoleStatesOf(new FuelCar(0, null), Role.CARGOTRANSPORT);
 		}
 	}
 }
