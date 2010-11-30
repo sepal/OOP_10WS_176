@@ -23,18 +23,18 @@ public class CarPool {
 	}
 	
 	public boolean addCar(Car car) {
-		if(car.getMode().equals("Electric Car")) {
+		if(car instanceof ElectricCar) {
 			electric++;
-		} else if(car.getMode().equals("Fuel Car")) {
+		} else if(car instanceof FuelCar) {
 			fuel++;
 		}
 		return cars.add(car.getId(), car);
 	}
 	
 	public void removeCar(Car car) {
-		if(car.getMode().equals("Electric Car")) {
+		if(car instanceof ElectricCar) {
 			electric--;
-		} else if(car.getMode().equals("Fuel Car")) {
+		} else if(car instanceof FuelCar) {
 			fuel--;
 		}
 		cars.remove(car.getId());

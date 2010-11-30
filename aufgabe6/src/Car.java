@@ -2,7 +2,6 @@
 public abstract class Car {
 	private int id, mileage;
 	private Purpose role;
-	private String mode;
 	
 	public Car(int id) {
 		this.id = id;
@@ -18,9 +17,5 @@ public abstract class Car {
 	
 	public int getMileage() {
 		return mileage;
-	}
-	
-	public String getMode() {
-		return mode;
 	}
 }
