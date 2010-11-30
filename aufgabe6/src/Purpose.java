@@ -1,4 +1,4 @@
 
-public abstract class Purpose {
+public interface Purpose {
 
 }

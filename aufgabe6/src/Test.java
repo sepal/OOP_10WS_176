@@ -11,26 +11,26 @@ public class Test {
 		pools.add(cp1.getName(), cp1);
 		System.out.println("CarPool "+cp1.getName()+" created.\n");
 		System.out.println("***New Cars***");
-		ElectricCar ec1 = new ElectricCar(01);
-		ElectricCar ec2 = new ElectricCar(02);
-		ElectricCar ec3 = new ElectricCar(03);
-		FuelCar fc1 = new FuelCar(04);
-		FuelCar fc2 = new FuelCar(05);
-		FuelCar fc3 = new FuelCar(06);
+		ElectricCar ec1 = new ElectricCar(01, new PassengerTransport(10));
+		ElectricCar ec2 = new ElectricCar(02, new PassengerTransport(2));
+		ElectricCar ec3 = new ElectricCar(03, new CargoTransport(10, 100));
+		FuelCar fc1 = new FuelCar(04, new CargoTransport(10, 100));
+		FuelCar fc2 = new FuelCar(05, new CargoTransport(2, 50));
+		FuelCar fc3 = new FuelCar(06, new PassengerTransport(5));
 				
 		ec1.increaseMileage(3000);
-		ec1.increaseUsedPower(130);
+		ec1.increaseConsumption(130);
 		ec2.increaseMileage(6000);
-		ec2.increaseUsedPower(460);
+		ec2.increaseConsumption(460);
 		ec3.increaseMileage(12000);
-		ec3.increaseUsedPower(8000);
+		ec3.increaseConsumption(8000);
 		
 		fc1.increaseMileage(10000);
-		fc1.increaseUsedFuel(20);
+		fc1.increaseConsumption(20);
 		fc2.increaseMileage(15000);
-		fc2.increaseUsedFuel(30);
+		fc2.increaseConsumption(30);
 		fc3.increaseMileage(20000);
-		fc3.increaseUsedFuel(40);
+		fc3.increaseConsumption(40);
 		
 		cp1.addCar(ec1);
 		cp1.addCar(ec2);
@@ -39,6 +39,9 @@ public class Test {
 		cp1.addCar(fc2);
 		cp1.addCar(fc3);
 		System.out.println("------------------"+cp1.getCars().toString()+"-------------------");
+		System.out.println(cp1.getAverageElectricUsage(CarPool.Role.ALL));
+		System.out.println(cp1.getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT));
+		System.out.println(cp1.getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT));
 		
 //		System.out.println("Car List of "+cp1.getName()+":");
 //		System.out.println(ec1.getClass().getName()+" "+ec1.getId()+", "+ec1.getMileage()+" miles, "+ec1.getUsedPower()+"kW used Power");
@@ -49,7 +52,7 @@ public class Test {
 //		System.out.println(fc3.getClass().getName()+" "+fc3.getId()+", "+fc3.getMileage()+" miles, "+fc3.getUsedFuel()+"L used Fuel");
 //		System.out.println();
 
-		cp1.removeCar(fc1);
+		/*cp1.removeCar(fc1);
 		System.out.println("------------------"+cp1.getCars().toString()+"-------------------");
 
 		//System.out.println(fc3.getClass().getName()+" "+fc3.getId()+" removed.");
