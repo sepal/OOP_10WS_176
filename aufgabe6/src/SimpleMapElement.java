@@ -32,5 +32,6 @@ public class SimpleMapElement {
 	public void setPrev(SimpleMapElement prev) {
 		this.prev = prev;
 	}
+}
 	
 	
