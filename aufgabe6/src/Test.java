@@ -5,11 +5,19 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SimpleMap pools = new SimpleMap();
-		System.out.println("***New CarPool***");
+		CarPoolMap pools = new CarPoolMap();
+		System.out.println("***New CarPools***");
 		CarPool cp1 = new CarPool("Fuhrpark1");
 		pools.add(cp1.getName(), cp1);
 		System.out.println("CarPool "+cp1.getName()+" created.\n");
+		
+		CarPool cp2 = new CarPool("Fuhrpark2");
+		pools.add(cp2.getName(), cp2);
+		System.out.println("CarPool "+cp2.getName()+" created.\n");
+		
+		CarPool cp3 = new CarPool("Fuhrpark3");
+		pools.add(cp3.getName(), cp3);
+		System.out.println("CarPool "+cp3.getName()+" created.");
 
 		ElectricCar ec1 = new ElectricCar(01, new PassengerTransport(10));
 		ElectricCar ec2 = new ElectricCar(02, new PassengerTransport(2));
@@ -17,56 +25,52 @@ public class Test {
 		FuelCar fc1 = new FuelCar(04, new CargoTransport(10, 100));
 		FuelCar fc2 = new FuelCar(05, new CargoTransport(2, 50));
 		FuelCar fc3 = new FuelCar(06, new PassengerTransport(5));
-				
-		ec1.increaseMileage(3000);
-		ec1.increaseConsumption(130);
-		ec2.increaseMileage(6000);
-		ec2.increaseConsumption(460);
-		ec3.increaseMileage(12000);
-		ec3.increaseConsumption(8000);
+			
+		pools.get("Fuhrpark1").addCar(ec1);
+		pools.get("Fuhrpark1").addCar(ec1);
+		pools.get("Fuhrpark1").addCar(ec2);
+		pools.get("Fuhrpark1").addCar(ec3);
+		pools.get("Fuhrpark1").addCar(fc1);
+		pools.get("Fuhrpark1").addCar(fc2);
+		pools.get("Fuhrpark1").addCar(fc3);
 		
-		fc1.increaseMileage(10000);
-		fc1.increaseConsumption(20);
-		fc2.increaseMileage(15000);
-		fc2.increaseConsumption(30);
-		fc3.increaseMileage(20000);
-		fc3.increaseConsumption(40);
+		pools.get("Fuhrpark1").getCar(01).increaseMileage(3000);
+		pools.get("Fuhrpark1").getCar(01).increaseConsumption(130);
+		pools.get("Fuhrpark1").getCar(02).increaseMileage(6000);
+		pools.get("Fuhrpark1").getCar(02).increaseConsumption(460);
+		pools.get("Fuhrpark1").getCar(03).increaseMileage(12000);
+		pools.get("Fuhrpark1").getCar(03).increaseConsumption(8000);
 		
-		cp1.addCar(ec1);
-		cp1.addCar(ec2);
-		cp1.addCar(ec3);
-		cp1.addCar(fc1);
-		cp1.addCar(fc2);
-		cp1.addCar(fc3);
+		pools.get("Fuhrpark1").getCar(04).increaseMileage(10000);
+		pools.get("Fuhrpark1").getCar(04).increaseConsumption(20);
+		pools.get("Fuhrpark1").getCar(05).increaseMileage(15000);
+		pools.get("Fuhrpark1").getCar(05).increaseConsumption(30);
+		pools.get("Fuhrpark1").getCar(06).increaseMileage(20000);
+		pools.get("Fuhrpark1").getCar(06).increaseConsumption(40);
 		
-		System.out.println("***"+cp1.getName()+" "+cp1.getCars().toString());
-		System.out.println("Average Usage of Electric Cars: "+cp1.getAverageElectricUsage(CarPool.Role.ALL)+"kW");
-		System.out.println("Average Usage of Electric Cars for CargoTransport: "+cp1.getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
-		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+cp1.getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
-		System.out.println("Average Usage of Fuel Cars: "+cp1.getAverageFuelUsage(CarPool.Role.ALL)+"L");
-		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+cp1.getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
-		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+cp1.getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
-
-		cp1.removeCar(fc2);
-		System.out.println("\n***"+fc2.getClass().getName()+" "+fc2.getId()+" removed.***");
-		System.out.println("\n***"+cp1.getName()+" new "+cp1.getCars().toString());
+		System.out.println("***"+pools.get("Fuhrpark1").getName()+" "+pools.get("Fuhrpark1").getCars().toString());
+		System.out.println("Average Usage of Electric Cars: "+pools.get("Fuhrpark1").getAverageElectricUsage(CarPool.Role.ALL)+"kW");
+		System.out.println("Average Usage of Electric Cars for CargoTransport: "+pools.get("Fuhrpark1").getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
+		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+pools.get("Fuhrpark1").getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
+		System.out.println("Average Usage of Fuel Cars: "+pools.get("Fuhrpark1").getAverageFuelUsage(CarPool.Role.ALL)+"L");
+		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+pools.get("Fuhrpark1").getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
+		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+pools.get("Fuhrpark1").getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
 		
-		
-		fc1.increaseMileage(200);
-		fc1.increaseConsumption(20);
-		System.out.println(fc1.getClass().getName()+" "+fc1.getId()+" used, new mileage: "+fc1.getMileage()+", current Fuel level: "+fc1.getConsumption());
+		pools.get("Fuhrpark1").getCar(04).increaseMileage(200);
+		pools.get("Fuhrpark1").getCar(04).increaseConsumption(20);
+		System.out.println(pools.get("Fuhrpark1").getCar(04).getClass().getName()+" "+pools.get("Fuhrpark1").getCar(04).getId()+" used, new mileage: "+pools.get("Fuhrpark1").getCar(04).getMileage()+", current Fuel level: "+pools.get("Fuhrpark1").getCar(04).getConsumption());
 		ec2.increaseMileage(500);
 		ec2.increaseConsumption(50);
 		System.out.println(ec2.getClass().getName()+" "+ec2.getId()+" used, new mileage: "+ec2.getMileage()+", current Electric level: "+ec2.getConsumption());
-		System.out.println();		
+		System.out.println();	
 		
+		pools.get("Fuhrpark1").removeCar(fc2);
+		System.out.println("\n***"+fc2.getClass().getName()+" "+fc2.getId()+" removed.***");
+		System.out.println("\n***"+pools.get("Fuhrpark1").getName()+" new "+pools.get("Fuhrpark1").getCars().toString()+"\n");
 		
 		//---------------------------CAR POOL 2-----------------------------
 		System.out.println("---------------------------------------------------------\n");
-		System.out.println("***New CarPool***");
-		CarPool cp2 = new CarPool("Fuhrpark2");
-		pools.add(cp2.getName(), cp2);
-		System.out.println("CarPool "+cp2.getName()+" created.\n");
+
 		ElectricCar ec4 = new ElectricCar(44, new PassengerTransport(5));
 		ElectricCar ec5 = new ElectricCar(51, new PassengerTransport(4));
 		ElectricCar ec6 = new ElectricCar(60, new PassengerTransport(9));
@@ -76,60 +80,56 @@ public class Test {
 		FuelCar fc7 = new FuelCar(101, new CargoTransport(20, 400));
 		FuelCar fc8 = new FuelCar(120, new PassengerTransport(2));
 		
-		ec4.increaseMileage(10000);
-		ec4.increaseConsumption(300);
-		ec5.increaseMileage(6000);
-		ec5.increaseConsumption(300);
-		ec6.increaseMileage(8000);
-		ec6.increaseConsumption(300);
+		pools.get("Fuhrpark2").addCar(ec4);
+		pools.get("Fuhrpark2").addCar(ec5);
+		pools.get("Fuhrpark2").addCar(ec6);
+		pools.get("Fuhrpark2").addCar(fc4);
+		pools.get("Fuhrpark2").addCar(fc5);
+		pools.get("Fuhrpark2").addCar(fc6);
+		pools.get("Fuhrpark2").addCar(fc7);
+		pools.get("Fuhrpark2").addCar(fc8);
 		
-		fc4.increaseMileage(12000);
-		fc4.increaseConsumption(60);
-		fc5.increaseMileage(30000);
-		fc5.increaseConsumption(100);
-		fc6.increaseMileage(20000);
-		fc6.increaseConsumption(100);
-		fc7.increaseMileage(2000);
-		fc7.increaseConsumption(100);
-		fc8.increaseMileage(1000);
-		fc8.increaseConsumption(100);
-		cp2.addCar(ec4);
-		cp2.addCar(ec5);
-		cp2.addCar(ec6);
-		cp2.addCar(fc4);
-		cp2.addCar(fc5);
-		cp2.addCar(fc6);
-		cp2.addCar(fc7);
-		cp2.addCar(fc8);
-				
-		System.out.println("***"+cp2.getName()+" "+cp2.getCars().toString());
-		System.out.println("Average Usage of Electric Cars: "+cp2.getAverageElectricUsage(CarPool.Role.ALL)+"kW");
-		System.out.println("Average Usage of Electric Cars for CargoTransport: "+cp2.getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
-		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+cp2.getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
-		System.out.println("Average Usage of Fuel Cars: "+cp2.getAverageFuelUsage(CarPool.Role.ALL)+"L");
-		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+cp2.getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
-		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+cp2.getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
+		pools.get("Fuhrpark2").getCar(44).increaseMileage(10000);
+		pools.get("Fuhrpark2").getCar(44).increaseConsumption(300);
+		pools.get("Fuhrpark2").getCar(51).increaseMileage(6000);
+		pools.get("Fuhrpark2").getCar(51).increaseConsumption(300);
+		pools.get("Fuhrpark2").getCar(60).increaseMileage(8000);
+		pools.get("Fuhrpark2").getCar(60).increaseConsumption(300);
+		
+		pools.get("Fuhrpark2").getCar(70).increaseMileage(12000);
+		pools.get("Fuhrpark2").getCar(70).increaseConsumption(60);
+		pools.get("Fuhrpark2").getCar(80).increaseMileage(30000);
+		pools.get("Fuhrpark2").getCar(80).increaseConsumption(100);
+		pools.get("Fuhrpark2").getCar(90).increaseMileage(20000);
+		pools.get("Fuhrpark2").getCar(90).increaseConsumption(100);
+		pools.get("Fuhrpark2").getCar(101).increaseMileage(2000);
+		pools.get("Fuhrpark2").getCar(101).increaseConsumption(100);
+		pools.get("Fuhrpark2").getCar(120).increaseMileage(1000);
+		pools.get("Fuhrpark2").getCar(120).increaseConsumption(100);
 
-		
-		fc6.increaseMileage(500);
-		fc6.increaseConsumption(40);
-		System.out.println("\n"+fc6.getClass().getName()+" "+fc6.getId()+" used, new mileage: "+fc6.getMileage()+", current Fuel level: "+fc6.getConsumption());
-		ec5.increaseMileage(800);
-		ec5.increaseConsumption(90);
-		System.out.println(ec5.getClass().getName()+" "+ec5.getId()+" used, new mileage: "+ec5.getMileage()+", current Electric level: "+ec5.getConsumption());
+		System.out.println("***"+pools.get("Fuhrpark2").getName()+" "+pools.get("Fuhrpark2").getCars().toString());
+		System.out.println("Average Usage of Electric Cars: "+pools.get("Fuhrpark2").getAverageElectricUsage(CarPool.Role.ALL)+"kW");
+		System.out.println("Average Usage of Electric Cars for CargoTransport: "+pools.get("Fuhrpark2").getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
+		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+pools.get("Fuhrpark2").getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
+		System.out.println("Average Usage of Fuel Cars: "+pools.get("Fuhrpark2").getAverageFuelUsage(CarPool.Role.ALL)+"L");
+		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+pools.get("Fuhrpark2").getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
+		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+pools.get("Fuhrpark2").getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
+
+		pools.get("Fuhrpark2").getCar(90).increaseMileage(500);
+		pools.get("Fuhrpark2").getCar(90).increaseConsumption(40);
+		System.out.println("\n"+pools.get("Fuhrpark2").getCar(90).getClass().getName()+" "+pools.get("Fuhrpark2").getCar(90).getId()+" used, new mileage: "+pools.get("Fuhrpark2").getCar(90).getMileage()+", current Fuel level: "+pools.get("Fuhrpark2").getCar(90).getConsumption());
+		pools.get("Fuhrpark2").getCar(51).increaseMileage(800);
+		pools.get("Fuhrpark2").getCar(51).increaseConsumption(90);
+		System.out.println(pools.get("Fuhrpark2").getCar(51).getClass().getName()+" "+pools.get("Fuhrpark2").getCar(51).getId()+" used, new mileage: "+pools.get("Fuhrpark2").getCar(51).getMileage()+", current Electric level: "+pools.get("Fuhrpark2").getCar(51).getConsumption());
 		System.out.println();
 
-		cp2.removeCar(fc7);
+		pools.get("Fuhrpark2").removeCar(fc7);
 		
 		System.out.println(fc7.getClass().getName()+" "+fc7.getId()+" removed.\n");
-		System.out.println("***"+cp2.getName()+" new "+cp2.getCars().toString());
+		System.out.println("***"+pools.get("Fuhrpark2").getName()+" new "+pools.get("Fuhrpark2").getCars().toString());
 		
 		//-------------------------------CAR POOL 3----------------------------------
 		System.out.println("---------------------------------------------------------\n");
-		System.out.println("***New CarPool***");
-		CarPool cp3 = new CarPool("Fuhrpark3");
-		pools.add(cp3.getName(), cp3);
-		System.out.println("CarPool "+cp3.getName()+" created.");
 
 		ElectricCar ec7 = new ElectricCar(17, new PassengerTransport(4));
 		ElectricCar ec8 = new ElectricCar(18, new PassengerTransport(4));
@@ -142,47 +142,45 @@ public class Test {
 		FuelCar fc11 = new FuelCar(42, new PassengerTransport(2));
 		FuelCar fc12 = new FuelCar(43, new PassengerTransport(5));
 		
-		ec7.increaseMileage(1000);
-		ec7.increaseConsumption(300);
-		ec8.increaseMileage(4500);
-		ec9.increaseMileage(3600);
-		ec9.increaseConsumption(300);
-		ec10.increaseMileage(10200);
-		ec10.increaseConsumption(600);
-		ec11.increaseMileage(11500);
-		ec11.increaseConsumption(400);
-		ec12.increaseMileage(7000);
-		ec12.increaseConsumption(300);
+		pools.get("Fuhrpark3").addCar(ec7);
+		pools.get("Fuhrpark3").addCar(ec8);
+		pools.get("Fuhrpark3").addCar(ec9);
+		pools.get("Fuhrpark3").addCar(ec10);
+		pools.get("Fuhrpark3").addCar(ec11);
+		pools.get("Fuhrpark3").addCar(ec12);
+		pools.get("Fuhrpark3").addCar(fc10);
+		pools.get("Fuhrpark3").addCar(fc11);
+		pools.get("Fuhrpark3").addCar(fc12);
 		
-		fc10.increaseMileage(12000);
-		fc10.increaseConsumption(60);
-		fc11.increaseMileage(30000);
-		fc11.increaseConsumption(100);
-		fc12.increaseMileage(20000);
-		fc12.increaseConsumption(100);
+		pools.get("Fuhrpark3").getCar(17).increaseMileage(1000);
+		pools.get("Fuhrpark3").getCar(17).increaseConsumption(300);
+		pools.get("Fuhrpark3").getCar(18).increaseMileage(4500);
+		pools.get("Fuhrpark3").getCar(19).increaseMileage(3600);
+		pools.get("Fuhrpark3").getCar(19).increaseConsumption(300);
+		pools.get("Fuhrpark3").getCar(20).increaseMileage(10200);
+		pools.get("Fuhrpark3").getCar(20).increaseConsumption(600);
+		pools.get("Fuhrpark3").getCar(30).increaseMileage(11500);
+		pools.get("Fuhrpark3").getCar(30).increaseConsumption(400);
+		pools.get("Fuhrpark3").getCar(31).increaseMileage(7000);
+		pools.get("Fuhrpark3").getCar(31).increaseConsumption(300);
+		pools.get("Fuhrpark3").getCar(41).increaseMileage(12000);
+		pools.get("Fuhrpark3").getCar(41).increaseConsumption(60);
+		pools.get("Fuhrpark3").getCar(42).increaseMileage(30000);
+		pools.get("Fuhrpark3").getCar(42).increaseConsumption(100);
+		pools.get("Fuhrpark3").getCar(43).increaseMileage(20000);
+		pools.get("Fuhrpark3").getCar(43).increaseConsumption(100);
 		
-		cp3.addCar(ec7);
-		cp3.addCar(ec8);
-		cp3.addCar(ec9);
-		cp3.addCar(ec10);
-		cp3.addCar(ec11);
-		cp3.addCar(ec12);
-		cp3.addCar(fc10);
-		cp3.addCar(fc11);
-		cp3.addCar(fc12);
-		
-		System.out.println("\n***"+cp3.getName()+" "+cp3.getCars().toString());
-		System.out.println("Average Usage of Electric Cars: "+cp3.getAverageElectricUsage(CarPool.Role.ALL)+"kW");
-		System.out.println("Average Usage of Electric Cars for CargoTransport: "+cp3.getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
-		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+cp3.getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
-		System.out.println("Average Usage of Fuel Cars: "+cp3.getAverageFuelUsage(CarPool.Role.ALL)+"L");
-		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+cp3.getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
-		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+cp3.getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
-		System.out.println("Average seats for electric cars: "+cp3.getAverageSeats(CarPool.CarType.ELECTRIC));
-		System.out.println("Average cargo area for electric cars: "+cp3.getAverageCargoArea(CarPool.CarType.ELECTRIC));
-		System.out.println("Average seats for fuel cars: "+cp3.getAverageSeats(CarPool.CarType.FUEL));
-		System.out.println("Average cargo area for fuel cars: "+cp3.getAverageCargoArea(CarPool.CarType.FUEL));
-
+		System.out.println("\n***"+pools.get("Fuhrpark3").getName()+" "+pools.get("Fuhrpark3").getCars().toString());
+		System.out.println("Average Usage of Electric Cars: "+pools.get("Fuhrpark3").getAverageElectricUsage(CarPool.Role.ALL)+"kW");
+		System.out.println("Average Usage of Electric Cars for CargoTransport: "+pools.get("Fuhrpark3").getAverageElectricUsage(CarPool.Role.CARGOTRANSPORT)+"kW");
+		System.out.println("Average Usage of Electric Cars for PassengerTransport: "+pools.get("Fuhrpark3").getAverageElectricUsage(CarPool.Role.PASSENGERTRANSPORT)+"kW");
+		System.out.println("Average Usage of Fuel Cars: "+pools.get("Fuhrpark3").getAverageFuelUsage(CarPool.Role.ALL)+"L");
+		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+pools.get("Fuhrpark3").getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
+		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+pools.get("Fuhrpark3").getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
+		System.out.println("Average seats for electric cars: "+pools.get("Fuhrpark3").getAverageSeats(CarPool.CarType.ELECTRIC));
+		System.out.println("Average cargo area for electric cars: "+pools.get("Fuhrpark3").getAverageCargoArea(CarPool.CarType.ELECTRIC));
+		System.out.println("Average seats for fuel cars: "+pools.get("Fuhrpark3").getAverageSeats(CarPool.CarType.FUEL));
+		System.out.println("Average cargo area for fuel cars: "+pools.get("Fuhrpark3").getAverageCargoArea(CarPool.CarType.FUEL));
 	}
 
 }

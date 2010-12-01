@@ -1,38 +1,12 @@
-
-	/**
-	 * A simple Map implemented as linked list, storing key - value pairs.
-	 * Keys must not be null and have to be unique.
-	 */
 public class SimpleMap {
-	private Object key, value;
 	private SimpleMapElement start;
 	private SimpleMapElement last;
 	private int size;
 	
 	/**
-	 * Creates a new SimpleMap for the given key - value pair. The caller is
-	 * responsible for checking the validity of key. If key is null, an assertion will
-	 * lead to an error. 
-	 * 
-	 * @param key Must not be null and has to be unique.
-	 * @param value Can be any Object (including null).
-	 */
-	/*
-	 * pre-condition: key has to be unique (not yet in this map) and not null.
-	 * post-condition: A new SimpleMap object containing key and value has been created or the program
-	 * will terminate with an error if key is null.
-	 */
-	private SimpleMap(Object key, Object value) {
-		assert (key != null) : "Key in SimpleMap must not be null!";
-		this.key = key;
-	}
-	
-	/**
-	 * Creates an empty SingleMap. Note that key is just null, because the list is empty.
-	 * Adding null as key is not possible.
+	 * Creates an empty SimpleMap. 
 	 */
 	public SimpleMap() {
-		key = value = null;
 		start = null;
 	}
 	

@@ -24,5 +24,4 @@ public class CargoTransport implements Purpose {
 		return maxPayload;
 	}
 	
-		
 }

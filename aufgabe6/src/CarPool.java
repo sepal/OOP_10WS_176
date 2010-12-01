@@ -26,14 +26,36 @@ public class CarPool {
 		return name;
 	}
 	
+	/*
+	 * precondition: id has to be a valid car id identifying a car in this car pool
+	 * postcondition: returns the car identified by id, or null if no such car exists
+	 */
 	public Car getCar(int id) {
-		return (Car) cars.get(id);
+		Object tmp = cars.get(id);
+		if (tmp != null && tmp instanceof Car) {
+			return (Car) tmp;
+		} else {
+			return null;
+		}
 	}
 	
+	/*
+	 * precondition: car must not be null, this car or another car with the same id must not
+	 *   be already member of this car pool
+	 * postcondition: if car was not null and no car with the same id was yet in the pool,
+	 *   car has been added to the pool
+	 */
 	public boolean addCar(Car car) {
-		return cars.add(car.getId(), car);
+		if (car == null) {
+			return false;
+		} else {
+			return cars.add(car.getId(), car);
+		}
 	}
 	
+	/*
+	 * postcondition: if car was a member of this car pool, after calling this method it won't be any longer
+	 */
 	public void removeCar(Car car) {
 		cars.remove(car.getId());
 	}
@@ -43,10 +65,11 @@ public class CarPool {
 	}
 
 	/*
-	 * (pre-condition) Param source shoud be instance of ElectricCar, FuelCar or null.
+	 * (pre-condition) Param source shoud be instance of ElectricCar or FuelCar
 	 * (post-condition) If no cars were found, the function will return 0;
 	 */
 	private float getAverageConsumptionOf(Car source) {
+		if (source == null) return 0;
 		SimpleMap.ValueIterator it = cars.getIteratorOverValues();
 		int volume = 0;
 		int count = 0;
@@ -101,17 +124,15 @@ public class CarPool {
 		while(it.hasNext()) {
 			Car c = (Car)it.next().getValue();
 
-			if (c.getClass().equals(source.getClass())) {
-				if (source == null || c.getClass().equals(source.getClass())) {
-					if (r == Role.PASSENGERTRANSPORT && c.getPurpose().getClass().equals(new PassengerTransport(0).getClass())) {
-						PassengerTransport pt = (PassengerTransport)c.getPurpose();
-						volume += pt.getMaxPassenger();
-						count++;
-					} else if (r == Role.CARGOTRANSPORT && c.getPurpose().getClass().equals(new CargoTransport(0, 0).getClass())) {
-						CargoTransport ct = (CargoTransport)c.getPurpose();
-						volume += ct.getCargoArea();
-						count++;
-					}
+			if (source == null || c.getClass().equals(source.getClass())) {
+				if (r == Role.PASSENGERTRANSPORT && c.getPurpose().getClass().equals(PassengerTransport.class)) {
+					PassengerTransport pt = (PassengerTransport)c.getPurpose();
+					volume += pt.getMaxPassenger();
+					count++;
+				} else if (r == Role.CARGOTRANSPORT && c.getPurpose().getClass().equals(CargoTransport.class)) {
+					CargoTransport ct = (CargoTransport)c.getPurpose();
+					volume += ct.getCargoArea();
+					count++;
 				}
 			}
 		}
