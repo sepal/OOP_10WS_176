@@ -103,11 +103,11 @@ public class CarPool {
 
 			if (c.getClass().equals(source.getClass())) {
 				if (source == null || c.getClass().equals(source.getClass())) {
-					if (r == Role.PASSENGERTRANSPORT && c.getPurpose().getClass().equals(new PassengerTransport(0))) {
+					if (r == Role.PASSENGERTRANSPORT && c.getPurpose().getClass().equals(new PassengerTransport(0).getClass())) {
 						PassengerTransport pt = (PassengerTransport)c.getPurpose();
 						volume += pt.getMaxPassenger();
 						count++;
-					} else if (r == Role.CARGOTRANSPORT && c.getPurpose().getClass().equals(new CargoTransport(0, 0))) {
+					} else if (r == Role.CARGOTRANSPORT && c.getPurpose().getClass().equals(new CargoTransport(0, 0).getClass())) {
 						CargoTransport ct = (CargoTransport)c.getPurpose();
 						volume += ct.getCargoArea();
 						count++;

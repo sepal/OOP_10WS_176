@@ -178,6 +178,10 @@ public class Test {
 		System.out.println("Average Usage of Fuel Cars: "+cp3.getAverageFuelUsage(CarPool.Role.ALL)+"L");
 		System.out.println("Average Usage of Fuel Cars for CargoTransport: "+cp3.getAverageFuelUsage(CarPool.Role.CARGOTRANSPORT)+"L");
 		System.out.println("Average Usage of Fuel Cars for PassengerTransport: "+cp3.getAverageFuelUsage(CarPool.Role.PASSENGERTRANSPORT)+"L");
+		System.out.println("Average seats for electric cars: "+cp3.getAverageSeats(CarPool.CarType.ELECTRIC));
+		System.out.println("Average cargo area for electric cars: "+cp3.getAverageCargoArea(CarPool.CarType.ELECTRIC));
+		System.out.println("Average seats for fuel cars: "+cp3.getAverageSeats(CarPool.CarType.FUEL));
+		System.out.println("Average cargo area for fuel cars: "+cp3.getAverageCargoArea(CarPool.CarType.FUEL));
 
 	}
 
