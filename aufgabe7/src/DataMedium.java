@@ -9,4 +9,8 @@ public abstract class DataMedium {
 	public String getName() {
 		return name;
 	}
+	
+	public String toString() {
+		return name;
+	}
 }

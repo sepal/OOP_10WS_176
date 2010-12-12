@@ -1,5 +1,5 @@
 
-public class ExternalDisc extends USBDevice {
+public class ExternalDisc implements USBDevice {
 	private NonRemovableStorage disc;
 	
 	public ExternalDisc(NonRemovableStorage disc) {

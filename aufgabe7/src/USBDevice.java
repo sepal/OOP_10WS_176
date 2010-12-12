@@ -1,4 +1,3 @@
 
-public abstract class USBDevice {
-
+public interface USBDevice {
 }
