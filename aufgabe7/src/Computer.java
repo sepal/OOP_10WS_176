@@ -5,10 +5,15 @@ public class Computer {
 	private String name;
 	private NonRemovableStorage sda, sdb;
 	private Port<USBDevice> usb1, usb2;
+	
 	private Port<CardMS> msslot;
 	private Port<CardSD> sdslot;
 	private Port<CardMiniSD> minisdslot;
 	private Port<CardMicroSD> microsdslot;
+	
+	private Port<OptBD> bddrive;
+	private Port<OptDVD> dvddrive;
+	private Port<OptCD> cddrive;
 	
 	public Computer(String name, NonRemovableStorage sda, NonRemovableStorage sdb) {
 		this.name = name;
@@ -22,6 +27,10 @@ public class Computer {
 		sdslot = new Port<CardSD>();
 		minisdslot = new Port<CardMiniSD>();
 		microsdslot = new Port<CardMicroSD>();
+
+		bddrive = new Port<OptBD>();
+		dvddrive = new Port<OptDVD>();
+		cddrive = new Port<OptCD>();
 	}
 	
 	public String getName() {
@@ -58,6 +67,18 @@ public class Computer {
 
 	public Port<CardMicroSD> getMicrosdslot() {
 		return microsdslot;
+	}
+	
+	public Port<OptCD> getCDDrive(){
+		return cddrive;
+	}
+	
+	public Port<OptDVD> getDVDDrive(){
+		return dvddrive;
+	}
+	
+	public Port<OptBD> getBDDrive(){
+		return bddrive;
 	}
 	
 	public String[] volumes() {

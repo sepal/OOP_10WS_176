@@ -1,5 +1,5 @@
 
-public class OptDVD extends OpticalMedium {
+public class OptDVD extends OptBD {
 
 	public OptDVD(String name) {
 		super(name);
