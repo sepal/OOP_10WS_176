@@ -1,5 +1,5 @@
 
-public class CardCF2 extends DataMedium {
+public class CardCF2 extends CardCF1 {
 
 	public CardCF2(String name) {
 		super(name);
