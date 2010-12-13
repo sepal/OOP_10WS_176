@@ -1,9 +1,5 @@
 
-public abstract class OpticalDrive extends DataMedium {
+public abstract class OpticalDrive implements USBDevice {
 
-	public OpticalDrive(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
 
 }
