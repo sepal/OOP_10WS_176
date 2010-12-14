@@ -2,6 +2,7 @@
 public class Test {		
 	public static void main(String[] args) {
 		boolean res;
+<<<<<<< HEAD
 		// Create Computer
 		Computer pc1 = new Computer("Dell Optiplex", new HDD("Maxtor 350GB HDD"), new SSD("Corsair X128 SSD"));
 		System.out.println("Created new Computer: "+pc1.getName()+"\n");
@@ -14,6 +15,18 @@ public class Test {
 		// Try to attach another Device on used USB port
 		res = pc1.getUsb2().insert(new ExternalDisc(new SSD("Foobar 1337")));
 		System.out.println("Trying to Attach SSD to USB port 2: "+res+"\n");
+=======
+		System.out.println("*** Testing PC ***");
+		System.out.println("Creating PC:");
+		Computer pc1 = new Computer("Dell Optiplex", new HDD("Maxtor 350GB HDD"), new SSD("Corsair X128 SSD"));
+		System.out.println("  " + pc1.getName());
+		
+		
+		System.out.println("Hardrives:");
+		System.out.println("  " + pc1.getSda());
+		System.out.println("  " + pc1.getSdb());
+>>>>>>> 3e6b03747b5aad9e923bfe9344a56efd6d5175d0
+		
 		
 		res = pc1.getSdslot().insert(new CardMicroSD("MicroSD1"));
 		System.out.println("Inserted: " + pc1.getSdslot().getDev());
