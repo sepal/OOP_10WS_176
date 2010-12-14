@@ -1,5 +1,5 @@
 
-public class OptBD extends DataMedium {
+public class OptBD extends OpticalMedium {
 
 	public OptBD(String name) {
 		super(name);

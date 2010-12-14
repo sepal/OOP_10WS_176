@@ -9,4 +9,9 @@ public class ExternalDisc implements USBDevice {
 	public NonRemovableStorage getDisc() {
 		return disc;
 	}
+
+	@Override
+	public String getName() {
+		return ""+disc;
+	}
 }
