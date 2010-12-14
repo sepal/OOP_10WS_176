@@ -6,7 +6,7 @@ public class Test {
 		Computer pc1 = new Computer("Dell Optiplex", new HDD("Maxtor 350GB HDD"), new SSD("Corsair X128 SSD"));
 		System.out.println("Created new Computer: "+pc1.getName()+"\n");
 		// Attach CardReader and External HDD to USB Ports
-		res = pc1.getUsb1().insert(new CardReader("CardReader"));
+		res = pc1.getUsb1().insert(new CardReader());
 		System.out.println("Attached CardReader to USB port 1: "+res+"\nDevice name: "+pc1.getUsb1().getDev());
 		res = pc1.getUsb2().insert(new ExternalDisc(new HDD("Plextor HDD")));
 		System.out.println("Attached External HDD to USB port 2: "+res+"\nDevice name: "+pc1.getUsb2().getDev());

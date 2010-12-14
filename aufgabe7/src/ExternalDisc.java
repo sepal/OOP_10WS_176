@@ -10,7 +10,6 @@ public class ExternalDisc implements USBDevice {
 		return disc;
 	}
 
-	@Override
 	public String getName() {
 		return ""+disc;
 	}

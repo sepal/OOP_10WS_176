@@ -13,4 +13,12 @@ public abstract class OpticalDrive<T extends OpticalMedium> {
 	public boolean eject() {
 		return slot.eject();
 	}
+	
+	public String getName() {
+		return ""+slot;
+	}
+	
+	public String toString() {
+		return getName();
+	}
 }

@@ -1,5 +1,4 @@
 public class CardReader implements USBDevice {
-	private String name;
 	private Port<CardSD> sdslot;
 	private Port<CardMiniSD> minisdslot;
 	private Port<CardMicroSD> microsdslot;
@@ -7,8 +6,7 @@ public class CardReader implements USBDevice {
 	private Port<CardCF1> cf1slot;
 	private Port<CardCF2> cf2slot;
 	
-	public CardReader(String name) {
-		this.name = name;
+	public CardReader() {
 		sdslot = new Port<CardSD>();
 		minisdslot = new Port<CardMiniSD>();
 		microsdslot = new Port<CardMicroSD>();
@@ -39,10 +37,5 @@ public class CardReader implements USBDevice {
 
 	public Port<CardCF2> getCf2slot() {
 		return cf2slot;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 }

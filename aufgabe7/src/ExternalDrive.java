@@ -1,15 +1,17 @@
 
 public class ExternalDrive implements USBDevice {
-	private OpticalDrive discdrive;
+	private OpticalDrive<? extends OpticalMedium> discdrive;
 	
-	public ExternalDrive(OpticalDrive discdrive) {
+	public ExternalDrive(OpticalDrive<? extends OpticalMedium> discdrive) {
 		this.discdrive = discdrive;
 	}
 
-	@Override
+	public OpticalDrive<? extends OpticalMedium> getDiscdrive() {
+		return discdrive;
+	}
+	
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return ""+discdrive;
 	}
-
 }
