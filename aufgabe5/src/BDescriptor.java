@@ -5,12 +5,11 @@ public class BDescriptor extends Descriptor {
 		super(desc);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public int compareTo(Descriptor o) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public boolean bs() {
+		return desc.contains("B") | desc.contains("b");
 	}
+<<<<<<< HEAD
 	
 	public boolean bs(String s) {
 		for(int i = 0; i < s.length(); i++) {
@@ -22,4 +21,6 @@ public class BDescriptor extends Descriptor {
 		return false;
 	}
 
+=======
+>>>>>>> master
 }
