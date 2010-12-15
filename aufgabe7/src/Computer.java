@@ -15,6 +15,10 @@ public class Computer {
 	private OptDVDDrive dvddrive;
 	private OptCDDrive cddrive;
 	
+	/**
+	 *(precondition) name and storages must not be null
+	 *(postcondition) creates computer with empty ports
+	 */
 	public Computer(String name, NonRemovableStorage sda, NonRemovableStorage sdb) {
 		this.name = name;
 		
@@ -33,54 +37,93 @@ public class Computer {
 		cddrive = new OptCDDrive();
 	}
 	
+	/**
+	 *(postcondition) returns name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 *(postcondition) returns USBPort
+	 */
 	public Port<USBDevice>  getUsb1() {
 		return usb1;
 	}
 
+	/**
+	 *(postcondition) returns USBPort
+	 */
 	public Port<USBDevice>  getUsb2() {
 		return usb2;
 	}
 
+	/**
+	 *(postcondition) returns NonRemovableStorage
+	 */
 	public NonRemovableStorage getSda() {
 		return sda;
 	}
 
+	/**
+	 *(postcondition) returns NonRemovableStorage
+	 */
 	public NonRemovableStorage getSdb() {
 		return sdb;
 	}
 
+	/**
+	 *(postcondition) returns MSPort
+	 */
 	public Port<CardMS> getMsslot() {
 		return msslot;
 	}
 
+	/**
+	 *(postcondition) returns SDPort
+	 */
 	public Port<CardSD> getSdslot() {
 		return sdslot;
 	}
 
+	/**
+	 *(postcondition) returns MiniSDPort
+	 */
 	public Port<CardMiniSD> getMinisdslot() {
 		return minisdslot;
 	}
 
+	/**
+	 *(postcondition) returns MicroSDPort
+	 */
 	public Port<CardMicroSD> getMicrosdslot() {
 		return microsdslot;
 	}
 	
+	/**
+	 *(postcondition) returns CDDrive
+	 */
 	public OptCDDrive getCDDrive(){
 		return cddrive;
 	}
 	
+	/**
+	 *(postcondition) returns DVDDrive
+	 */
 	public OptDVDDrive getDVDDrive(){
 		return dvddrive;
 	}
 	
+	/**
+	 *(postcondition) returns BDDrive
+	 */
 	public OptBDDrive getBDDrive(){
 		return bddrive;
 	}
 	
+	/**
+	 *(postcondition) returns list of names of ports
+	 */
 	public String[] volumes() {
 		String[] names = new String[NUM_DEVICES];
 		for (int i=0; i < NUM_DEVICES; i++) {
