@@ -10,4 +10,7 @@ public class CardMS extends DataMedium {
 		// TODO Auto-generated constructor stub
 	}
 
+	public boolean insertIntoCardReader(CardReader creader) {
+		return creader.getMsslot().insert(this);
+	}
 }

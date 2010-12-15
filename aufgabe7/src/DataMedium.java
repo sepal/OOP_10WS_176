@@ -6,6 +6,8 @@ public abstract class DataMedium {
 		this.name = name;
 	}
 	
+	public abstract boolean insertIntoCardReader(CardReader cr);
+	
 	public String getName() {
 		return name;
 	}
