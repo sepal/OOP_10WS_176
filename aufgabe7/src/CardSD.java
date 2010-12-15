@@ -1,0 +1,12 @@
+
+public class CardSD extends DataMedium {
+
+	/**
+	 *(precondition) name must not be null
+	 *(postcondition) creates object as datamedium 
+	 */
+	public CardSD(String name) {
+		super(name);
+	}
+
+}
