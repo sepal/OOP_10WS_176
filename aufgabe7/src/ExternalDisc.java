@@ -13,4 +13,8 @@ public class ExternalDisc implements USBDevice {
 	public String getName() {
 		return ""+disc;
 	}
+	
+	public String toString() {
+		return this.getName();
+	}
 }

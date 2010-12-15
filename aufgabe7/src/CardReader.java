@@ -38,4 +38,5 @@ public class CardReader implements USBDevice {
 	public Port<CardCF2> getCf2slot() {
 		return cf2slot;
 	}
+
 }

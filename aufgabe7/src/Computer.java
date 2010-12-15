@@ -11,9 +11,9 @@ public class Computer {
 	private Port<CardMiniSD> minisdslot;
 	private Port<CardMicroSD> microsdslot;
 	
-	private Port<OptBD> bddrive;
-	private Port<OptDVD> dvddrive;
-	private Port<OptCD> cddrive;
+	private OptBDDrive bddrive;
+	private OptDVDDrive dvddrive;
+	private OptCDDrive cddrive;
 	
 	public Computer(String name, NonRemovableStorage sda, NonRemovableStorage sdb) {
 		this.name = name;
@@ -28,9 +28,9 @@ public class Computer {
 		minisdslot = new Port<CardMiniSD>();
 		microsdslot = new Port<CardMicroSD>();
 
-		bddrive = new Port<OptBD>();
-		dvddrive = new Port<OptDVD>();
-		cddrive = new Port<OptCD>();
+		bddrive = new OptBDDrive();
+		dvddrive = new OptDVDDrive();
+		cddrive = new OptCDDrive();
 	}
 	
 	public String getName() {
@@ -69,15 +69,15 @@ public class Computer {
 		return microsdslot;
 	}
 	
-	public Port<OptCD> getCDDrive(){
+	public OptCDDrive getCDDrive(){
 		return cddrive;
 	}
 	
-	public Port<OptDVD> getDVDDrive(){
+	public OptDVDDrive getDVDDrive(){
 		return dvddrive;
 	}
 	
-	public Port<OptBD> getBDDrive(){
+	public OptBDDrive getBDDrive(){
 		return bddrive;
 	}
 	
