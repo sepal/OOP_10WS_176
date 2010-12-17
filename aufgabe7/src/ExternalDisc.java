@@ -30,4 +30,16 @@ public class ExternalDisc implements USBDevice {
 	public String toString() {
 		return this.getName();
 	}
+
+	@Override
+	public boolean insert(DataMedium dm) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eject() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

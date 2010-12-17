@@ -9,10 +9,6 @@ public class CardMS extends DataMedium {
 		super(name);
 	}
 
-	public boolean insertIntoCardReader(CardReader cr) {
-		return cr.getMsslot().insert(this);
-	}
-
 	@Override
 	public boolean insertIntoCardReader(CardMSReader msr) {
 		return msr.getSlot().insert(this);
