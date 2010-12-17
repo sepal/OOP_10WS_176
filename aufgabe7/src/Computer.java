@@ -96,26 +96,6 @@ public class Computer {
 		return bddrive;
 	}
 	
-	/**
-	 *(postcondition) returns list of names of ports
-	 */
-	public String[] volumes() {
-		String[] names = new String[NUM_DEVICES];
-		for (int i=0; i < NUM_DEVICES; i++) {
-			names[i] = "";
-		}
-		names[0] += sda;
-		names[1] += sdb;
-		names[2] += usb1;
-		names[3] += usb2;
-		names[4] += msreader.getSlot().getDev().getName();
-		names[5] += sdreader.getSlot().getDev().getName();
-		names[6] += minisdslot;
-		names[7] += microsdslot;
-		
-		return names;
-	}
-
 	public static int getNumDevices() {
 		return NUM_DEVICES;
 	}
@@ -143,16 +123,31 @@ public class Computer {
 	public CardMSReader getMsreader() {
 		return msreader;
 	}
-
-	public OptBDDrive getBddrive() {
-		return bddrive;
-	}
-
-	public OptDVDDrive getDvddrive() {
-		return dvddrive;
-	}
-
-	public OptCDDrive getCddrive() {
-		return cddrive;
+	
+	/**
+	 *(postcondition) returns list of names of ports
+	 */
+	public String[] volumes() {
+		String[] names = new String[NUM_DEVICES];
+		for (int i=0; i < NUM_DEVICES; i++) {
+			names[i] = "";
+		}
+		
+		names[0] += sda;
+		names[1] += sdb;
+		names[2] += usb1;
+		names[3] += usb2;
+		
+		names[4] += msreader;
+		names[5] += sdreader;
+		names[6] += minisdreader;
+		names[7] += microsdreader;
+		names[8] += cf1reader;
+		names[9] += cf2reader;
+		names[10] += bddrive;
+		names[11] += cddrive;
+		names[12] += dvddrive;
+		
+		return names;
 	}
 }
