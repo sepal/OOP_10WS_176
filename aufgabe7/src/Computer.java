@@ -1,6 +1,6 @@
 
 public class Computer {
-	private static final int NUM_DEVICES = 8;
+	private static final int NUM_DEVICES = 13;
 	
 	private String name;
 	private NonRemovableStorage sda, sdb;
