@@ -6,6 +6,13 @@ public class Computer {
 	private NonRemovableStorage sda, sdb;
 	private Port<USBDevice> usb1, usb2;
 	
+	private CardCF1Reader cf1reader;
+	private CardCF2Reader cf2reader;
+	private CardSDReader sdreader;
+	private CardMiniSDReader minisdreader;
+	private CardMicroSDReader microsdreader;
+	private CardMSReader msreader;
+	
 	private Port<CardMS> msslot;
 	private Port<CardSD> sdslot;
 	private Port<CardMiniSD> minisdslot;
@@ -32,6 +39,13 @@ public class Computer {
 		minisdslot = new Port<CardMiniSD>();
 		microsdslot = new Port<CardMicroSD>();
 
+		cf1reader = new CardCF1Reader();
+		cf2reader = new CardCF2Reader();
+		sdreader = new CardSDReader();
+		minisdreader = new CardMiniSDReader();
+		microsdreader = new CardMicroSDReader();
+		msreader = new CardMSReader();
+		
 		bddrive = new OptBDDrive();
 		dvddrive = new OptDVDDrive();
 		cddrive = new OptCDDrive();
@@ -139,5 +153,45 @@ public class Computer {
 		names[7] += microsdslot;
 		
 		return names;
+	}
+
+	public static int getNumDevices() {
+		return NUM_DEVICES;
+	}
+
+	public CardCF1Reader getCf1reader() {
+		return cf1reader;
+	}
+
+	public CardCF2Reader getCf2reader() {
+		return cf2reader;
+	}
+
+	public CardSDReader getSdreader() {
+		return sdreader;
+	}
+
+	public CardMiniSDReader getMinisdreader() {
+		return minisdreader;
+	}
+
+	public CardMicroSDReader getMicrosdreader() {
+		return microsdreader;
+	}
+
+	public CardMSReader getMsreader() {
+		return msreader;
+	}
+
+	public OptBDDrive getBddrive() {
+		return bddrive;
+	}
+
+	public OptDVDDrive getDvddrive() {
+		return dvddrive;
+	}
+
+	public OptCDDrive getCddrive() {
+		return cddrive;
 	}
 }

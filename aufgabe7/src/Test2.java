@@ -6,6 +6,10 @@ public class Test2 {
 	 */
 	public static void main(String[] args) {
 		boolean res = false;
+		
+		Computer pc1 = new Computer("Dell Optiplex", new HDD("Maxtor 350GB HDD"), new SSD("Corsair X128 SSD"));
+		System.out.println("Created new Computer: "+pc1.getName()+"\n");
+		
 		USBDevice usbdev = new CardCF1Reader();
 		res = usbdev.insert(new CardCF2("CF2"));
 		System.out.println(""+res+" "+usbdev.toString());
