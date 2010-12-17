@@ -9,4 +9,8 @@ public class CardCF2 extends DataMedium {
 		super(name);
 	}
 
+	@Override
+	public boolean insertIntoCardReader(CardReader cr) {
+		return cr.getCf2slot().insert(this);
+	}
 }
