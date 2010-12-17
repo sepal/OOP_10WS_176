@@ -4,7 +4,7 @@ public class Computer {
 	
 	private String name;
 	private NonRemovableStorage sda, sdb;
-	private Port<USBDevice> usb1, usb2;
+	private Port<USBDevice<?>> usb1, usb2;
 	
 	private CardCF1Reader cf1reader;
 	private CardCF2Reader cf2reader;
@@ -49,14 +49,14 @@ public class Computer {
 	/**
 	 *(postcondition) returns USBPort
 	 */
-	public Port<USBDevice>  getUsb1() {
+	public Port<USBDevice<?>>  getUsb1() {
 		return usb1;
 	}
 
 	/**
 	 *(postcondition) returns USBPort
 	 */
-	public Port<USBDevice>  getUsb2() {
+	public Port<USBDevice<?>>  getUsb2() {
 		return usb2;
 	}
 
