@@ -8,5 +8,9 @@ public class OptDVD extends OptBD {
 	public OptDVD(String name) {
 		super(name);
 	}
-
+	
+	@Override
+	public boolean insertIntoOpticalDrive(OptDVDDrive drive) {
+		return drive.getSlot().insert(this);
+	}
 }
