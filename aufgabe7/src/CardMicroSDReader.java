@@ -1,5 +1,5 @@
 
-public class CardMicroSDReader implements USBDevice {
+public class CardMicroSDReader extends USBDevice {
 
 
 	private Port<CardMicroSD> slot;

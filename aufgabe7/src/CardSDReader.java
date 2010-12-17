@@ -1,23 +1,14 @@
 
-public class CardSDReader implements USBDevice {
-	private Port<CardSD> slot;
+public class CardSDReader extends USBDevice<CardSD> {
+	//private Port<CardSD> slot;
 	
 	public CardSDReader() {
-		slot = new Port<CardSD>();
-	}
-
-	@Override
-	public boolean eject() {
-		return slot.eject();
+		//slot = new Port<CardSD>();
+		super();
 	}
 
 	@Override
 	public boolean insert(DataMedium dm) {
 		return dm.insertIntoCardReader(this);
 	}
-	
-	public Port<CardSD> getSlot() {
-		return slot;
-	}
-
 }
