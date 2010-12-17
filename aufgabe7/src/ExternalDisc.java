@@ -1,5 +1,5 @@
 
-public class ExternalDisc implements USBDevice {
+public class ExternalDisc extends USBDevice<NonRemovableStorage> {
 	private NonRemovableStorage disc;
 	
 	/**
@@ -23,6 +23,11 @@ public class ExternalDisc implements USBDevice {
 	public String getName() {
 		return ""+disc;
 	}
+	
+	public Port<NonRemovableStorage> getSlot() {
+		return new DummyPort();
+	}
+	
 	/**
 	 *(precondition) disc must exist
 	 *(postcondition) returns nonremovablestorage as string
@@ -33,13 +38,33 @@ public class ExternalDisc implements USBDevice {
 
 	@Override
 	public boolean insert(DataMedium dm) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean eject() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private class DummyPort extends Port<NonRemovableStorage> {
+		@Override
+		public boolean insert(NonRemovableStorage plug) {
+			return false;
+		}
+		
+		@Override
+		public boolean eject() {
+			return false;
+		}
+		
+		@Override 
+		public NonRemovableStorage getDev() {
+			return disc;
+		}
+		
+		@Override
+		public String toString() {
+			return ""+disc;
+		}
 	}
 }
