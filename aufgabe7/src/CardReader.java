@@ -60,4 +60,7 @@ public class CardReader implements USBDevice {
 		return cf2slot;
 	}
 
+	public boolean insert(DataMedium dm) {
+		return dm.insertIntoCardReader(this);
+	}
 }
