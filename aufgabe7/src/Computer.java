@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Computer {
 	private static final int NUM_DEVICES = 13;
@@ -128,26 +129,30 @@ public class Computer {
 	 *(postcondition) returns list of names of ports
 	 */
 	public String[] volumes() {
-		String[] names = new String[NUM_DEVICES];
-		for (int i=0; i < NUM_DEVICES; i++) {
-			names[i] = "";
-		}
+		ArrayList<String> names, cut;
+		names = new ArrayList<String>();
+		cut = new ArrayList<String>();
+
+		cut.add("null");
+		cut.add("");
 		
-		names[0] += sda;
-		names[1] += sdb;
-		names[2] += usb1;
-		names[3] += usb2;
+		names.add(""+ sda);
+		names.add(""+ sdb);
+		names.add(""+ usb1);
+		names.add(""+ usb2);
 		
-		names[4] += msreader;
-		names[5] += sdreader;
-		names[6] += minisdreader;
-		names[7] += microsdreader;
-		names[8] += cf1reader;
-		names[9] += cf2reader;
-		names[10] += bddrive;
-		names[11] += cddrive;
-		names[12] += dvddrive;
+		names.add(""+ msreader);
+		names.add(""+ sdreader);
+		names.add(""+ minisdreader);
+		names.add(""+ microsdreader);
+		names.add(""+ cf1reader);
+		names.add(""+ cf2reader);
+		names.add(""+ bddrive);
+		names.add(""+ cddrive);
+		names.add(""+ dvddrive);
 		
-		return names;
+		names.removeAll(cut);
+		
+		return names.toArray(new String[1]);
 	}
 }

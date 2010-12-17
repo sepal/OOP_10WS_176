@@ -10,7 +10,7 @@ public class USBPort extends USBDevice<USBDevice<?>> {
 		return false;
 	}
 	
-	public boolean insert(USBDevice<?> usbdev) {
+	public <T> boolean insert(USBDevice<T> usbdev) {
 		return getSlot().insert(usbdev);
 	}
 }
