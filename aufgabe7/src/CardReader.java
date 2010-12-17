@@ -63,4 +63,10 @@ public class CardReader implements USBDevice {
 	public boolean insert(DataMedium dm) {
 		return dm.insertIntoCardReader(this);
 	}
+
+	@Override
+	public boolean eject() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

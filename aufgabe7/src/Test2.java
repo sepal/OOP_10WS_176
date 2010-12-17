@@ -18,6 +18,10 @@ public class Test2 {
 		USBDevice usbdev3 = new CardMSReader();
 		res = usbdev3.insert(new CardCF1("CF1"));
 		System.out.println(""+res+" "+usbdev3.toString());
+		
+		USBDevice usbdev4 = new CardSDReader();
+		res = usbdev4.insert(new CardSD("SD1"));
+		System.out.println(""+res+" "+usbdev4.toString());
 	}
 
 }

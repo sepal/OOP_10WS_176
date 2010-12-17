@@ -14,18 +14,6 @@ public class CardMS extends DataMedium {
 	}
 
 	@Override
-	public boolean insertIntoCardReader(CardCF1Reader cf1r) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean insertIntoCardReader(CardCF2Reader cf2r) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean insertIntoCardReader(CardMSReader msr) {
 		return msr.getSlot().insert(this);
 	}

@@ -9,4 +9,14 @@ public class CardSD extends DataMedium {
 		super(name);
 	}
 
+	@Override
+	public boolean insertIntoCardReader(CardSDReader sdr) {
+		return sdr.getSlot().insert(this);
+	}
+
+	@Override
+	public boolean insertIntoCardReader(CardReader cr) {
+		return cr.getSdslot().insert(this);
+	}
+
 }
