@@ -1,18 +1,12 @@
 
-public class OptDVDDrive  implements USBDevice {
-	private Port<OptDVD> slot;
+public class OptDVDDrive extends USBDevice<OptDVD> {
+	
+	public OptDVDDrive() {
+		super();
+	}
 
 	@Override
 	public boolean insert(DataMedium dm) {
 		return dm.insertIntoOpticalDrive(this);
-	}
-
-	@Override
-	public boolean eject() {
-		return slot.eject();
-	}
-
-	public Port<OptDVD> getSlot() {
-		return slot;
 	}
 }
