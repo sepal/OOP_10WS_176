@@ -21,9 +21,5 @@ public abstract class USBDevice<T> {
 		return getName();
 	}
 	
-	public String toString() {
-		return getName();
-	}
-	
 	public abstract boolean insert(DataMedium dm);
 }
