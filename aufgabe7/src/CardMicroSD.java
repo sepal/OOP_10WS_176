@@ -8,5 +8,8 @@ public class CardMicroSD extends CardMiniSD {
 	public CardMicroSD(String name) {
 		super(name);
 	}
-
+	
+	public boolean insertIntoCardReader(CardMicroSDReader microsd) {
+		return microsd.getSlot().insert(this);
+	}
 }

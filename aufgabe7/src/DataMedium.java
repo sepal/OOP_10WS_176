@@ -9,22 +9,6 @@ public abstract class DataMedium {
 	public DataMedium(String name) {
 		this.name = name;
 	}
-	
-	public boolean insertIntoCardReader(CardCF1Reader cf1r) {
-		return false;
-	}
-	public boolean insertIntoCardReader(CardCF2Reader cf2r) {
-		return false;
-	}
-	public boolean insertIntoCardReader(CardMSReader msr) {
-		return false;
-	}
-	public boolean insertIntoCardReader(CardSDReader sdr) {
-		return false;
-	}
-	public boolean insertIntoCardReader(CardReader cardReader) {
-		return false;
-	}
 
 	/**
 	 *(precondition) datamedium must exist
@@ -41,5 +25,28 @@ public abstract class DataMedium {
 	public String toString() {
 		return name;
 	}
+
+	public boolean insertIntoCardReader(CardCF1Reader cf1r) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardCF2Reader cf2r) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardMSReader msr) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardSDReader sdr) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardMiniSDReader minisd) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardMicroSDReader microsd) {
+		return false;
+	}
+	public boolean insertIntoCardReader(CardReader cr) {
+		return false;
+	}
+	
 
 }
