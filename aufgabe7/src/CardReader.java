@@ -1,10 +1,10 @@
 public class CardReader implements USBDevice {
-	Port<CardSD> sdslot;
-	Port<CardMiniSD> minisdslot;
-	Port<CardMicroSD> microsdslot;
-	Port<CardMS> msslot;
-	Port<CardCF1> cf1slot;
-	Port<CardCF2> cf2slot;
+	private Port<CardSD> sdslot;
+	private Port<CardMiniSD> minisdslot;
+	private Port<CardMicroSD> microsdslot;
+	private Port<CardMS> msslot;
+	private Port<CardCF1> cf1slot;
+	private Port<CardCF2> cf2slot;
 	
 	/**
 	 *(postcondition) creates cardReader with emtpy ports
@@ -59,5 +59,8 @@ public class CardReader implements USBDevice {
 	public Port<CardCF2> getCf2slot() {
 		return cf2slot;
 	}
-	
+
+	public boolean insert(DataMedium dm) {
+		return dm.insertIntoCardReader(this);
+	}
 }

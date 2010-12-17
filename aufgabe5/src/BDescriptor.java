@@ -9,18 +9,4 @@ public class BDescriptor extends Descriptor {
 	public boolean bs() {
 		return desc.contains("B") | desc.contains("b");
 	}
-<<<<<<< HEAD
-	
-	public boolean bs(String s) {
-		for(int i = 0; i < s.length(); i++) {
-			char ch = s.charAt(i);
-			if(ch == 'b' || ch == 'B') {
-				return true;
-			}
-		}
-		return false;
-	}
-
-=======
->>>>>>> master
 }

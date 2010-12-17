@@ -11,10 +11,9 @@ public class Computer {
 	private Port<CardMiniSD> minisdslot;
 	private Port<CardMicroSD> microsdslot;
 	
-	private Port<OptBD> bddrive;
-	private Port<OptDVD> dvddrive;
-	private Port<OptCD> cddrive;
-	
+	private OptBDDrive bddrive;
+	private OptDVDDrive dvddrive;
+	private OptCDDrive cddrive;
 	
 	/**
 	 *(precondition) name and storages must not be null
@@ -33,9 +32,9 @@ public class Computer {
 		minisdslot = new Port<CardMiniSD>();
 		microsdslot = new Port<CardMicroSD>();
 
-		bddrive = new Port<OptBD>();
-		dvddrive = new Port<OptDVD>();
-		cddrive = new Port<OptCD>();
+		bddrive = new OptBDDrive();
+		dvddrive = new OptDVDDrive();
+		cddrive = new OptCDDrive();
 	}
 	
 	/**
@@ -102,23 +101,23 @@ public class Computer {
 	}
 	
 	/**
-	 *(postcondition) returns CDPort
+	 *(postcondition) returns CDDrive
 	 */
-	public Port<OptCD> getCDDrive(){
+	public OptCDDrive getCDDrive(){
 		return cddrive;
 	}
 	
 	/**
-	 *(postcondition) returns DVDPort
+	 *(postcondition) returns DVDDrive
 	 */
-	public Port<OptDVD> getDVDDrive(){
+	public OptDVDDrive getDVDDrive(){
 		return dvddrive;
 	}
 	
 	/**
-	 *(postcondition) returns BDPort
+	 *(postcondition) returns BDDrive
 	 */
-	public Port<OptBD> getBDDrive(){
+	public OptBDDrive getBDDrive(){
 		return bddrive;
 	}
 	

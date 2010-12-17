@@ -1,5 +1,5 @@
 
-public abstract class OpticalDrive<T> implements USBDevice {
+public abstract class OpticalDrive<T extends OpticalMedium> {
 	Port<T> slot;
 	
 	/**
@@ -10,9 +10,31 @@ public abstract class OpticalDrive<T> implements USBDevice {
 	}
 	
 	/**
-	 *(postcondition) returns port with specific type
+	 *(precondition) element must not be null
+	 *(postcondition) returns true, if state of port was free, otherwise false
 	 */
-	public Port<T> getMediumSlot() {
-		return this.slot;
+	public boolean insert(T disc) {
+		return slot.insert(disc);
+	}
+	
+	/**
+	 *(postcondition) returns true, if state of port was used, otherwise false
+	 */
+	public boolean eject() {
+		return slot.eject();
+	}
+	
+	/**
+	 *(postcondition) returns port as string
+	 */
+	public String getName() {
+		return ""+slot;
+	}
+	
+	/**
+	 *(postcondition) returns port as string
+	 */
+	public String toString() {
+		return getName();
 	}
 }

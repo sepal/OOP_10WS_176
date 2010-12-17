@@ -16,4 +16,18 @@ public class ExternalDisc implements USBDevice {
 	public NonRemovableStorage getDisc() {
 		return disc;
 	}
+	/**
+	 *(precondition) disc must exist
+	 *(postcondition) returns nonremovablestorage as string
+	 */
+	public String getName() {
+		return ""+disc;
+	}
+	/**
+	 *(precondition) disc must exist
+	 *(postcondition) returns nonremovablestorage as string
+	 */
+	public String toString() {
+		return this.getName();
+	}
 }

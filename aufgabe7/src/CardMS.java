@@ -9,4 +9,7 @@ public class CardMS extends DataMedium {
 		super(name);
 	}
 
+	public boolean insertIntoCardReader(CardReader creader) {
+		return creader.getMsslot().insert(this);
+	}
 }
