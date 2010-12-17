@@ -13,11 +13,6 @@ public class Computer {
 	private CardMicroSDReader microsdreader;
 	private CardMSReader msreader;
 	
-	private Port<CardMS> msslot;
-	private Port<CardSD> sdslot;
-	private Port<CardMiniSD> minisdslot;
-	private Port<CardMicroSD> microsdslot;
-	
 	private OptBDDrive bddrive;
 	private OptDVDDrive dvddrive;
 	private OptCDDrive cddrive;
@@ -31,13 +26,6 @@ public class Computer {
 		
 		this.sda = sda;
 		this.sdb = sdb;
-		
-		usb1 = new Port<USBDevice>();
-		usb2 = new Port<USBDevice>();
-		msslot = new Port<CardMS>();
-		sdslot = new Port<CardSD>();
-		minisdslot = new Port<CardMiniSD>();
-		microsdslot = new Port<CardMicroSD>();
 
 		cf1reader = new CardCF1Reader();
 		cf2reader = new CardCF2Reader();
@@ -85,34 +73,7 @@ public class Computer {
 	public NonRemovableStorage getSdb() {
 		return sdb;
 	}
-
-	/**
-	 *(postcondition) returns MSPort
-	 */
-	public Port<CardMS> getMsslot() {
-		return msslot;
-	}
-
-	/**
-	 *(postcondition) returns SDPort
-	 */
-	public Port<CardSD> getSdslot() {
-		return sdslot;
-	}
-
-	/**
-	 *(postcondition) returns MiniSDPort
-	 */
-	public Port<CardMiniSD> getMinisdslot() {
-		return minisdslot;
-	}
-
-	/**
-	 *(postcondition) returns MicroSDPort
-	 */
-	public Port<CardMicroSD> getMicrosdslot() {
-		return microsdslot;
-	}
+	
 	
 	/**
 	 *(postcondition) returns CDDrive
@@ -147,8 +108,8 @@ public class Computer {
 		names[1] += sdb;
 		names[2] += usb1;
 		names[3] += usb2;
-		names[4] += msslot;
-		names[5] += sdslot;
+		names[4] += msreader.getSlot().getDev().getName();
+		names[5] += sdreader.getSlot().getDev().getName();
 		names[6] += minisdslot;
 		names[7] += microsdslot;
 		

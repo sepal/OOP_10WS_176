@@ -9,8 +9,7 @@ public class OptBDDrive implements USBDevice {
 
 	@Override
 	public boolean eject() {
-		// TODO Auto-generated method stub
-		return false;
+		return slot.eject();
 	}
 
 	public Port<OptBD> getSlot() {
