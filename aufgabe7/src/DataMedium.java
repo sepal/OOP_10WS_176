@@ -10,7 +10,9 @@ public abstract class DataMedium {
 		this.name = name;
 	}
 	
-	public abstract boolean insertIntoCardReader(CardReader cr);
+	public abstract boolean insertIntoCardReader(CardCF1Reader cf1r);
+	public abstract boolean insertIntoCardReader(CardCF2Reader cf2r);
+	public abstract boolean insertIntoCardReader(CardMSReader msr);
 
 	/**
 	 *(precondition) datamedium must exist

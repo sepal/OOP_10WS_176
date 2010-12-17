@@ -9,8 +9,25 @@ public class CardCF2 extends DataMedium {
 		super(name);
 	}
 
-	@Override
+	/*@Override
 	public boolean insertIntoCardReader(CardReader cr) {
 		return cr.getCf2slot().insert(this);
+	}*/
+
+	@Override
+	public boolean insertIntoCardReader(CardCF1Reader cf1r) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean insertIntoCardReader(CardCF2Reader cf2r) {
+		return cf2r.getSlot().insert(this);
+	}
+
+	@Override
+	public boolean insertIntoCardReader(CardMSReader msr) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
