@@ -9,5 +9,19 @@ public class OptCD extends OptDVD {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public boolean insertIntoOpticalDrive(OptCDDrive drive) {
+		return drive.getSlot().insert(this);
+	}
+	
+	@Override
+	public boolean insertIntoOpticalDrive(OptDVDDrive drive) {
+		return drive.getSlot().insert(this);
+	}
+	
+	@Override
+	public boolean insertIntoOpticalDrive(OptBDDrive drive) {
+		return drive.getSlot().insert(this);
+	}
 }

@@ -1,5 +1,5 @@
 
-public class OptBD extends OpticalMedium {
+public class OptBD extends DataMedium {
 
 	/**
 	 *(precondition) name must not be null
@@ -8,14 +8,9 @@ public class OptBD extends OpticalMedium {
 	public OptBD(String name) {
 		super(name);
 	}
+	
 	@Override
-	public boolean insertIntoOpticalDrive(OpticalDrive<OptBD> od) {
-		return od.getSlot().insert(this);
-	}
-
-	@Override
-	public boolean insertIntoCardReader(CardReader cr) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertIntoOpticalDrive(OptBDDrive drive) {
+		return drive.getSlot().insert(this);
 	}
 }
