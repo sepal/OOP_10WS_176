@@ -18,5 +18,9 @@ public abstract class USBDevice<T> {
 		return slot.toString();
 	}
 	
+	public String toString() {
+		return getName();
+	}
+	
 	public abstract boolean insert(DataMedium dm);
 }
