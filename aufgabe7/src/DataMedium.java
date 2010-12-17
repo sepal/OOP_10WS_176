@@ -25,6 +25,16 @@ public abstract class DataMedium {
 	public boolean insertIntoCardReader(CardReader cardReader) {
 		return false;
 	}
+	public boolean insertIntoOpticalDrive(OptCDDrive drive) {
+		return false;
+	}
+	public boolean insertIntoOpticalDrive(OptDVDDrive drive) {
+		return false;
+	}
+	public boolean insertIntoOpticalDrive(OptBDDrive drive) {
+		return false;
+	}
+	
 
 	/**
 	 *(precondition) datamedium must exist
