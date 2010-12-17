@@ -53,10 +53,4 @@ public abstract class DataMedium {
 	public boolean insertIntoOpticalDrive(OptBDDrive drive) {
 		return false;
 	}
-	
-	public boolean insertIntoCardReader(CardReader cr) {
-		return false;
-	}
-	
-
 }
