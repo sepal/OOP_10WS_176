@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 	
 public class Field {
 	public static final int NORTH = 0;
@@ -8,6 +10,8 @@ public class Field {
 	// The position coordinates
 	private int x,y;
 	private boolean[] wall;
+	
+	private ArrayList<Hunter> huntersOnTheField;
 	
 	/**
 	 * precondition: 
