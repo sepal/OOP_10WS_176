@@ -17,10 +17,13 @@ public abstract class USBDevice<T> {
 	public String getName() {
 		return slot.toString();
 	}
-	
 	public String toString() {
 		return getName();
 	}
+	
+	/*public <V> boolean insert(USBDevice<V> usbdev) {
+		return false;
+	}*/
 	
 	public abstract boolean insert(DataMedium dm);
 }
