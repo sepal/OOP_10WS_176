@@ -30,7 +30,7 @@ public class Game {
 		addCharacter(new Ghost(x, y, sleepTime));
 	}
 	
-	private void createHunter(int x, int y) {
-		addCharacter(new Hunter(x, y, sleepTime));
+	private void createHunter(int x, int y, String name) {
+		addCharacter(new Hunter(sleepTime, x, y, name));
 	}
 }
