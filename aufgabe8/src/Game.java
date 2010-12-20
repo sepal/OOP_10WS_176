@@ -26,11 +26,32 @@ public class Game {
 		characters.add(character);
 	}
 	
-	private void createGhost(int x, int y) {
+	public void createGhost(int x, int y) {
 		addCharacter(new Ghost(x, y, sleepTime));
 	}
 	
-	private void createHunter(int x, int y, String name) {
+	public void createHunter(int x, int y, String name) {
 		addCharacter(new Hunter(sleepTime, x, y, name));
 	}
+	
+	public synchronized void killHunter(Hunter character) {
+		this.characters.remove(character);
+		if (this.characters.isEmpty()) {
+			System.out.println("All hunters have died");
+			endGame();
+		}
+	}
+	
+	public void startGame() {
+		this.state = State.RUNNING;
+		for (Character c: this.characters) {
+			new Thread(c).start();
+		}
+	}
+	
+	private void endGame() {
+		this.state = State.FINISHED;
+	}
+	
+	
 }
