@@ -18,7 +18,7 @@ public class Hunter extends Character {
 
 	public void collect() {
 		int t = 0;
-		
+		Field f  = null;
 		synchronized(this) {
 			t = 
 			this.treasure += t;

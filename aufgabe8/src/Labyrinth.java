@@ -37,7 +37,9 @@ public class Labyrinth {
 					walls[1] = false;
 				}
 				
-				Field f = new Field(j, i, walls);
+				int treasure = r.nextInt(11);
+				
+				Field f = new Field(j, i, walls, treasure);
 				lab[j][i] = f;
 				
 			}

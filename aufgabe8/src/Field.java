@@ -10,6 +10,7 @@ public class Field {
 	// The position coordinates
 	private int x,y;
 	private boolean[] wall;
+	private int treasure;
 	
 	private ArrayList<Hunter> huntersOnTheField;
 	
@@ -21,9 +22,22 @@ public class Field {
 	 * postcondition:
 	 * A new field object was created.
 	 */
-	public Field(int x, int y, boolean[] wall) {
+	public Field(int x, int y, boolean[] wall, int treasure) {
 		this.x = x;
 		this.y = y;
 		this.wall = wall;
+		this.treasure = treasure;
+	}
+	
+	public void setTreasure(int t) {
+		this.treasure = t;
+	}
+	
+	public int getTreasure() {
+		return treasure;
+	}
+	
+	public void resetTreasure() {
+		this.treasure = 0;
 	}
 }
