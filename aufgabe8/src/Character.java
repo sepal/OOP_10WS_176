@@ -31,6 +31,10 @@ public abstract class Character implements Runnable {
 
 	protected abstract void doSomething();
 	
+	public Field getField(int x, int y) {
+		return game.getLabyrith().getField(x, y);
+	}
+	
 	public void stop() {
 		this.running = false;
 	}

@@ -40,4 +40,19 @@ public class Field {
 	public void resetTreasure() {
 		this.treasure = 0;
 	}
+	
+	public boolean hasWall(int wall) {
+		return this.wall[wall];
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+	
+	
+	
 }

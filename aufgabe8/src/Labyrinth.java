@@ -45,5 +45,33 @@ public class Labyrinth {
 			}
 		}
 		
-	}	
+	}
+	
+	public Field getField(int x, int y) {
+		return lab[y][x];
+	}
+	
+	public boolean goNorth(Field f) {
+		return f.hasWall(Field.NORTH);
+	}
+	
+	public boolean goEast(Field f) {
+		return f.hasWall(Field.EAST);
+	}
+	
+	public boolean goSouth(Field f) {
+		if(f.hasWall(Field.SOUTH) || lab[f.getX()][f.getY()+1].hasWall(Field.NORTH)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean goWest(Field f) {
+		if(f.hasWall(Field.WEST) || lab[f.getX()-1][f.getY()].hasWall(Field.EAST)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
