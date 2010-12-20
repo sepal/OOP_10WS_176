@@ -1,4 +1,4 @@
-
+	
 public class Field {
 	// The position coordinates
 	private int x,y;
