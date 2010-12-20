@@ -3,11 +3,13 @@ public class Hunter extends Character {
 
 	private String name;
 	private int treasure;
-	
-	public Hunter(int time, int x, int y, String name) {
+	private Game game;
+
+	public Hunter(int time, int x, int y, String name, Game game) {
 		super(time, x, y);
 		this.name = name;
 		this.treasure = 0;
+		this.game = game;
 	}
 
 	@Override

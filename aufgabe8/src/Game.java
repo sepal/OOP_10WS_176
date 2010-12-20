@@ -15,6 +15,7 @@ public class Game {
 	private int sleepTime;
 	
 	private List <Character> characters;
+	private ArrayList <Thread> charThreads;
 	
 	public Game(int width, int height, int sleepTime) {
 		lab = new Labyrinth(width, height);
@@ -31,7 +32,7 @@ public class Game {
 	}
 	
 	public void createHunter(int x, int y, String name) {
-		addCharacter(new Hunter(sleepTime, x, y, name));
+		addCharacter(new Hunter(sleepTime, x, y, name, this));
 	}
 	
 	public synchronized void killHunter(Hunter character) {
@@ -42,15 +43,24 @@ public class Game {
 		}
 	}
 	
+	public Labyrinth getLabyrith() {
+		return this.lab;
+	}
+	
 	public void startGame() {
 		this.state = State.RUNNING;
 		for (Character c: this.characters) {
-			new Thread(c).start();
+			Thread t = new Thread(c);
+			charThreads.add(t);
+			t.start();
 		}
 	}
 	
 	private void endGame() {
 		this.state = State.FINISHED;
+		for (Thread t: charThreads) {
+			t.interrupt();
+		}
 	}
 	
 	
