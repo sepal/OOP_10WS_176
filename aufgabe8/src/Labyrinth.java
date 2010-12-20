@@ -5,11 +5,11 @@ public class Labyrinth {
 
 	private Field[][] lab;
 	
-	public Labyrinth(int x, int y) {
-		this.lab = new Field[y][x];
+	public Labyrinth(int width, int height) {
+		this.lab = new Field[height][width];
 		
-		for(int i = 0; i < y; i++) {
-			for(int j = 0; j < x; j++) {
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
 				
 				Random r = new Random();
 				boolean wall = false;
@@ -27,11 +27,14 @@ public class Labyrinth {
 				}
 				
 				if(j == 0) {
-					walls[]
+					walls[3] = true;
+				}
+				if(i == height) {
+					walls[2] = true;
 				}
 				
 				Field f = new Field(j, i, walls);
-				
+				lab[j][i] = f;
 				
 			}
 		}

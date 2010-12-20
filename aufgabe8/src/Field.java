@@ -21,6 +21,5 @@ public class Field {
 		this.x = x;
 		this.y = y;
 		this.wall = wall;
-		wall[NORTH] = true;
 	}
 }
