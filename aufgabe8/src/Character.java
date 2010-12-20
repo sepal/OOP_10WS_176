@@ -10,9 +10,7 @@ public abstract class Character implements Runnable {
 	public Character(int time, int x, int y) {
 		this.time = time;
 		this.positionx = x;
-		this.positiony = y;
-		this.treasure = 0;
-		
+		this.positiony = y;		
 	}
 	
 	@Override

@@ -33,6 +33,10 @@ public class Labyrinth {
 					walls[2] = true;
 				}
 				
+				if(i == 0 && j == width) { //static exit (zur sicherheit)
+					walls[1] = false;
+				}
+				
 				Field f = new Field(j, i, walls);
 				lab[j][i] = f;
 				
