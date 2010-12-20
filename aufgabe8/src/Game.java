@@ -28,7 +28,7 @@ public class Game {
 	}
 	
 	public void createGhost(int x, int y) {
-		addCharacter(new Ghost(x, y, sleepTime));
+		addCharacter(new Ghost(x, y, sleepTime, this));
 	}
 	
 	public void createHunter(int x, int y, String name) {
@@ -63,5 +63,8 @@ public class Game {
 		}
 	}
 	
+	public State getState() {
+		return state;
+	}
 	
 }

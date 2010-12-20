@@ -1,8 +1,8 @@
 
 public class Ghost extends Character {
 
-	public Ghost(int time, int x, int y) {
-		super(time, x, y);
+	public Ghost(int time, int x, int y, Game game) {
+		super(time, x, y, game);
 	}
 
 	@Override

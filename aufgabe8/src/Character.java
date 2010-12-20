@@ -1,27 +1,29 @@
 
+
 public abstract class Character implements Runnable {
 
 	private int positionx;
 	private int positiony;
 	private int treasure;
 	private int time;
+	private Game game;
 	private boolean running =  true;
 
-	public Character(int time, int x, int y) {
+	public Character(int time, int x, int y, Game game) {
 		this.time = time;
 		this.positionx = x;
 		this.positiony = y;		
+		this.game = game;
 	}
 	
 	@Override
 	public void run() {
 		try {
 			Thread.sleep(this.time);
-			while (this.isRunning()) {//(brett.getController().isRunning() && this.isRunning()) {
+			while (this.isRunning() && game.getState() == Game.State.RUNNING) {
 				this.doSomething();
 				Thread.sleep(this.time);
 			}
-			//brett.getController().elementAbmelden(this);
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
