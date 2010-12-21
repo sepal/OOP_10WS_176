@@ -16,7 +16,7 @@ public class Field {
 	private int ghosts;
 	
 	/**
-	 *(precondition) every parameter must be > 0, wall.length == 4 
+	 *(precondition) every parameter must be >= 0, wall.length == 4 
 	 *(postcondition) creates new field with walls and treasure
 	 */
 	public Field(int x, int y, boolean[] wall, int treasure) {
