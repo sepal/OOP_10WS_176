@@ -7,7 +7,7 @@ public abstract class Character implements Runnable {
 	private int treasure;
 	private int time;
 	private Game game;
-	private boolean running =  true;
+	private boolean running;
 
 	public Character(int time, int x, int y, Game game) {
 		this.time = time;
@@ -18,6 +18,7 @@ public abstract class Character implements Runnable {
 	
 	@Override
 	public void run() {
+		this.running = true;
 		try {
 			while (this.isRunning() && game.getState() == Game.State.RUNNING) {
 				this.walk();
