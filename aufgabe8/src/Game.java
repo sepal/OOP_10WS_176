@@ -99,6 +99,23 @@ public class Game {
 	}
 	
 	/**
+	 * (precondition) Should only be called by hunter.
+	 * (postcondition) Game should be stopped and the value of treasure of each hunter outputed.
+	 */
+	public void hunterWin() {
+		this.endGame();
+		System.out.println("Hunters win!!");
+		for (Hunter h: hunters) {
+			// TODO: Englisch verbessern...
+			System.out.println(h.getName() + " has " + h.getBooty() + " value of treasure.");
+		}
+	}
+	
+	/**
+	 * (precondition) 
+	 */
+	
+	/**
 	 *(postcondition) returns current state
 	 */
 	public State getState() {
