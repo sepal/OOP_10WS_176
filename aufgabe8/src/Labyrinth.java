@@ -38,7 +38,7 @@ public class Labyrinth {
 	 *(precondition) field must exist, direction must be Field.NORTH, Field.EAST, Field.SOUT or Field.WEST
 	 *(postcondition) returns true, if field has wall, otherwise false
 	 */
-	public boolean hasWall(Field f, int direction) {		
+	public boolean hasWall(Field f, int direction) throws IndexOutOfBoundsException {		
 		if (direction == Field.SOUTH) {
 			if(f.hasWall(Field.SOUTH) || lab[f.getX()][f.getY()+1].hasWall(Field.NORTH)) {
 				return true;
