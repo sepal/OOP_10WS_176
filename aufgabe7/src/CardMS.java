@@ -9,6 +9,10 @@ public class CardMS extends DataMedium {
 		super(name);
 	}
 
+	/**
+	 *(precondition) cardreader must exist
+	 *(postcondition) returns true, if slot was free (ms card inserted), otherwise false
+	 */
 	@Override
 	public boolean insertIntoCardReader(CardMSReader msr) {
 		return msr.getSlot().insert(this);
