@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Game {
 	enum State {
-		NONE,
+		IDLE,
 		RUNNING,
 		FINISHED,
 	}
