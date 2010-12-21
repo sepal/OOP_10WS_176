@@ -14,7 +14,7 @@ public class Field {
 	
 	private ArrayList<Hunter> huntersOnTheField;
 	
-	/**
+	/*
 	 * precondition: 
 	 * Every parameter should be > 0, wall should.length == 4, 
 	 * Field constants should be used to set the right walls.
@@ -43,5 +43,13 @@ public class Field {
 
 	public int getX() {
 		return x;
-	}	
+	}
+	
+	public synchronized void enter(Ghost g) {
+		
+	}
+	
+	public synchronized void enter(Hunter h) {
+		
+	}
 }
