@@ -14,7 +14,9 @@ public class Game {
 	private State state;
 	private int sleepTime;
 	
-	private List <Character> characters;
+	private List<Hunter> hunters;
+	private List<Ghost> ghosts;
+	
 	private ArrayList <Thread> charThreads;
 	
 	/**
@@ -24,17 +26,10 @@ public class Game {
 	public Game(boolean[][][] labConfig, int sleepTime) {
 		lab = new Labyrinth(labConfig);
 		System.out.println(lab);
-		characters = Collections.synchronizedList(new ArrayList<Character>());
+		hunters = Collections.synchronizedList(new ArrayList<Hunter>());
+		ghosts = Collections.synchronizedList(new ArrayList<Ghost>());
 		charThreads = new ArrayList<Thread>();
 		this.sleepTime = sleepTime;
-	}
-	
-	/**
-	 *(precondition) character must be created before
-	 *(postcondition) adds character to character list
-	 */
-	private void addCharacter(Character character) {
-		characters.add(character);
 	}
 	
 	/**
@@ -43,7 +38,7 @@ public class Game {
 	 */
 	public void createGhost(int x, int y) {
 		Ghost g;
-		addCharacter(g = new Ghost(x, y, sleepTime, this));
+		ghosts.add(g = new Ghost(x, y, sleepTime, this));
 		lab.getField(x, y).enter(g);
 	}
 	
@@ -53,7 +48,7 @@ public class Game {
 	 */
 	public void createHunter(int x, int y, String name) {
 		Hunter h;
-		addCharacter(h = new Hunter(sleepTime, x, y, name, this));
+		hunters.add(h = new Hunter(sleepTime, x, y, name, this));
 		lab.getField(x, y).enter(h);
 	}
 	
@@ -61,9 +56,11 @@ public class Game {
 	 *(precondition) hunter must exist
 	 *(postcondition) removes hunter from character list, if list is empty, game ends
 	 */
-	public synchronized void killHunter(Hunter character) {
-		this.characters.remove(character);
-		if (this.characters.isEmpty()) {
+	public synchronized void killHunter(Hunter h) {
+		this.hunters.remove(h);
+		
+		// TODO: fixen, kann ja nie eintretten da ja noch die ghosts drinnen sind.
+		if (this.hunters.isEmpty()) {
 			System.out.println("All hunters have died");
 			System.out.println("Ghosts win!!!");
 			endGame();
@@ -83,7 +80,7 @@ public class Game {
 	 */
 	public void startGame() {
 		this.state = State.RUNNING;
-		for (Character c: this.characters) {
+		for (Character c: this.hunters) {
 			Thread t = new Thread(c);
 			System.out.println(t);
 			charThreads.add(t);
