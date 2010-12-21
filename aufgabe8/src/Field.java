@@ -53,6 +53,8 @@ public class Field {
 		return y;
 	}
 	
-	
+	public boolean[] getWall() {
+		return wall;
+	}
 	
 }
