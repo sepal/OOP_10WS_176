@@ -19,6 +19,7 @@ public class Game {
 	
 	public Game(int width, int height, int sleepTime) {
 		lab = new Labyrinth(width, height);
+		System.out.println(lab);
 		characters = Collections.synchronizedList(new ArrayList<Character>());
 		charThreads = new ArrayList<Thread>();
 		this.sleepTime = sleepTime;

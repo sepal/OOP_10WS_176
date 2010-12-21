@@ -6,10 +6,13 @@ public class Labyrinth {
 	private Field[][] lab;
 	private int width;
 	private int height;
+	private int h = 0;
+	private int w = 0;
 	
 	public Labyrinth(int width, int height) {
+		this.width = width;
+		this.height = height;
 		this.lab = new Field[height][width];
-
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				
@@ -44,39 +47,50 @@ public class Labyrinth {
 				Field f = new Field(j, i, walls, treasure);
 				lab[j][i] = f;
 
-				System.out.println("Lab");
 			}
 		}
 		
 	}
 	
 	public char[][] createLab() {
-		height =height*2+1;
-		width = width*2+1;
-		char[][] c = new char[height][width];
-		for(int i = 1; i < height; i+=2) {
-			for(int j = 1; j < width; j+=2) {
+		h = getHeight();
+		w = getWidth();
+		w = (w*2)+1;
+		h = (h*2)+1;
+		int g = 0;
+		System.out.println(h+" "+w);
+		char[][] c = new char[h][w];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
 				Field f = getField(j, i);
 				boolean[] walls = f.getWall();
-				if(walls[0] == true) {
-					c[j][i-1] = '-';
+				if(i ==0 && j == 0) {
+					g = 1;
 				} else {
-					c[j][i-1] = ' ';
+					g = 2;
+				}
+				
+				if(walls[0] == true) {
+					c[j+g][i+g-1] = '-';
+				} else {
+					c[j+g][i+g-1] = '.';
 				}
 				if(walls[1] == true) {
-					c[j+1][i] = '|';
+					c[j+g+1][i+g] = '|';
 				} else {
-					c[j+1][i] = ' ';
+					c[j+g+1][i+g] = '.';
 				}
 				if(walls[2] == true) {
-					c[j][i+1] = '_';
+					c[j+g][i+g+1] = '_';
 				} else {
-					c[j][i+1] = ' ';
+					c[j+g][i+g+1] = '.';
 				}
 				if(walls[3] == true) {
-					c[j-1][i] = '|';
+					c[j+g-1][i+g] = '|';
+				} else {
+					c[j+g-1][i+g] = '.';
 				}
-				c[j][i] = ' ';
+				c[j+g][i+g] = '#';
 			}
 		}
 		return c;
@@ -85,11 +99,11 @@ public class Labyrinth {
 	public String toString() {
 		char[][] c = createLab();
 		String s = "";
-		
-		for(int i = 0; i < height; i++) {
-			for(int j = 0;j < width; j++) {
+		for(int i = 0; i < h; i++) {
+			for(int j = 0;j < w; j++) {
 				s += c[j][i];
 			}
+			s+="\n";
 		}
 		
 		return s;

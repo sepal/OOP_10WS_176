@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 
 public abstract class Character implements Runnable {
@@ -8,12 +10,14 @@ public abstract class Character implements Runnable {
 	private int time;
 	private Game game;
 	private boolean running;
+	ArrayList<Field> way;
 
 	public Character(int time, int x, int y, Game game) {
 		this.time = time;
 		this.positionx = x;
 		this.positiony = y;		
 		this.game = game;
+		way = new ArrayList<Field>();
 	}
 	
 	@Override
@@ -30,6 +34,8 @@ public abstract class Character implements Runnable {
 	}
 
 	protected void walk(){
+		
+		
 		
 	}
 	
