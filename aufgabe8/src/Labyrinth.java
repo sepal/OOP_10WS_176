@@ -28,8 +28,9 @@ public class Labyrinth {
 	/**
 	 *(precondition) x and y must be > 0 && x < width && y < height
 	 *(postcondition) returns field
+	 * @throws Exception 
 	 */
-	public Field getField(int x, int y) {
+	public Field getField(int x, int y) throws IndexOutOfBoundsException {
 		return lab[y][x];
 	}
 	
