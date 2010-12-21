@@ -51,6 +51,13 @@ public class Labyrinth {
 			return false;
 		}
 	}
+	
+	public boolean onWinField(Field f) {
+		if (f.getX() == this.width-1 || f.getY() == 0) {
+			return true;
+		}
+		return false;
+	}
 
 	public int getWidth() {
 		return width;
