@@ -29,14 +29,6 @@ public class Field {
 		this.treasure = treasure;
 	}
 	
-	public void setTreasure(int t) {
-		this.treasure = t;
-	}
-	
-	public int getTreasure() {
-		return treasure;
-	}
-	
 	public void resetTreasure() {
 		this.treasure = 0;
 	}
@@ -45,16 +37,11 @@ public class Field {
 		return this.wall[wall];
 	}
 
-	public int getX() {
-		return x;
-	}
-
 	public int getY() {
 		return y;
 	}
-	
-	public boolean[] getWall() {
-		return wall;
-	}
-	
+
+	public int getX() {
+		return x;
+	}	
 }

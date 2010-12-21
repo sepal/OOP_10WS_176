@@ -24,63 +24,6 @@ public class Labyrinth {
 		
 	}
 	
-	public char[][] createLab() {
-		h = getHeight();
-		w = getWidth();
-		w = (w*2)+1;
-		h = (h*2)+1;
-		int g = 0;
-		System.out.println(h+" "+w);
-		char[][] c = new char[h][w];
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				Field f = getField(j, i);
-				boolean[] walls = f.getWall();
-				if(i ==0 && j == 0) {
-					g = 1;
-				} else {
-					g = 2;
-				}
-				
-				if(walls[0] == true) {
-					c[j+g][i+g-1] = '-';
-				} else {
-					c[j+g][i+g-1] = '.';
-				}
-				if(walls[1] == true) {
-					c[j+g+1][i+g] = '|';
-				} else {
-					c[j+g+1][i+g] = '.';
-				}
-				if(walls[2] == true) {
-					c[j+g][i+g+1] = '_';
-				} else {
-					c[j+g][i+g+1] = '.';
-				}
-				if(walls[3] == true) {
-					c[j+g-1][i+g] = '|';
-				} else {
-					c[j+g-1][i+g] = '.';
-				}
-				c[j+g][i+g] = '#';
-			}
-		}
-		return c;
-	}
-	
-	public String toString() {
-		char[][] c = createLab();
-		String s = "";
-		for(int i = 0; i < h; i++) {
-			for(int j = 0;j < w; j++) {
-				s += c[j][i];
-			}
-			s+="\n";
-		}
-		
-		return s;
-	}
-	
 	public Field getField(int x, int y) {
 		return lab[y][x];
 	}
