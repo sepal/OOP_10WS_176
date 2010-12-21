@@ -14,6 +14,7 @@ public class Hunter extends Character {
 	protected void walk() {
 		// TODO Auto-generated method stub
 		
+		
 	}
 	
 	public void die() {

@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-
-
 public abstract class Character implements Runnable {
 
 	private int positionx;
