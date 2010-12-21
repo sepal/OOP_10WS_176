@@ -13,8 +13,9 @@ public class Field {
 	private int treasure;
 	
 	private ArrayList<Hunter> huntersOnTheField;
+	private int ghosts;
 	
-	/**
+	/*
 	 * precondition: 
 	 * Every parameter should be > 0, wall should.length == 4, 
 	 * Field constants should be used to set the right walls.
@@ -29,32 +30,40 @@ public class Field {
 		this.treasure = treasure;
 	}
 	
-	public void setTreasure(int t) {
-		this.treasure = t;
-	}
-	
-	public int getTreasure() {
-		return treasure;
-	}
-	
-	public void resetTreasure() {
-		this.treasure = 0;
+	public synchronized int resetTreasure() {
+		int tmp = this.treasure;
+		return tmp;
 	}
 	
 	public boolean hasWall(int wall) {
 		return this.wall[wall];
 	}
 
-	public int getX() {
-		return x;
-	}
-
 	public int getY() {
 		return y;
 	}
-	
-	public boolean[] getWall() {
-		return wall;
+
+	public int getX() {
+		return x;
 	}
 	
+	public synchronized void enter(Ghost g) {
+		for (Hunter h: huntersOnTheField) {
+			huntersOnTheField.remove(h);
+			h.die();
+		}
+		ghosts++;
+	}
+	
+	public synchronized void enter(Hunter h) {
+		if (ghosts > 0) {
+			h.die();
+		} else {
+			huntersOnTheField.add(h);
+		}
+	}
+	
+	public synchronized void leave(Ghost g) {
+		ghosts--;
+	}
 }

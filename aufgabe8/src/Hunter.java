@@ -19,12 +19,9 @@ public class Hunter extends Character {
 
 	public void collect() {
 		int t = 0;
-		Field f  = null; /**think about it...where we get the field from?!*/
-		synchronized(this) {
-			t = f.getTreasure();
-			this.treasure += t;
-			t = 0;
-			
-		}
+	}
+	
+	public void die() {
+		game.killHunter(this);
 	}
 }

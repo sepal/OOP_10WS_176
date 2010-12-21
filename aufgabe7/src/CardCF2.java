@@ -9,6 +9,10 @@ public class CardCF2 extends DataMedium {
 		super(name);
 	}
 
+	/**
+	 *(precondition) cardreader must exist
+	 *(postcondition) returns true, if slot was free (cf2 card inserted), otherwise false
+	 */
 	@Override
 	public boolean insertIntoCardReader(CardCF2Reader cf2r) {
 		return cf2r.getSlot().insert(this);
