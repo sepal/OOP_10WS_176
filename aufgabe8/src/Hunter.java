@@ -12,7 +12,7 @@ public class Hunter extends Character {
 	}
 
 	@Override
-	protected void doSomething() {
+	protected void walk() {
 		// TODO Auto-generated method stub
 		
 	}

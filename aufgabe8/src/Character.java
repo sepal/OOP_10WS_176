@@ -19,9 +19,8 @@ public abstract class Character implements Runnable {
 	@Override
 	public void run() {
 		try {
-			Thread.sleep(this.time);
 			while (this.isRunning() && game.getState() == Game.State.RUNNING) {
-				this.doSomething();
+				this.walk();
 				Thread.sleep(this.time);
 			}
 		} catch (Exception e) { 
@@ -29,7 +28,9 @@ public abstract class Character implements Runnable {
 		}
 	}
 
-	protected abstract void doSomething();
+	protected void walk(){
+		
+	}
 	
 	public Field getField(int x, int y) {
 		return game.getLabyrith().getField(x, y);
