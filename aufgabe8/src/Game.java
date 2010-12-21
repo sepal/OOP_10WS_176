@@ -17,8 +17,9 @@ public class Game {
 	private List <Character> characters;
 	private ArrayList <Thread> charThreads;
 	
-	public Game(int width, int height, int sleepTime) {
-		lab = new Labyrinth(width, height);
+	public Game(boolean[][][] labConfig, int sleepTime) {
+		lab = new Labyrinth(labConfig);
+		System.out.println(lab);
 		characters = Collections.synchronizedList(new ArrayList<Character>());
 		charThreads = new ArrayList<Thread>();
 		this.sleepTime = sleepTime;
