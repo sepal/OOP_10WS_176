@@ -1,14 +1,13 @@
+import java.util.ArrayList;
+
 public class Main {
 	
 	public static void main(String[] args) {
-		A c = new C();
-		A b = new B();
-		A a = new A();
-		
-		a.ka();
-		b.ka();
-		c.ka();
-		
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		al.add(0);
+		al.add(1);
+		al.remove(new Integer(0));
+		System.out.println(al.size());
 	}
 
 }
