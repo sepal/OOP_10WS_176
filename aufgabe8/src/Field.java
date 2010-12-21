@@ -13,6 +13,7 @@ public class Field {
 	private int treasure;
 	
 	private ArrayList<Hunter> huntersOnTheField;
+	private int ghosts;
 	
 	/*
 	 * precondition: 
@@ -46,10 +47,22 @@ public class Field {
 	}
 	
 	public synchronized void enter(Ghost g) {
-		
+		for (Hunter h: huntersOnTheField) {
+			huntersOnTheField.remove(h);
+			h.die();
+		}
+		ghosts++;
 	}
 	
 	public synchronized void enter(Hunter h) {
-		
+		if (ghosts > 0) {
+			h.die();
+		} else {
+			huntersOnTheField.add(h);
+		}
+	}
+	
+	public synchronized void leave(Ghost g) {
+		ghosts--;
 	}
 }
