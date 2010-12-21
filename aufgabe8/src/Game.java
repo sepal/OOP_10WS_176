@@ -20,6 +20,7 @@ public class Game {
 	public Game(int width, int height, int sleepTime) {
 		lab = new Labyrinth(width, height);
 		characters = Collections.synchronizedList(new ArrayList<Character>());
+		charThreads = new ArrayList<Thread>();
 		this.sleepTime = sleepTime;
 	}
 	
@@ -51,12 +52,13 @@ public class Game {
 		this.state = State.RUNNING;
 		for (Character c: this.characters) {
 			Thread t = new Thread(c);
+			System.out.println(t);
 			charThreads.add(t);
 			t.start();
 		}
 	}
 	
-	private void endGame() {
+	public void endGame() {
 		this.state = State.FINISHED;
 		for (Thread t: charThreads) {
 			t.interrupt();

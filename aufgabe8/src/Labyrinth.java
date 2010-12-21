@@ -7,7 +7,7 @@ public class Labyrinth {
 	
 	public Labyrinth(int width, int height) {
 		this.lab = new Field[height][width];
-		
+
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				
@@ -15,7 +15,7 @@ public class Labyrinth {
 				boolean wall = false;
 				boolean[] walls = new boolean[4];
 				
-				for(int a = 0; a < 2; i++) {
+				for(int a = 0; a < 2; a++) {
 					int z = r.nextInt(2);
 					
 					if(z == 0) {
@@ -41,7 +41,7 @@ public class Labyrinth {
 				
 				Field f = new Field(j, i, walls, treasure);
 				lab[j][i] = f;
-				
+				System.out.println("Lab");
 			}
 		}
 		
