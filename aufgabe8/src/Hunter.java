@@ -1,6 +1,5 @@
 
 public class Hunter extends Character {
-
 	private String name;
 	private int treasure;
 	private Game game;
@@ -15,10 +14,6 @@ public class Hunter extends Character {
 	protected void walk() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void collect() {
-		int t = 0;
 	}
 	
 	public void die() {

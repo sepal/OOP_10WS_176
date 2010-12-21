@@ -41,7 +41,7 @@ public class Game {
 		this.characters.remove(character);
 		if (this.characters.isEmpty()) {
 			System.out.println("All hunters have died");
-			System.out.println("Ghost win!!!");
+			System.out.println("Ghosts win!!!");
 			endGame();
 		}
 	}
