@@ -9,6 +9,10 @@ public class CardMicroSD extends CardMiniSD {
 		super(name);
 	}
 	
+	/**
+	 *(precondition) cardreader must exist
+	 *(postcondition) returns true, if slot was free (microsd inserted), otherwise false
+	 */
 	public boolean insertIntoCardReader(CardMicroSDReader microsd) {
 		return microsd.getSlot().insert(this);
 	}

@@ -24,6 +24,9 @@ public class ExternalDisc extends USBDevice<NonRemovableStorage> {
 		return ""+disc;
 	}
 	
+	/**
+	 *(postcondition) returns new created DummyPort
+	 */
 	public Port<NonRemovableStorage> getSlot() {
 		return new DummyPort();
 	}
@@ -36,32 +39,61 @@ public class ExternalDisc extends USBDevice<NonRemovableStorage> {
 		return this.getName();
 	}
 
+	/**
+	 *(precondition) datamedium must exist
+	 *(postcondition) returns true, if slot was free, otherwise false
+	 *(invariant) default method; can be overwritten
+	 */
 	@Override
 	public boolean insert(DataMedium dm) {
 		return false;
 	}
 
+	/**
+	 *(precondition) datamedium must exist
+	 *(postcondition) returns true, if slot was free, otherwise false
+	 *(invariant) default method; can be overwritten
+	 */
 	@Override
 	public boolean eject() {
 		return false;
 	}
 	
 	private class DummyPort extends Port<NonRemovableStorage> {
+		
+		/**
+		 *(precondition) nonRemovableStorage must exist
+		 *(postcondition) returns true, if slot was free, otherwise false
+		 *(invariant) default method; can be overwritten
+		 */
 		@Override
 		public boolean insert(NonRemovableStorage plug) {
 			return false;
 		}
 		
+		/**
+		 *(precondition) datamedium must exist
+		 *(postcondition) returns true, if slot was free, otherwise false
+		 *(invariant) default method; can be overwritten
+		 */
 		@Override
 		public boolean eject() {
 			return false;
 		}
 		
+		/**
+		 *(precondition) nonRemovableStorage must exist
+		 *(postcondition) returns nonRemovableStorage
+		 */
 		@Override 
 		public NonRemovableStorage getDev() {
 			return disc;
 		}
 		
+		/**
+		 *(precondition) nonRemovableStorage must exist
+		 *(postcondition) returns nonRemovableStorage as String
+		 */
 		@Override
 		public String toString() {
 			return ""+disc;
