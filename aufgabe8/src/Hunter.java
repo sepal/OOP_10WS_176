@@ -22,6 +22,6 @@ public class Hunter extends Character {
 	}
 	
 	public void die() {
-		
+		game.killHunter(this);
 	}
 }
