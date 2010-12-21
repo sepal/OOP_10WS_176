@@ -30,11 +30,15 @@ public class Game {
 	}
 	
 	public void createGhost(int x, int y) {
-		addCharacter(new Ghost(x, y, sleepTime, this));
+		Ghost g;
+		addCharacter(g = new Ghost(x, y, sleepTime, this));
+		lab.getField(x, y).enter(g);
 	}
 	
 	public void createHunter(int x, int y, String name) {
-		addCharacter(new Hunter(sleepTime, x, y, name, this));
+		Hunter h;
+		addCharacter(h = new Hunter(sleepTime, x, y, name, this));
+		lab.getField(x, y).enter(h);
 	}
 	
 	public synchronized void killHunter(Hunter character) {
