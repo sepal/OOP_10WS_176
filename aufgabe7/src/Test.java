@@ -50,6 +50,15 @@ public class Test {
 		res = dvd.insert(new OptDVD("DVD1"));
 		System.out.println("Inserted "+dvd.getName()+" into DVDReader: "+res);
 		
+		// USB
+		OptCDDrive cd = pc.getCDDrive();
+		res = cd.insert(new CardMiniSD("miniSD"));
+		System.out.println("\nInserted miniSD into CDReader: "+res);
+		
+		pc.getUsb1().insert(new ExternalDisc(new SSD("SSD External")));
+		pc.getUsb2().insert(new OptDVDDrive());
+		pc.getUsb2().getSlot().getDev().insert(new OptDVD("Ext. DVD"));
+		
 		System.out.println("\nUsed data media on "+pc.getName()+":");
 		for(String s : pc.volumes()) {
 			System.out.println("- "+s);
@@ -62,8 +71,6 @@ public class Test {
 			System.out.println("- "+s);
 		}
 
-		OptCDDrive cd = pc.getCDDrive();
-		res = cd.insert(new CardMiniSD("miniSD"));
-		System.out.println("\nInserted miniSD into CDReader: "+res);
+
 	}
 }

@@ -21,9 +21,5 @@ public abstract class USBDevice<T> {
 		return getName();
 	}
 	
-	/*public <V> boolean insert(USBDevice<V> usbdev) {
-		return false;
-	}*/
-	
 	public abstract boolean insert(DataMedium dm);
 }
