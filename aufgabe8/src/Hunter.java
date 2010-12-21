@@ -20,4 +20,8 @@ public class Hunter extends Character {
 	public void collect() {
 		int t = 0;
 	}
+	
+	public void die() {
+		
+	}
 }
