@@ -5,7 +5,7 @@ public class Computer {
 	
 	private String name;
 	private NonRemovableStorage sda, sdb;
-	private Port<USBDevice<?>> usb1, usb2;
+	private USBPort usb1, usb2;
 	
 	private CardCF1Reader cf1reader;
 	private CardCF2Reader cf2reader;
@@ -38,6 +38,9 @@ public class Computer {
 		bddrive = new OptBDDrive();
 		dvddrive = new OptDVDDrive();
 		cddrive = new OptCDDrive();
+		
+		usb1 = new USBPort();
+		usb2 = new USBPort();
 	}
 	
 	/**
@@ -50,14 +53,14 @@ public class Computer {
 	/**
 	 *(postcondition) returns USBPort
 	 */
-	public Port<USBDevice<?>>  getUsb1() {
+	public USBPort  getUsb1() {
 		return usb1;
 	}
 
 	/**
 	 *(postcondition) returns USBPort
 	 */
-	public Port<USBDevice<?>>  getUsb2() {
+	public USBPort getUsb2() {
 		return usb2;
 	}
 
@@ -97,30 +100,51 @@ public class Computer {
 		return bddrive;
 	}
 	
+	/**
+	 *(postcondition) returns Number of devices
+	 */
 	public static int getNumDevices() {
 		return NUM_DEVICES;
 	}
 
+	/**
+	 *(postcondition) returns CF! Reader
+	 */
 	public CardCF1Reader getCf1reader() {
 		return cf1reader;
 	}
 
+	/**
+	 *(postcondition) returns CF2 Reader
+	 */
 	public CardCF2Reader getCf2reader() {
 		return cf2reader;
 	}
 
+	/**
+	 *(postcondition) returns SD Reader
+	 */
 	public CardSDReader getSdreader() {
 		return sdreader;
 	}
 
+	/**
+	 *(postcondition) returns MiniSD Reader
+	 */
 	public CardMiniSDReader getMinisdreader() {
 		return minisdreader;
 	}
 
+	/**
+	 *(postcondition) returns MicroSD Reader
+	 */
 	public CardMicroSDReader getMicrosdreader() {
 		return microsdreader;
 	}
 
+	/**
+	 *(postcondition) returns MS Reader
+	 */
 	public CardMSReader getMsreader() {
 		return msreader;
 	}

@@ -1,8 +1,24 @@
 
 public class Test {
+	/*
+	Standard Konstruktor für 4x4 Labyrinth;
+	boolean [][][]lab = {
+		{{false, false}, {false, false}, {false, false}, {false, false}},
+		{{false, false}, {false, false}, {false, false}, {false, false}},
+		{{false, false}, {false, false}, {false, false}, {false, false}},
+		{{false, false}, {false, false}, {false, false}, {false, false}},
+	};
+	 */
+	
 	public static void main(String[] args) {
+		boolean [][][]lab = {
+			{{true , true }, {true , false}, {true , false}, {true , true }},
+			{{false, false}, {true , true }, {false, false}, {false, false}},
+			{{true , false}, {false, false}, {true , false}, {false, true }},
+			{{false, true }, {false, false}, {false, false}, {true , false}},
+		};
 		System.out.println("Creating Game");
-		Game g = new Game(5, 5, 25);
+		Game g = new Game(lab, 25);
 		System.out.println("Creating Hunter");
 		g.createHunter(0, 0, "Ben");
 		System.out.println("Starting Game.");

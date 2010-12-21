@@ -9,44 +9,16 @@ public class Labyrinth {
 	private int h = 0;
 	private int w = 0;
 	
-	public Labyrinth(int width, int height) {
-		this.width = width;
-		this.height = height;
+	public Labyrinth(boolean[][][] labConfig) {
+		int width = labConfig.length;
+		int height = labConfig[0].length;
+		
 		this.lab = new Field[height][width];
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				
-				Random r = new Random();
-				boolean wall = false;
-				boolean[] walls = new boolean[4];
-				
-				for(int a = 0; a < 2; a++) {
-					int z = r.nextInt(2);
-					
-					if(z == 0) {
-						wall = false;
-					} else if(z == 1) {
-						wall = true;
-					}
-					walls[a] = wall;
-				}
-				
-				if(j == 0) {
-					walls[3] = true;
-				}
-				if(i == height) {
-					walls[2] = true;
-				}
-				
-				if(i == 0 && j == width) { //static exit (zur sicherheit)
-					walls[1] = false;
-				}
-				
-				int treasure = r.nextInt(11);
-				
-				Field f = new Field(j, i, walls, treasure);
-				lab[j][i] = f;
 
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				boolean[] wall = {labConfig[y][x][Field.NORTH], labConfig[y][x][Field.EAST], (y==height-1 ? true : false), (x==0 ? true : false)};
+				lab[x][y] = new Field(x, y, wall, new Random().nextInt(11));
 			}
 		}
 		
