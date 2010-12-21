@@ -30,8 +30,9 @@ public class Field {
 		this.treasure = treasure;
 	}
 	
-	public void resetTreasure() {
-		this.treasure = 0;
+	public synchronized int resetTreasure() {
+		int tmp = this.treasure;
+		return tmp;
 	}
 	
 	public boolean hasWall(int wall) {
