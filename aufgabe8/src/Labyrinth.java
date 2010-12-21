@@ -6,8 +6,6 @@ public class Labyrinth {
 	private Field[][] lab;
 	private int width;
 	private int height;
-	private int h = 0;
-	private int w = 0;
 	
 	/**
 	 *(postcondition) creates new labyrinth with treasures on fields
