@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Game {
 	enum State {
-		NONE,
+		IDLE,
 		RUNNING,
 		FINISHED,
 	}
@@ -41,6 +41,7 @@ public class Game {
 		this.characters.remove(character);
 		if (this.characters.isEmpty()) {
 			System.out.println("All hunters have died");
+			System.out.println("Ghost win!!!");
 			endGame();
 		}
 	}
