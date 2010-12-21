@@ -15,13 +15,9 @@ public class Field {
 	private ArrayList<Hunter> huntersOnTheField;
 	private int ghosts;
 	
-	/*
-	 * precondition: 
-	 * Every parameter should be > 0, wall should.length == 4, 
-	 * Field constants should be used to set the right walls.
-	 * 
-	 * postcondition:
-	 * A new field object was created.
+	/**
+	 *(precondition) every parameter must be > 0, wall.length == 4 
+	 *(postcondition) creates new field with walls and treasure
 	 */
 	public Field(int x, int y, boolean[] wall, int treasure) {
 		this.x = x;
@@ -30,23 +26,42 @@ public class Field {
 		this.treasure = treasure;
 	}
 	
+	/**
+	 *(precondition) field must exist 
+	 *(postcondition) returns treasure value of field, sets value = 0
+	 */
 	public synchronized int resetTreasure() {
 		int tmp = this.treasure;
+		this.treasure = 0;
 		return tmp;
 	}
 	
+	/**
+	 *(precondition) field must exist, 0 <= wall && wall <= 3
+	 *(postcondition) returns true, if field has northern/eastern/southern/western wall, otherwise false
+	 */
 	public boolean hasWall(int wall) {
 		return this.wall[wall];
 	}
 
+	/**
+	 *(postcondition) returns y of field
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 *(postcondition) returns x of field
+	 */
 	public int getX() {
 		return x;
 	}
 	
+	/**
+	 *(precondition) field must exist, ghost must exist
+	 *(postcondition) if hunter(s) are on field, ghost kills all, ghost amount increases by 1
+	 */
 	public synchronized void enter(Ghost g) {
 		for (Hunter h: huntersOnTheField) {
 			huntersOnTheField.remove(h);
@@ -55,6 +70,10 @@ public class Field {
 		ghosts++;
 	}
 	
+	/**
+	 *(precondition) field must exist, hunter must exist
+	 *(postcondition) if ghost(s) are on field, hunter dies, else hunter added to list
+	 */
 	public synchronized void enter(Hunter h) {
 		if (ghosts > 0) {
 			h.die();
@@ -63,6 +82,10 @@ public class Field {
 		}
 	}
 	
+	/**
+	 *(precondition) field must exist, ghost must exist
+	 *(postcondition) ghost leaves field, ghost amount decreases by 1
+	 */
 	public synchronized void leave(Ghost g) {
 		ghosts--;
 	}
