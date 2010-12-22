@@ -6,11 +6,11 @@ public class Ghost extends Character {
 	 *(postcondition) creates new ghost, setting start field
 	 */
 	public Ghost(int time, int x, int y, Game game) {
-		super(time, x, y, game);
+		super(time, game);
 	}
 
 	@Override
-	protected void walk() {
+	protected void move() {
 		// TODO Auto-generated method stub
 		
 	}

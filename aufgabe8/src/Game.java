@@ -92,6 +92,7 @@ public class Game {
 	 *(postcondition) sets state on finished, interrupts each thread
 	 */
 	public void endGame() {
+		// TODO
 		this.state = State.FINISHED;
 		for (Thread t: charThreads) {
 			t.interrupt();
