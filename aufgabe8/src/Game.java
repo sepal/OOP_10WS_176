@@ -107,8 +107,7 @@ public class Game {
 		this.endGame();
 		System.out.println("Hunters win!!");
 		for (Hunter h: hunters) {
-			// TODO: Englisch verbessern...
-			System.out.println(h.getName() + " has " + h.getBooty() + " value of treasure.");
+			System.out.println(h.getName() + " has " + h.getBooty() + " worth of treasure.");
 		}
 	}
 	

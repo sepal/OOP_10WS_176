@@ -54,12 +54,36 @@ public class Hunter extends Character {
 
 		// Pick random direction from list
 		int direction = directions.get( (int) Math.round(Math.random() * directions.size()) );
+		int newx, newy;
+		newx = posx;
+		newy = posy;
+		if (direction == Field.NORTH) {
+			newy--;
+		} else if (direction == Field.EAST) {
+			newx++;
+		} else if (direction == Field.SOUTH) {
+			newy++;
+		} else if (direction == Field.WEST) {
+			newx--;
+		}
 		
 		// if win field, game is over
-		if (game.getLabyrith().onWinField(null)) game.endGame(); // TODO: null
-		
-		// Mark field as to be moved to, or return it or any other way
-		// to let subclasses know, that this could be next field
+		if (game.getLabyrith().onWinField(null)) {// TODO: null
+			game.hunterWin(); 
+		} else {
+			pos.leave(this); // Leave field
+			try {
+				pos = game.getLabyrith().getField(newx, newy);
+			} catch (IndexOutOfBoundsException ex) {
+				// This cannot happen if this program is correct
+				System.err.println("ERRO: Hunter "+name+" made illegal move! This should not happen, terminating program.");
+				System.exit(1);
+			}
+			pos.enter(this);
+		}
+		//else ->move to field and enter
+		//if step == maxsteps, end game
+		//update lastpos
 	}
 	
 	public String getName() {
