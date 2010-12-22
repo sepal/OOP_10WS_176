@@ -94,6 +94,7 @@ public class Hunter extends Character {
 				pos = game.getLabyrith().getField(newx, newy);
 			} catch (IndexOutOfBoundsException ex) {
 				// This cannot happen if this program is correct
+				System.err.println("!!! DEBUG: newx newy"+newx+" "+newy);
 				System.err.println("ERROR: Hunter "+name+" made illegal move! This should not happen, terminating program.");
 				System.exit(1);
 			}

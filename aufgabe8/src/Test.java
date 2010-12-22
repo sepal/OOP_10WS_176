@@ -52,12 +52,9 @@ public class Test extends TimerTask {
 				// Continue
 			}
 		}
+		timer.cancel();
 		System.out.println("end.");
 		System.exit(0);
-	}
-	
-	public static void test1() {
-		
 	}
 	
 	public Test() {

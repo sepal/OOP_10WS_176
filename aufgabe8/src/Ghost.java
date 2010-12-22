@@ -83,6 +83,7 @@ public class Ghost extends Character {
 			pos = game.getLabyrith().getField(newx, newy);
 		} catch (IndexOutOfBoundsException ex) {
 			// This cannot happen if this program is correct
+			System.err.println("!!! DEBUG: newx newy"+newx+" "+newy);
 			System.err.println("ERROR: Ghost made illegal move! This should not happen, terminating program.");
 			System.exit(1);
 		}
