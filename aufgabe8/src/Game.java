@@ -1,6 +1,6 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Game {
@@ -16,8 +16,8 @@ public class Game {
 	
 	private List<Hunter> hunters;
 	private List<Ghost> ghosts;
-
-	private ArrayList <Thread> charThreads;
+	
+	private HashMap<Character, Thread> charThreads;
 	
 	/**
 	 *(precondition) every parameter must be >= 0
@@ -28,7 +28,7 @@ public class Game {
 		System.out.println(lab);
 		hunters = Collections.synchronizedList(new ArrayList<Hunter>());
 		ghosts = Collections.synchronizedList(new ArrayList<Ghost>());
-		charThreads = new ArrayList<Thread>();
+		charThreads = new HashMap<Character, Thread>();
 		this.sleepTime = sleepTime;
 	}
 	
@@ -54,17 +54,25 @@ public class Game {
 	
 	/**
 	 *(precondition) hunter must exist
-	 *(postcondition) removes hunter from character list, if list is empty, game ends
+	 *(postcondition) removes hunter from character list and stops the thread, if list is empty, game ends
 	 */
 	public synchronized void killHunter(Hunter h) {
 		this.hunters.remove(h);
-		
-		// TODO: fixen, kann ja nie eintretten da ja noch die ghosts drinnen sind.
+		this.charThreads.get(h).interrupt();
 		if (this.hunters.isEmpty()) {
 			System.out.println("All hunters have died");
 			System.out.println("Ghosts win!!!");
 			endGame();
 		}
+	}
+	
+	/**
+	 *(precondition) ghost must exist
+	 *(postcondition) removes ghost from character list and stops the thread.
+	 */
+	public synchronized void removeGhost(Ghost g) {
+		this.ghosts.remove(g);
+		this.charThreads.get(g).interrupt();
 	}
 	
 	/**
@@ -83,7 +91,7 @@ public class Game {
 		for (Character c: this.hunters) {
 			Thread t = new Thread(c);
 			System.out.println(t);
-			charThreads.add(t);
+			charThreads.put(c, t);
 			t.start();
 		}
 	}
@@ -94,7 +102,7 @@ public class Game {
 	public void endGame() {
 		// TODO
 		this.state = State.FINISHED;
-		for (Thread t: charThreads) {
+		for (Thread t: charThreads.values()) {
 			t.interrupt();
 		}
 	}
@@ -112,11 +120,7 @@ public class Game {
 	}
 	
 	/**
-	 * (precondition) 
-	 */
-	
-	/**
-	 *(postcondition) returns current state
+	 *(invariant) returns current state
 	 */
 	public State getState() {
 		return state;
