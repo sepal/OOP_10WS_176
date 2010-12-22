@@ -71,7 +71,7 @@ public class Hunter extends Character {
 		}
 
 		// Pick random direction from list
-		int direction = directions.get( (int) Math.round(Math.random() * directions.size()) );
+		int direction = directions.get( (int) Math.round(Math.random() * (directions.size()-1)) );
 		int newx, newy;
 		newx = posx;
 		newy = posy;
