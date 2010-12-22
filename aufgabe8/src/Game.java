@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Game {
 	enum State {
@@ -17,7 +18,7 @@ public class Game {
 	private List<Hunter> hunters;
 	private List<Ghost> ghosts;
 	
-	private HashMap<Character, Thread> charThreads;
+	private ConcurrentHashMap<Character, Thread> charThreads;
 	
 	/**
 	 *(precondition) every parameter must be >= 0
@@ -27,7 +28,7 @@ public class Game {
 		lab = new Labyrinth(labConfig);
 		hunters = Collections.synchronizedList(new ArrayList<Hunter>());
 		ghosts = Collections.synchronizedList(new ArrayList<Ghost>());
-		charThreads = new HashMap<Character, Thread>();
+		charThreads = new ConcurrentHashMap<Character, Thread>();
 		this.sleepTime = sleepTime;
 	}
 	
@@ -90,7 +91,12 @@ public class Game {
 	 */
 	public void startGame() {
 		this.state = State.RUNNING;
-		for (Character c: this.hunters) {
+		for (Hunter c: this.hunters) {
+			Thread t = new Thread(c);
+			charThreads.put(c, t);
+			t.start();
+		}
+		for (Ghost c: this.ghosts) {
 			Thread t = new Thread(c);
 			charThreads.put(c, t);
 			t.start();

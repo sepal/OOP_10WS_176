@@ -2,7 +2,7 @@ import java.util.TimerTask;
 import java.util.Timer;
 
 public class Test extends TimerTask {
-	private static final long PROGTIME = 9500; // 10 Seconds minus some time for cleaning up/output
+	private static final long PROGTIME = 1000;//9500; // 10 Seconds minus some time for cleaning up/output
 	//private static final long NUMGAMES = 3;
 	private static Timer timer;
 	/*
@@ -45,7 +45,6 @@ public class Test extends TimerTask {
 		timer.schedule(t, PROGTIME);
 		
 		t.start1();
-		
 		while (t.isRunning()) {
 			try {
 				Thread.sleep(50);
@@ -53,6 +52,8 @@ public class Test extends TimerTask {
 				// Continue
 			}
 		}
+		System.out.println("end.");
+		System.exit(0);
 	}
 	
 	public static void test1() {
@@ -98,16 +99,19 @@ public class Test extends TimerTask {
 	
 	public boolean isRunning() {
 		if (g1.getState() == Game.State.FINISHED) {
+			System.out.println("Game1 finished.");
 			deadgames++;
 			g2.startGame();
 		}else if(g2.getState() == Game.State.FINISHED) {
+			System.out.println("Game2 finished.");
 			deadgames++;
 			g3.startGame();
 		}else if (g3.getState() == Game.State.FINISHED) {
+			System.out.println("Game3 finished.");
 			deadgames++;
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -115,6 +119,7 @@ public class Test extends TimerTask {
 		g1.endGame();
 		g2.endGame();
 		g3.endGame();
+		System.out.println("exit.");
 		System.exit(0);
 	}
 }
