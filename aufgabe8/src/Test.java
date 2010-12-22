@@ -3,7 +3,7 @@ import java.util.Timer;
 
 public class Test extends TimerTask {
 	private static final long PROGTIME = 9500; // 10 Seconds minus some time for cleaning up/output
-	private static final long NUMGAMES = 3;
+	//private static final long NUMGAMES = 3;
 	private static Timer timer;
 	/*
 	Standard Konstruktor f�r 4x4 Labyrinth;
@@ -61,7 +61,7 @@ public class Test extends TimerTask {
 	
 	public Test() {
 		// Game 1
-		g1 = new Game(lab, 25);;
+		g1 = new Game(lab, 25);
 		g1.createHunter(0, 0, "Ben");
 		g1.createHunter(1, 1, "Sep");
 		g1.createHunter(2, 0, "Moni");

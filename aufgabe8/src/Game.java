@@ -38,7 +38,7 @@ public class Game {
 	 */
 	public void createGhost(int x, int y) {
 		Ghost g;
-		ghosts.add(g = new Ghost(x, y, sleepTime, this));
+		ghosts.add(g = new Ghost(sleepTime, x, y, this));
 		lab.getField(x, y).enter(g);
 	}
 	
