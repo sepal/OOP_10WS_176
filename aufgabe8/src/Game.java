@@ -106,19 +106,23 @@ public class Game {
 	/**
 	 *(postcondition) sets state on finished, interrupts each thread
 	 */
-	public void endGame() {
+	public synchronized void endGame() {
 		// TODO
 		this.state = State.FINISHED;
-		for (Thread t: charThreads.values()) {
-			t.interrupt();
+		for (Hunter h: this.hunters) {
+			this.charThreads.get(h).interrupt();
 		}
+		for (Ghost h: this.ghosts) {
+			this.charThreads.get(h).interrupt();
+		}
+		System.out.println(Thread.activeCount());
 	}
 	
 	/**
 	 * (precondition) Should only be called by hunter.
 	 * (postcondition) Game should be stopped and the value of treasure of each hunter outputed.
 	 */
-	public void hunterWin() {
+	public synchronized void hunterWin() {
 		this.endGame();
 		System.out.println("Hunters win!!");
 		for (Hunter h: hunters) {
