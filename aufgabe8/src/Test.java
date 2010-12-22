@@ -74,11 +74,11 @@ public class Test extends TimerTask {
 		g2.createGhost(0, 0);
 		
 		// Game 3
-		g2 = new Game(lab3, 25);
-		g1.createHunter(0, 0, "Sep");
-		g1.createHunter(4, 4, "Moni");
-		g1.createGhost(3, 3);
-		g2.createGhost(1, 0);
+		g3 = new Game(lab3, 25);
+		g3.createHunter(0, 0, "Sep");
+		g3.createHunter(4, 4, "Moni");
+		g3.createGhost(3, 3);
+		g3.createGhost(1, 0);
 	}
 
 	public void start1() {

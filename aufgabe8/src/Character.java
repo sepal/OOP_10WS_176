@@ -25,7 +25,12 @@ public abstract class Character implements Runnable {
 		try {
 			while (this.running && game.getState() == Game.State.RUNNING) {
 				this.move();
-				Thread.sleep(this.time);
+				try {
+					Thread.sleep(this.time);
+				} catch (InterruptedException ie) {
+					System.err.println(ie.getMessage()+"\n");
+					ie.printStackTrace();
+				}
 			}
 		} catch (Exception e) { 
 			e.printStackTrace();
