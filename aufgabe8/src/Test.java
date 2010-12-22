@@ -14,7 +14,7 @@ public class Test extends TimerTask {
 		{{false, false}, {false, false}, {false, false}, {false, false}},
 	};
 	*/
-	private boolean [][][]lab = {
+	private boolean [][][]lab1 = {
 			{{true , true }, {true , false}, {true , false}, {true , true }},
 			{{false, false}, {true , true }, {false, false}, {false, false}},
 			{{true , false}, {false, false}, {true , false}, {false, true }},
@@ -61,7 +61,7 @@ public class Test extends TimerTask {
 	
 	public Test() {
 		// Game 1
-		g1 = new Game(lab, 25);
+		g1 = new Game(lab1, 25);
 		g1.createHunter(0, 0, "Ben");
 		g1.createHunter(1, 1, "Sep");
 		g1.createHunter(2, 0, "Moni");
@@ -69,12 +69,12 @@ public class Test extends TimerTask {
 		g1.createGhost(2, 2);
 		
 		// Game 2
-		g2 = new Game(lab, 25);;
+		g2 = new Game(lab2, 25);;
 		g2.createHunter(1, 1, "Ben");
 		g2.createGhost(0, 0);
 		
 		// Game 3
-		g2 = new Game(lab, 25);
+		g2 = new Game(lab3, 25);
 		g1.createHunter(0, 0, "Sep");
 		g1.createHunter(4, 4, "Moni");
 		g1.createGhost(3, 3);
