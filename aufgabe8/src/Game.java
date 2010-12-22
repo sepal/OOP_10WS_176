@@ -58,7 +58,9 @@ public class Game {
 	 */
 	public synchronized void killHunter(Hunter h) {
 		this.hunters.remove(h);
-		this.charThreads.get(h).interrupt();
+		if (this.charThreads.get(h) != null)
+			this.charThreads.get(h).interrupt();
+		
 		if (this.hunters.isEmpty()) {
 			System.out.println("All hunters have died");
 			System.out.println("Ghosts win!!!");
@@ -72,7 +74,8 @@ public class Game {
 	 */
 	public synchronized void removeGhost(Ghost g) {
 		this.ghosts.remove(g);
-		this.charThreads.get(g).interrupt();
+		if (this.charThreads.get(g) != null)
+			this.charThreads.get(g).interrupt();
 	}
 	
 	/**
@@ -90,7 +93,7 @@ public class Game {
 		this.state = State.RUNNING;
 		for (Character c: this.hunters) {
 			Thread t = new Thread(c);
-			System.out.println(t);
+			System.out.println(c);
 			charThreads.put(c, t);
 			t.start();
 		}
