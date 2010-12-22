@@ -1,26 +1,27 @@
-import java.util.ArrayList;
-
 public abstract class Character implements Runnable {
 	private int time;
 	private boolean running;
 	private Game game;
 	
 	/**
-	 *(precondition) game must exist, other parameters must be >= 0, x < lab.width, y < lab.height
-	 *(postcondition) creates new character at a start position in a game, way contains only start point, 
-	 *because hasn't walked yet 
+	 *(precondition) game must exist, time must be positive and bigger than 0
+	 *(postcondition) creates new character at a start position in a game, ready to be run
 	 */
 	public Character(int time, Game game) {
-		this.time = time;	
+		if (time <= 0) {
+			time = 20;
+		} else {
+			this.time = time;
+		}
 		this.game = game;
+		running = true;
 	}
 	
 	/**
-	 *(postcondition) character walks while game is running, thread sleeps after each position change 
+	 * (precondition) character must be on valid field in running game, if thats not the case, it won't do anything
 	 */
 	@Override
 	public void run() {
-		this.running = true;
 		try {
 			while (this.running && game.getState() == Game.State.RUNNING) {
 				this.move();
@@ -30,9 +31,17 @@ public abstract class Character implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * (postcondition) This Object will be set to an invalid state and will terminate the run method 
+	 * at one point in the future or not start it at all
+	 */
+	protected void stopThread() {
+		running = false;
+	}
 
 	/**
-	 *(postcondition) character walks
+	 *(postcondition) character moved a square, ended the game, or died
 	 */
 	protected abstract void move();
 }

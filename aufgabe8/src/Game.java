@@ -16,7 +16,7 @@ public class Game {
 	
 	private List<Hunter> hunters;
 	private List<Ghost> ghosts;
-	
+
 	private ArrayList <Thread> charThreads;
 	
 	/**
