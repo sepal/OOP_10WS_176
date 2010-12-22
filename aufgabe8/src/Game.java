@@ -25,7 +25,6 @@ public class Game {
 	 */
 	public Game(boolean[][][] labConfig, int sleepTime) {
 		lab = new Labyrinth(labConfig);
-		System.out.println(lab);
 		hunters = Collections.synchronizedList(new ArrayList<Hunter>());
 		ghosts = Collections.synchronizedList(new ArrayList<Ghost>());
 		charThreads = new HashMap<Character, Thread>();
@@ -93,7 +92,6 @@ public class Game {
 		this.state = State.RUNNING;
 		for (Character c: this.hunters) {
 			Thread t = new Thread(c);
-			System.out.println(c);
 			charThreads.put(c, t);
 			t.start();
 		}
