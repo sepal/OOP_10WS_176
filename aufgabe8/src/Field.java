@@ -59,7 +59,7 @@ public class Field {
 	}
 	
 	/**
-	 *(precondition) field must exist, ghost must exist
+	 *(precondition) Hunter must exit a field, before entering a new one.
 	 *(postcondition) if hunter(s) are on field, ghost kills all, ghost amount increases by 1
 	 */
 	public synchronized void enter(Ghost g) {
@@ -71,7 +71,7 @@ public class Field {
 	}
 	
 	/**
-	 *(precondition) field must exist, hunter must exist
+	 *(precondition) Ghost must exit a field, before entering a new one.
 	 *(postcondition) if ghost(s) are on field, hunter dies, else hunter added to list
 	 */
 	public synchronized void enter(Hunter h) {
@@ -83,10 +83,19 @@ public class Field {
 	}
 	
 	/**
-	 *(precondition) field must exist, ghost must exist
-	 *(postcondition) ghost leaves field, ghost amount decreases by 1
+	 *(precondition) Ghost must exit field and enter a new one.
+	 *(postcondition) Ghost amount decreases by 1
 	 */
 	public synchronized void leave(Ghost g) {
 		ghosts--;
+	}
+	
+	/**
+	 *(precondition) Hunter must exit field and enter a new one.
+	 *(postcondition) hunter is removed from the hunter list of this field.
+	 */
+	public synchronized void leave(Hunter h) {
+		if (h != null)
+			huntersOnTheField.remove(h);
 	}
 }
