@@ -28,8 +28,7 @@ public abstract class Character implements Runnable {
 				try {
 					Thread.sleep(this.time);
 				} catch (InterruptedException ie) {
-					System.err.println(ie.getMessage()+"\n");
-					ie.printStackTrace();
+					// This happens, just proceed
 				}
 			}
 		} catch (Exception e) { 
