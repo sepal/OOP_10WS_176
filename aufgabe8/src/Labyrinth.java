@@ -57,11 +57,10 @@ public class Labyrinth {
 	}
 	
 	/**
-	 *(precondition) field must exist
-	 *(postcondition) returns true, if field is exit field, otherwise false
+	 *(postcondition) returns true, if one of the coordinates is out of the labyrinth, otherwise false
 	 */
-	public boolean onWinField(Field f) {
-		if (f.getX() == this.width-1 || f.getY() == 0) {
+	public boolean onWinField(int x, int y) {
+		if (x >= this.width || y <= -1) {
 			return true;
 		}
 		return false;
