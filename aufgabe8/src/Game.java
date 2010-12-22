@@ -92,7 +92,6 @@ public class Game {
 		this.state = State.RUNNING;
 		for (Character c: this.hunters) {
 			Thread t = new Thread(c);
-			System.out.println(c);
 			charThreads.put(c, t);
 			t.start();
 		}
