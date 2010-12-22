@@ -24,6 +24,7 @@ public class Field {
 		this.y = y;
 		this.wall = wall;
 		this.treasure = treasure;
+		huntersOnTheField = new ArrayList<Hunter>();
 	}
 	
 	/**
