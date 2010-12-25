@@ -11,15 +11,15 @@ public class Labyrinth {
 	 *(postcondition) creates new labyrinth with treasures on fields
 	 */
 	public Labyrinth(boolean[][][] labConfig) {
-		int width = labConfig.length;
-		int height = labConfig[0].length;
+		width = labConfig.length;
+		height = labConfig[0].length;
 		
 		this.lab = new Field[height][width];
 
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				boolean[] wall = {labConfig[y][x][Field.NORTH], labConfig[y][x][Field.EAST], (y==height-1 ? true : false), (x==0 ? true : false)};
-				lab[x][y] = new Field(x, y, wall, new Random().nextInt(11));
+				lab[y][x] = new Field(x, y, wall, new Random().nextInt(11));
 			}
 		}
 		
@@ -45,7 +45,7 @@ public class Labyrinth {
 			} else {
 				return false;
 			}
-		}else if (direction == Field.EAST){ 
+		}else if (direction == Field.WEST){ 
 			if(f.hasWall(Field.WEST) || lab[f.getX()-1][f.getY()].hasWall(Field.EAST)) {
 				return true;
 			} else {

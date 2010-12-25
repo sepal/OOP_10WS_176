@@ -42,12 +42,12 @@ public class Test extends TimerTask {
 		Test t = new Test();
 		timer = new Timer();
 		// Starting timer
-		timer.schedule(t, PROGTIME);
+		//timer.schedule(t, PROGTIME);
 		
 		t.start1();
 		while (t.isRunning()) {
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// Continue
 			}
@@ -59,7 +59,7 @@ public class Test extends TimerTask {
 	
 	public Test() {
 		// Game 1
-		g1 = new Game(lab1, 25);
+		g1 = new Game(lab1, 15);
 		g1.createHunter(0, 0, "Ben");
 		g1.createHunter(1, 1, "Sep");
 		g1.createHunter(2, 0, "Moni");
@@ -67,12 +67,12 @@ public class Test extends TimerTask {
 		g1.createGhost(2, 2);
 		
 		// Game 2
-		g2 = new Game(lab2, 25);;
+		g2 = new Game(lab2, 10);;
 		g2.createHunter(1, 1, "Ben");
 		g2.createGhost(0, 0);
 		
 		// Game 3
-		g3 = new Game(lab3, 25);
+		g3 = new Game(lab3, 20);
 		g3.createHunter(0, 0, "Sep");
 		g3.createHunter(4, 4, "Moni");
 		g3.createGhost(3, 3);

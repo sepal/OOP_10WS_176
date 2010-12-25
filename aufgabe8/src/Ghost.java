@@ -44,11 +44,14 @@ public class Ghost extends Character {
 		// Remove directions blocked by wall or off the labyrinth (win field)
 		if (lab.hasWall(pos, Field.NORTH) || lab.onWinField(posx, posy-1)) {
 			directions.remove(new Integer(Field.NORTH));
-		} else if (lab.hasWall(pos, Field.EAST) || lab.onWinField(posx+1, posy)) {
+		}
+		if (lab.hasWall(pos, Field.EAST) || lab.onWinField(posx+1, posy)) {
 			directions.remove(new Integer(Field.EAST));
-		} else if (lab.hasWall(pos, Field.SOUTH) || lab.onWinField(posx, posy+1)) {
+		}
+		if (lab.hasWall(pos, Field.SOUTH) || lab.onWinField(posx, posy+1)) {
 			directions.remove(new Integer(Field.SOUTH));
-		} else if (lab.hasWall(pos, Field.WEST) || lab.onWinField(posx-1, posy)) {
+		}
+		if (lab.hasWall(pos, Field.WEST) || lab.onWinField(posx-1, posy)) {
 			directions.remove(new Integer(Field.WEST));
 		}
 		
@@ -59,8 +62,8 @@ public class Ghost extends Character {
 		}
 		
 		// If list size > 1 and lastpos defined, don't go there
-		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4) {
-			directions.remove(lastpos);
+		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4 && directions.contains(lastpos)) {
+			directions.remove(new Integer(lastpos));
 		}
 
 		// Pick random direction from list

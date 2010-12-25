@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.List;
 	
 public class Field {
 	public static final int NORTH = 0;
@@ -12,7 +13,7 @@ public class Field {
 	private boolean[] wall;
 	private int treasure;
 	
-	private ArrayList<Hunter> huntersOnTheField;
+	private List<Hunter> huntersOnTheField;
 	private int ghosts;
 	
 	/**
@@ -24,7 +25,7 @@ public class Field {
 		this.y = y;
 		this.wall = wall;
 		this.treasure = treasure;
-		huntersOnTheField = new ArrayList<Hunter>();
+		huntersOnTheField = Collections.synchronizedList(new ArrayList<Hunter>());
 	}
 	
 	/**
@@ -64,10 +65,14 @@ public class Field {
 	 *(postcondition) if hunter(s) are on field, ghost kills all, ghost amount increases by 1
 	 */
 	public synchronized void enter(Ghost g) {
-		for (Hunter h: huntersOnTheField) {
-			huntersOnTheField.remove(h);
-			h.die();
+//		for (Hunter h: huntersOnTheField) {
+//			huntersOnTheField.remove(h);
+//			h.die();
+//		}
+		for (int i=0; i < huntersOnTheField.size(); i++) {
+			huntersOnTheField.get(i).die();
 		}
+		huntersOnTheField.clear();
 		ghosts++;
 	}
 	
