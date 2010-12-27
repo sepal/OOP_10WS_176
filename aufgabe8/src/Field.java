@@ -32,7 +32,7 @@ public class Field {
 	 *(precondition) field must exist 
 	 *(postcondition) returns treasure value of field, sets value = 0
 	 */
-	public synchronized int resetTreasure() {
+	public synchronized int takeTreasure() {
 		int tmp = this.treasure;
 		this.treasure = 0;
 		return tmp;
@@ -61,14 +61,10 @@ public class Field {
 	}
 	
 	/**
-	 *(precondition) Hunter must exit a field, before entering a new one.
+	 *(precondition) Ghost must exit a field, before entering a new one.
 	 *(postcondition) if hunter(s) are on field, ghost kills all, ghost amount increases by 1
 	 */
 	public synchronized void enter(Ghost g) {
-//		for (Hunter h: huntersOnTheField) {
-//			huntersOnTheField.remove(h);
-//			h.die();
-//		}
 		for (int i=0; i < huntersOnTheField.size(); i++) {
 			huntersOnTheField.get(i).die();
 		}
@@ -77,7 +73,7 @@ public class Field {
 	}
 	
 	/**
-	 *(precondition) Ghost must exit a field, before entering a new one.
+	 *(precondition) Hunter must exit a field, before entering a new one.
 	 *(postcondition) if ghost(s) are on field, hunter dies, else hunter added to list
 	 */
 	public synchronized void enter(Hunter h) {

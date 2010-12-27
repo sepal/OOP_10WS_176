@@ -35,7 +35,7 @@ public class Test extends TimerTask {
 	private Game g1;
 	private Game g2;
 	private Game g3;
-	private int deadgames = 0;
+	private boolean fin1, fin2, fin3;
 	
 	
 	public static void main(String[] args) {
@@ -77,6 +77,8 @@ public class Test extends TimerTask {
 		g3.createHunter(4, 4, "Moni");
 		g3.createGhost(3, 3);
 		g3.createGhost(1, 0);
+		
+		fin1 = fin2 = fin3 = false;
 	}
 
 	public void start1() {
@@ -95,20 +97,28 @@ public class Test extends TimerTask {
 	}
 	
 	public boolean isRunning() {
-		if (g1.getState() == Game.State.FINISHED) {
-			System.out.println("Game1 finished.");
-			deadgames++;
+		if (!fin1 && g1.getState() == Game.State.FINISHED) {
+			System.out.println("Game1 finished.\nStarting Game2");
+			fin1 = true;
 			g2.startGame();
-		}else if(g2.getState() == Game.State.FINISHED) {
-			System.out.println("Game2 finished.");
-			deadgames++;
-			g3.startGame();
-		}else if (g3.getState() == Game.State.FINISHED) {
-			System.out.println("Game3 finished.");
-			deadgames++;
-			return false;
 		}
-		return true;
+		
+		if(!fin2 && g2.getState() == Game.State.FINISHED) {
+			System.out.println("Game2 finished.\nStarting Game3");
+			fin2 = true;
+			g3.startGame();
+		}
+		
+		if (!fin3 && g3.getState() == Game.State.FINISHED) {
+			System.out.println("Game3 finished.");
+			fin3 = true;
+		}
+		
+		if (fin1 && fin2 && fin3) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	@Override

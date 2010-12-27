@@ -65,6 +65,7 @@ public class Hunter extends Character {
 		
 		// If list is empty and there's no where to go, die
 		if (directions.size() == 0) {
+			System.err.println("Hunter "+name+" trapped by walls. Dying.");
 			this.die();
 			return;
 		}
@@ -91,6 +92,7 @@ public class Hunter extends Character {
 		
 		// if win field, game is over
 		if (game.getLabyrith().onWinField(newx, newy)) {
+			this.stopThread();
 			game.hunterWin(); 
 		} else {
 			pos.leave(this); // Leave field
@@ -103,9 +105,13 @@ public class Hunter extends Character {
 				System.exit(1);
 			}
 			pos.enter(this);
+			this.booty += pos.takeTreasure();
 			
 			// Increment step count and end game if maxstep reached
-			if (++steps >= MAXSTEPS) game.hunterWin();
+			if (++steps >= MAXSTEPS) {
+				this.stopThread();
+				game.hunterWin();
+			}
 			
 			// Update lastpos and coordinates
 			if (direction == Field.NORTH) {

@@ -33,6 +33,7 @@ public class Ghost extends Character {
 	 */
 	@Override
 	protected void move() {
+		System.out.println("Ghost moving.");
 		// List all directions
 		ArrayList<Integer> directions = new ArrayList<Integer>(4);
 		directions.add(Field.NORTH); // N
