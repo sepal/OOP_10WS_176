@@ -33,6 +33,7 @@ public class Ghost extends Character {
 	 */
 	@Override
 	protected void move() {
+		System.out.println("Ghost moving.");
 		// List all directions
 		ArrayList<Integer> directions = new ArrayList<Integer>(4);
 		directions.add(Field.NORTH); // N
@@ -44,11 +45,14 @@ public class Ghost extends Character {
 		// Remove directions blocked by wall or off the labyrinth (win field)
 		if (lab.hasWall(pos, Field.NORTH) || lab.onWinField(posx, posy-1)) {
 			directions.remove(new Integer(Field.NORTH));
-		} else if (lab.hasWall(pos, Field.EAST) || lab.onWinField(posx+1, posy)) {
+		}
+		if (lab.hasWall(pos, Field.EAST) || lab.onWinField(posx+1, posy)) {
 			directions.remove(new Integer(Field.EAST));
-		} else if (lab.hasWall(pos, Field.SOUTH) || lab.onWinField(posx, posy+1)) {
+		}
+		if (lab.hasWall(pos, Field.SOUTH) || lab.onWinField(posx, posy+1)) {
 			directions.remove(new Integer(Field.SOUTH));
-		} else if (lab.hasWall(pos, Field.WEST) || lab.onWinField(posx-1, posy)) {
+		}
+		if (lab.hasWall(pos, Field.WEST) || lab.onWinField(posx-1, posy)) {
 			directions.remove(new Integer(Field.WEST));
 		}
 		
@@ -59,8 +63,8 @@ public class Ghost extends Character {
 		}
 		
 		// If list size > 1 and lastpos defined, don't go there
-		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4) {
-			directions.remove(lastpos);
+		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4 && directions.contains(lastpos)) {
+			directions.remove(new Integer(lastpos));
 		}
 
 		// Pick random direction from list
@@ -83,7 +87,8 @@ public class Ghost extends Character {
 			pos = game.getLabyrith().getField(newx, newy);
 		} catch (IndexOutOfBoundsException ex) {
 			// This cannot happen if this program is correct
-			System.err.println("ERRO: Ghost made illegal move! This should not happen, terminating program.");
+			System.err.println("!!! DEBUG: newx newy"+newx+" "+newy);
+			System.err.println("ERROR: Ghost made illegal move! This should not happen, terminating program.");
 			System.exit(1);
 		}
 		pos.enter(this);

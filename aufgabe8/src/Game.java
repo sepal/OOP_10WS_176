@@ -88,7 +88,7 @@ public class Game {
 	/**
 	 *(postcondition) sets state on running, starts thread for each character, adds thread to game's tread list
 	 */
-	public void startGame() {
+	public synchronized void startGame() {
 		this.state = State.RUNNING;
 		for (Hunter c: this.hunters) {
 			Thread t = new Thread(c);

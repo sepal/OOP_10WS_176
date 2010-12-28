@@ -40,6 +40,7 @@ public class Hunter extends Character {
 	 */
 	@Override
 	protected void move() {
+		System.out.println("Hunter "+name+" moving.");
 		// List all directions
 		ArrayList<Integer> directions = new ArrayList<Integer>(4);
 		directions.add(Field.NORTH); // N
@@ -51,23 +52,27 @@ public class Hunter extends Character {
 		// Remove directions blocked by wall 
 		if (lab.hasWall(pos, Field.NORTH)) {
 			directions.remove(new Integer(Field.NORTH));
-		} else if (lab.hasWall(pos, Field.EAST)) {
+		}
+		if (lab.hasWall(pos, Field.EAST)) {
 			directions.remove(new Integer(Field.EAST));
-		} else if (lab.hasWall(pos, Field.SOUTH)) {
+		}
+		if (lab.hasWall(pos, Field.SOUTH)) {
 			directions.remove(new Integer(Field.SOUTH));
-		} else if (lab.hasWall(pos, Field.WEST)) {
+		}
+		if (lab.hasWall(pos, Field.WEST)) {
 			directions.remove(new Integer(Field.WEST));
 		}
 		
 		// If list is empty and there's no where to go, die
 		if (directions.size() == 0) {
+			System.err.println("Hunter "+name+" trapped by walls. Dying.");
 			this.die();
 			return;
 		}
 		
 		// If list size > 1 and lastpos defined, don't go there
-		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4) {
-			directions.remove(lastpos);
+		if (directions.size() > 1 && lastpos >= 0 && lastpos < 4 && directions.contains(lastpos)) {
+			directions.remove(new Integer(lastpos));
 		}
 
 		// Pick random direction from list
@@ -87,6 +92,7 @@ public class Hunter extends Character {
 		
 		// if win field, game is over
 		if (game.getLabyrith().onWinField(newx, newy)) {
+			this.stopThread();
 			game.hunterWin(); 
 		} else {
 			pos.leave(this); // Leave field
@@ -94,13 +100,18 @@ public class Hunter extends Character {
 				pos = game.getLabyrith().getField(newx, newy);
 			} catch (IndexOutOfBoundsException ex) {
 				// This cannot happen if this program is correct
-				System.err.println("ERRO: Hunter "+name+" made illegal move! This should not happen, terminating program.");
+				System.err.println("!!! DEBUG: newx newy "+newx+" "+newy);
+				System.err.println("ERROR: Hunter "+name+" made illegal move! This should not happen, terminating program.");
 				System.exit(1);
 			}
 			pos.enter(this);
+			this.booty += pos.takeTreasure();
 			
 			// Increment step count and end game if maxstep reached
-			if (++steps >= MAXSTEPS) game.hunterWin();
+			if (++steps >= MAXSTEPS) {
+				this.stopThread();
+				game.hunterWin();
+			}
 			
 			// Update lastpos and coordinates
 			if (direction == Field.NORTH) {
