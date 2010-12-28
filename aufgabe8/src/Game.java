@@ -56,6 +56,7 @@ public class Game {
 	 *(postcondition) removes hunter from character list and stops the thread, if list is empty, game ends
 	 */
 	public synchronized void killHunter(Hunter h) {
+		System.out.println("Hunter " + h.getName() + " was killed.");
 		this.hunters.remove(h);
 		if (this.charThreads.get(h) != null)
 			this.charThreads.get(h).interrupt();
