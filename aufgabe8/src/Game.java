@@ -41,6 +41,12 @@ public class Game {
 		lab.getField(x, y).enter(g);
 	}
 	
+	public void createGhost(int x, int y, int sleeptime) {
+		Ghost g;
+		ghosts.add(g = new Ghost((sleeptime > 0 ? sleeptime : this.sleepTime), x, y, this));
+		lab.getField(x, y).enter(g);
+	}
+	
 	/**
 	 *(precondition) every parameter must be >= 0, x < lab.width, y  < lab.height
 	 *(postcondition) creates new hunter on field (its start field), puts hunter into lab, adds to character list 
@@ -48,6 +54,16 @@ public class Game {
 	public void createHunter(int x, int y, String name) {
 		Hunter h;
 		hunters.add(h = new Hunter(sleepTime, x, y, name, this));
+		lab.getField(x, y).enter(h);
+	}
+	
+	/**
+	 *(precondition) every parameter must be >= 0, x < lab.width, y  < lab.height
+	 *(postcondition) creates new hunter on field (its start field), puts hunter into lab, adds to character list 
+	 */
+	public void createHunter(int x, int y, String name, int sleeptime) {
+		Hunter h;
+		hunters.add(h = new Hunter((sleeptime > 0 ? sleeptime : this.sleepTime), x, y, name, this));
 		lab.getField(x, y).enter(h);
 	}
 	
@@ -115,6 +131,7 @@ public class Game {
 		for (Ghost h: this.ghosts) {
 			this.charThreads.get(h).interrupt();
 		}
+		// TODO: delete debug message.
 		System.out.println(Thread.activeCount());
 	}
 	

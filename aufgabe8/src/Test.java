@@ -60,16 +60,16 @@ public class Test extends TimerTask {
 	public Test() {
 		// Game 1
 		g1 = new Game(lab1, 15);
-		g1.createHunter(0, 0, "Ben");
-		g1.createHunter(1, 1, "Sep");
-		g1.createHunter(2, 0, "Moni");
-		g1.createGhost(3, 3);
-		g1.createGhost(2, 2);
+		g1.createHunter(0, 0, "Ben", 10);
+		g1.createHunter(1, 1, "Sep", 20);
+		g1.createHunter(2, 0, "Moni", 30);
+		g1.createGhost(3, 3, 5);
+		g1.createGhost(2, 2, 50);
 		
 		// Game 2
 		g2 = new Game(lab2, 10);;
-		g2.createHunter(1, 1, "Ben");
-		g2.createGhost(0, 0);
+		g2.createHunter(1, 1, "Ben", 50);
+		g2.createGhost(0, 0, 5);
 		
 		// Game 3
 		g3 = new Game(lab3, 20);
@@ -98,13 +98,13 @@ public class Test extends TimerTask {
 	
 	public boolean isRunning() {
 		if (!fin1 && g1.getState() == Game.State.FINISHED) {
-			System.out.println("Game1 finished.\nStarting Game2");
+			System.out.println("Game1 finished.\n\nStarting Game2");
 			fin1 = true;
 			g2.startGame();
 		}
 		
 		if(!fin2 && g2.getState() == Game.State.FINISHED) {
-			System.out.println("Game2 finished.\nStarting Game3");
+			System.out.println("Game2 finished.\n\nStarting Game3");
 			fin2 = true;
 			g3.startGame();
 		}
