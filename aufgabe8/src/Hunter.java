@@ -66,6 +66,12 @@ public class Hunter extends Character {
 		// If list is empty and there's no where to go, die
 		if (directions.size() == 0) {
 			System.err.println("Hunter "+name+" trapped by walls. Dying.");
+			System.err.println("Pos: " + pos.getX() + " - " + pos.getY());
+			System.err.println("Walls:");
+			System.err.println("N: " + lab.hasWall(pos, Field.NORTH));
+			System.err.println("E: " + lab.hasWall(pos, Field.EAST));
+			System.err.println("S: " + lab.hasWall(pos, Field.SOUTH));
+			System.err.println("W: " + lab.hasWall(pos, Field.WEST));
 			this.die();
 			return;
 		}

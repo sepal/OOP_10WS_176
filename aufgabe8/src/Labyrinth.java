@@ -40,13 +40,13 @@ public class Labyrinth {
 	 */
 	public boolean hasWall(Field f, int direction) throws IndexOutOfBoundsException {		
 		if (direction == Field.SOUTH) {
-			if(f.hasWall(Field.SOUTH) || lab[f.getX()][f.getY()+1].hasWall(Field.NORTH)) {
+			if(f.hasWall(Field.SOUTH) || lab[f.getY()+1][f.getX()].hasWall(Field.NORTH)) {
 				return true;
 			} else {
 				return false;
 			}
 		}else if (direction == Field.WEST){ 
-			if(f.hasWall(Field.WEST) || lab[f.getX()-1][f.getY()].hasWall(Field.EAST)) {
+			if(f.hasWall(Field.WEST) || lab[f.getY()][f.getX()-1].hasWall(Field.EAST)) {
 				return true;
 			} else {
 				return false;
